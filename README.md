@@ -1,46 +1,25 @@
-# Getting Started with Create React App
+# Join
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Task manager modeled on the Kanban system. Create and organize tasks using drag-and-drop functions, assign users and categories to ensure efficient management.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+- HTML / SCSS
+- React / TypeScript
+- Firebase
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Summary with general information on tasks and upcoming deadlines
+- Create, read, update, and delete tasks and contacts
+- Different priority levels for tasks, depending on necessity
+- Assign contacts to a task
+- Organize tasks by dragging and dropping them
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Description
 
-### `npm test`
+The Join Task Manager is a powerful platform based on the Kanban system that aims to manage tasks efficiently. With a user-friendly interface, you can create and organize tasks by simply using drag-and-drop functions. Thanks to the integration of HTML / SCSS, React / TypeScript, and Firebase, we offer a robust and reliable environment for your task management.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Key features include a summary with general information about tasks and upcoming deadlines, the creation, display, update, and deletion of tasks and contacts, and the ability to assign different priority levels to tasks depending on urgency. You can also assign tasks to contacts to improve collaboration.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Organizing your tasks is as simple as dragging and dropping, allowing you to manage them quickly and intuitively. With Join, you have all the tools you need to organize and keep track of your tasks efficiently, so you can focus on what's important.
