@@ -1,0 +1,7 @@
+.small-btn {
+  cursor: pointer;
+}
+
+.small-btn:hover {
+  scale: 1.1;
+}
