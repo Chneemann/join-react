@@ -17,7 +17,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <div className="container-right">
           <p>Kanban Project Management Tool</p>
           <SmallBtn image="help.svg"></SmallBtn>
-          <MemberCircle memberInitials="G"></MemberCircle>
+          <MemberCircle memberInitials="GG"></MemberCircle>
         </div>
       </header>
     );
