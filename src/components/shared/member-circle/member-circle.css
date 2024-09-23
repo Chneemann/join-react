@@ -1,0 +1,26 @@
+@import "./../../../styles/colors.css";
+
+.member-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--light-blue);
+  border-radius: 100%;
+  background-color: var(--white);
+}
+
+.inner-border {
+  width: 80%;
+  height: 80%;
+  border: 2px solid var(--light-blue);
+  border-radius: 100%;
+}
+
+.member-circle p {
+  font-size: 19px;
+  color: var(--light-blue);
+  position: absolute;
+}

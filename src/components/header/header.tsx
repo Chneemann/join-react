@@ -1,6 +1,7 @@
 import React from "react";
 import "./header.css";
 import SmallBtn from "../shared/buttons/small-btn/small-btn";
+import MemberCircle from "../shared/member-circle/member-circle";
 
 interface HeaderProps {}
 
@@ -16,6 +17,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
         <div className="container-right">
           <p>Kanban Project Management Tool</p>
           <SmallBtn image="help.svg"></SmallBtn>
+          <MemberCircle memberInitials="G"></MemberCircle>
         </div>
       </header>
     );
