@@ -15,6 +15,15 @@ header {
   margin-left: 24px;
 }
 
-.right-side {
+.container-right {
+  display: flex;
+  align-items: center;
   margin-right: 24px;
+  gap: 32px;
+  width: fit-content;
+}
+
+.container-right p {
+  font-size: 19px;
+  color: var(--white);
 }
