@@ -13,7 +13,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   render() {
     return (
       <header>
-        <img className="logo" src="assets/img/logo_small_white.svg" alt="" />
+        <img className="logo" src="assets/img/logo-small-white.svg" alt="" />
         <div className="container-right">
           <p>Kanban Project Management Tool</p>
           <SmallBtn image="help.svg"></SmallBtn>

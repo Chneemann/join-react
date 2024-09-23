@@ -1,8 +1,63 @@
 @import "./../../styles/colors.css";
 
 .navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 232px;
-  height: calc(100vh - 96px);
+  height: 100%;
   border-right: 2px solid rgba(0, 0, 0, 0.05);
   background-color: var(--white);
+}
+
+.navbar nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 186px;
+  margin-top: 12px;
+  padding: 23px;
+  gap: 12px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 186px;
+  height: 40px;
+  color: var(--black);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  background-color: var(--very-light-blue);
+}
+
+.nav-item img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  margin-left: 36px;
+}
+
+/* Footer */
+
+.navbar-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 23px;
+  margin-bottom: 12px;
+}
+
+.navbar-footer-item {
+  color: var(--black);
+  cursor: pointer;
+}
+
+.navbar-footer-item:hover {
+  color: var(--light-blue);
 }

@@ -5,6 +5,7 @@ body {
 
 .container {
   display: flex;
+  height: calc(100vh - 96px);
 }
 
 @font-face {
