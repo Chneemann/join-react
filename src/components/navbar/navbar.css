@@ -31,6 +31,11 @@
   cursor: pointer;
 }
 
+.nav-item span {
+  font-size: 19px;
+  font-weight: 400;
+}
+
 .nav-item:hover {
   background-color: var(--very-light-blue);
 }
@@ -38,8 +43,8 @@
 .nav-item img {
   width: 24px;
   height: 24px;
-  margin-right: 8px;
-  margin-left: 36px;
+  margin-right: 12px;
+  margin-left: 28px;
 }
 
 /* Footer */
@@ -54,6 +59,8 @@
 }
 
 .navbar-footer-item {
+  font-size: 19px;
+  font-weight: 400;
   color: var(--black);
   cursor: pointer;
 }
