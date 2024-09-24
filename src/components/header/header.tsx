@@ -11,23 +11,22 @@ interface HeaderState {}
 class Header extends React.Component<HeaderProps, HeaderState> {
   state = {};
 
-  render() {
-    const { t, i18n } = this.props;
+  changeLanguage = () => {
+    const { i18n } = this.props;
+    const newLang = i18n.language === "en" ? "de" : "en";
+    i18n.changeLanguage(newLang);
+  };
 
-    const changeLanguage = (lng: string) => {
-      i18n.changeLanguage(lng);
-    };
+  render() {
+    const { t } = this.props;
 
     return (
       <header>
-        <img className="logo" src="assets/img/logo-small-white.svg" alt="" />
+        <img className="logo" src="./assets/img/logo-small-white.svg" alt="" />
         <div className="container-right">
-          <p>{t("projectTitle")}</p>
-          <SmallBtn image="help.svg" />
-          <SmallBtn
-            image="language.svg"
-            onClick={() => changeLanguage(i18n.language === "en" ? "de" : "en")}
-          />
+          <p>{t("header.title")}</p>
+          <SmallBtn image="help.svg" to="/help" />
+          <SmallBtn image="language.svg" onClick={this.changeLanguage} />
           <MemberCircle memberInitials="GG" />
         </div>
       </header>

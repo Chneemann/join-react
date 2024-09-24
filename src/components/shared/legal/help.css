@@ -1,0 +1,84 @@
+@import "./../../../styles/colors.css";
+
+.help {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  padding: 24px;
+}
+
+.help a {
+  text-decoration: none;
+  color: var(--gray);
+}
+
+.help a:hover {
+  color: var(--light-blue);
+}
+
+h1 {
+  font-size: 61px;
+  font-weight: 700;
+  margin: 0;
+}
+
+h2 {
+  font-size: 27px;
+  font-weight: 700;
+  margin: 24px 0;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.content-table {
+  margin-top: 24px;
+}
+
+.content-table td:first-child {
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  margin-right: 35px;
+}
+
+.content-table p {
+  margin: 16px 0;
+}
+
+.color {
+  color: var(--light-blue);
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 910px) {
+  section {
+    padding-right: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 47px;
+  }
+
+  h2 {
+    font-size: 27px;
+  }
+
+  .content-table td:first-child {
+    margin-right: 12px;
+  }
+}

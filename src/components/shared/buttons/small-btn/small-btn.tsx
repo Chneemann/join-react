@@ -1,16 +1,26 @@
 import React from "react";
 import "./small-btn.css";
+import { Link } from "react-router-dom";
 
 interface SmallBtnProps {
   image: string;
+  to?: string;
   onClick?: () => void;
 }
 
 export default class SmallBtn extends React.Component<SmallBtnProps> {
   render() {
-    return (
-      <div className="small-btn" onClick={this.props.onClick}>
-        <img src={"./../../assets/img/" + this.props.image} alt="" />
+    const { image, to, onClick } = this.props;
+
+    return to ? (
+      <Link to={to}>
+        <div className="small-btn" onClick={onClick}>
+          <img src={"./../../assets/img/" + image} alt="" />
+        </div>
+      </Link>
+    ) : (
+      <div className="small-btn" onClick={onClick}>
+        <img src={"./../../assets/img/" + image} alt="" />
       </div>
     );
   }
