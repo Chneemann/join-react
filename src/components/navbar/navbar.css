@@ -28,7 +28,15 @@
   height: 40px;
   color: var(--black);
   border-radius: 8px;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.nav-item img {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  margin-left: 28px;
 }
 
 .nav-item span {
@@ -37,14 +45,11 @@
 }
 
 .nav-item:hover {
-  background-color: var(--very-light-blue);
+  background-color: #e3eeff;
 }
 
-.nav-item img {
-  width: 24px;
-  height: 24px;
-  margin-right: 12px;
-  margin-left: 28px;
+.nav-item.active {
+  background-color: var(--very-light-blue);
 }
 
 /* Footer */

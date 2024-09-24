@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./navbar.css";
 
 interface NavbarProps {}
@@ -11,22 +12,42 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
     return (
       <div className="navbar">
         <nav>
-          <div className="nav-item">
-            <img src="./../../assets/img/summary.svg" alt="Summary" />
+          <NavLink
+            to="/summary"
+            className={({ isActive }) =>
+              isActive ? "nav-item active" : "nav-item"
+            }
+          >
+            <img src="./../../assets/img/summary.svg" alt="S" />
             <span>Summary</span>
-          </div>
-          <div className="nav-item">
-            <img src="./../../assets/img/add-task.svg" alt="Add Task" />
+          </NavLink>
+          <NavLink
+            to="/add-task"
+            className={({ isActive }) =>
+              isActive ? "nav-item active" : "nav-item"
+            }
+          >
+            <img src="./../../assets/img/add-task.svg" alt="T" />
             <span>Add Task</span>
-          </div>
-          <div className="nav-item">
-            <img src="./../../assets/img/board.svg" alt="Board" />
+          </NavLink>
+          <NavLink
+            to="/board"
+            className={({ isActive }) =>
+              isActive ? "nav-item active" : "nav-item"
+            }
+          >
+            <img src="./../../assets/img/board.svg" alt="B" />
             <span>Board</span>
-          </div>
-          <div className="nav-item">
-            <img src="./../../assets/img/contacts.svg" alt="Contacts" />
+          </NavLink>
+          <NavLink
+            to="/contacts"
+            className={({ isActive }) =>
+              isActive ? "nav-item active" : "nav-item"
+            }
+          >
+            <img src="./../../assets/img/contacts.svg" alt="C" />
             <span>Contacts</span>
-          </div>
+          </NavLink>
         </nav>
         <div className="navbar-footer">
           <div className="navbar-footer-item">Privacy Policy</div>

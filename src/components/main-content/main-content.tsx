@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./main-content.css";
-import Help from "../shared/legal/help";
+import Help from "../shared/legal/help/help";
 
 interface MainContentProps {}
 
