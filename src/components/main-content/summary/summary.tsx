@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { fetchTasks } from "../../../services/firebase";
+import { fetchTasks } from "../../../services/firebase.service";
+import { Task } from "../../../interfaces/task.interface";
 import "./summary.css";
 
 const Summary: React.FC = () => {
-  const [tasks, setUsers] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const loadTasks = async () => {
+    try {
+      const tasksList = await fetchTasks();
+      setTasks(tasksList);
+    } catch (error) {
+      console.error("Error loading tasks:", error);
+    }
+  };
 
   useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        const tasksList = await fetchTasks();
-        setUsers(tasksList);
-      } catch (error) {
-        console.error("Error loading tasks:", error);
-      }
-    };
-    loadUsers();
+    loadTasks();
   }, []);
 
   // Count the number of “urgent” tasks
