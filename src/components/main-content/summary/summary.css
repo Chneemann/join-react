@@ -37,6 +37,7 @@
   padding: 28px 48px;
   gap: 35px;
   border-radius: 30px;
+  border: 2px solid var(--light-blue);
   background-color: var(--light-blue);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
   cursor: pointer;
