@@ -15,7 +15,25 @@ class Summary extends React.Component<SummaryProps, SummaryState> {
         </div>
         <div className="content">
           <div className="content-container-upper">
-            <div className="urgent-tasks"></div>
+            <div className="urgent-task">
+              <div className="urgent-task-container">
+                <div className="urgent-task-info">
+                  <div className="urgent-task-icon">
+                    <img
+                      src="./../assets/img/summary/urgent.svg"
+                      alt="Urgent task icon"
+                    />
+                    <span>1</span>
+                  </div>
+                  <p>Tasks Urgent</p>
+                </div>
+                <div className="urgent-task-divider"></div>
+                <div className="urgent-task-deadline">
+                  <span>October 16, 2022</span>
+                  <p>Upcoming Deadline</p>
+                </div>
+              </div>
+            </div>
             <div className="task-in-board"></div>
           </div>
           <div className="content-container-lower">

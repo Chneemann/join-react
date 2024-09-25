@@ -31,7 +31,15 @@
   padding-bottom: 32px;
 }
 
-.urgent-tasks {
+.urgent-task-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  gap: 32px;
+  transition: transform 125ms;
+}
+
+.urgent-task {
   width: 576px;
   height: 135px;
   padding: 28px 48px;
@@ -44,11 +52,81 @@
     transform 125ms;
 }
 
-.urgent-tasks:hover {
+.urgent-task:hover {
   border-top-left-radius: 0px;
   border: 2px solid rgba(0, 0, 0, 0.05);
   background-color: var(--white);
   transform: scale(1.02);
+}
+
+.urgent-task:hover .urgent-task-info p,
+.urgent-task:hover .urgent-task-icon span,
+.urgent-task:hover .urgent-task-deadline span,
+.urgent-task:hover .urgent-task-deadline p {
+  color: var(--light-blue);
+}
+
+.urgent-task:hover .urgent-task-divider {
+  background-color: var(--light-blue);
+}
+
+.urgent-task:hover .urgent-task-container {
+  transform: scale(1.2);
+}
+
+.urgent-task-info p {
+  font-size: 23px;
+  font-weight: 400;
+  margin: 0;
+  padding-top: 12px;
+  color: var(--white);
+}
+
+.urgent-task-icon {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.urgent-task-icon span {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.urgent-task-icon img {
+  width: 66px;
+  height: 66px;
+  border-radius: 100%;
+  border: 5px solid var(--white);
+  background-color: var(--light-blue);
+}
+
+.urgent-task-divider {
+  width: 3px;
+  height: 100%;
+  background-color: var(--white);
+  margin: 0;
+}
+
+.urgent-task-deadline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.urgent-task-deadline span {
+  font-size: 33px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.urgent-task-deadline p {
+  font-size: 23px;
+  font-weight: 400;
+  margin: 0;
+  color: var(--white);
 }
 
 .task-in-board {
