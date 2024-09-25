@@ -19,8 +19,36 @@ const Summary: React.FC = () => {
     loadTasks();
   }, []);
 
-  // Count the number of “urgent” tasks
-  const urgentTasks = tasks.filter((task) => task.priority === "urgent");
+  // Count the number of tasks
+  let tasksTodoCount = 0;
+  let tasksInProgressCount = 0;
+  let tasksAwaitingFeedbackCount = 0;
+  let tasksDoneCount = 0;
+  const tasksInBoard = tasks.length;
+
+  const urgentTasks = tasks.filter((task) => {
+    if (task.priority === "urgent") {
+      return true;
+    }
+
+    switch (task.status) {
+      case "todo":
+        tasksTodoCount++;
+        break;
+      case "inprogress":
+        tasksInProgressCount++;
+        break;
+      case "awaitfeedback":
+        tasksAwaitingFeedbackCount++;
+        break;
+      case "done":
+        tasksDoneCount++;
+        break;
+    }
+
+    return false;
+  });
+
   const urgentTasksCount = urgentTasks.length;
 
   // Find the earliest due date among the “urgent” tasks
@@ -75,7 +103,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/board.svg"
                     alt="Board task icon"
                   />
-                  <span>1</span>
+                  <span>{tasksInBoard}</span>
                 </div>
                 <p>
                   Tasks in
@@ -95,7 +123,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/todo.svg"
                     alt="Todo task icon"
                   />
-                  <span>1</span>
+                  <span>{tasksTodoCount}</span>
                 </div>
                 <p>Tasks To-do</p>
               </div>
@@ -109,7 +137,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/in-progress.svg"
                     alt="Todo task icon"
                   />
-                  <span>1</span>
+                  <span>{tasksInProgressCount}</span>
                 </div>
                 <p>
                   Tasks in
@@ -127,7 +155,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/awaiting-feedback.svg"
                     alt="Todo task icon"
                   />
-                  <span>1</span>
+                  <span>{tasksAwaitingFeedbackCount}</span>
                 </div>
                 <p>
                   Awaiting
@@ -145,7 +173,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/done.svg"
                     alt="Todo task icon"
                   />
-                  <span>1</span>
+                  <span>{tasksDoneCount}</span>
                 </div>
                 <p>
                   Tasks
