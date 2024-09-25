@@ -19,54 +19,46 @@ const Summary: React.FC = () => {
     loadTasks();
   }, []);
 
-  // Count the number of tasks
-  let tasksTodoCount = 0;
-  let tasksInProgressCount = 0;
-  let tasksAwaitingFeedbackCount = 0;
-  let tasksDoneCount = 0;
-  const tasksInBoard = tasks.length;
-
-  const urgentTasks = tasks.filter((task) => {
-    if (task.priority === "urgent") {
-      return true;
+  // Aggregate task counts
+  const taskCounts = tasks.reduce(
+    (counts, task) => {
+      if (task.priority === "urgent") counts.urgent.push(task);
+      switch (task.status) {
+        case "todo":
+          counts.todo++;
+          break;
+        case "inprogress":
+          counts.inProgress++;
+          break;
+        case "awaitfeedback":
+          counts.awaitingFeedback++;
+          break;
+        case "done":
+          counts.done++;
+          break;
+      }
+      return counts;
+    },
+    {
+      todo: 0,
+      inProgress: 0,
+      awaitingFeedback: 0,
+      done: 0,
+      urgent: [] as Task[],
     }
+  );
 
-    switch (task.status) {
-      case "todo":
-        tasksTodoCount++;
-        break;
-      case "inprogress":
-        tasksInProgressCount++;
-        break;
-      case "awaitfeedback":
-        tasksAwaitingFeedbackCount++;
-        break;
-      case "done":
-        tasksDoneCount++;
-        break;
-    }
-
-    return false;
-  });
-
-  const urgentTasksCount = urgentTasks.length;
-
-  // Find the earliest due date among the “urgent” tasks
-  const earliestDueDate = urgentTasks
+  // Find the earliest due date among urgent tasks
+  const earliestDueDate = taskCounts.urgent
     .map((task) => new Date(task.date))
     .sort((a, b) => a.getTime() - b.getTime())[0];
 
-  // Convert the earliest due date into a readable format
-  const formatDueDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return date.toLocaleDateString("en-US", options);
-  };
   const formattedDueDate = earliestDueDate
-    ? formatDueDate(earliestDueDate)
+    ? earliestDueDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
     : "No Deadline";
 
   return (
@@ -84,7 +76,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/urgent.svg"
                     alt="Urgent task icon"
                   />
-                  <span>{urgentTasksCount}</span>
+                  <span>{taskCounts.urgent.length}</span>
                 </div>
                 <p>Tasks Urgent</p>
               </div>
@@ -103,7 +95,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/board.svg"
                     alt="Board task icon"
                   />
-                  <span>{tasksInBoard}</span>
+                  <span>{tasks.length}</span>
                 </div>
                 <p>
                   Tasks in
@@ -123,7 +115,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/todo.svg"
                     alt="Todo task icon"
                   />
-                  <span>{tasksTodoCount}</span>
+                  <span>{taskCounts.todo}</span>
                 </div>
                 <p>Tasks To-do</p>
               </div>
@@ -137,7 +129,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/in-progress.svg"
                     alt="Todo task icon"
                   />
-                  <span>{tasksInProgressCount}</span>
+                  <span>{taskCounts.inProgress}</span>
                 </div>
                 <p>
                   Tasks in
@@ -155,7 +147,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/awaiting-feedback.svg"
                     alt="Todo task icon"
                   />
-                  <span>{tasksAwaitingFeedbackCount}</span>
+                  <span>{taskCounts.awaitingFeedback}</span>
                 </div>
                 <p>
                   Awaiting
@@ -173,7 +165,7 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/done.svg"
                     alt="Todo task icon"
                   />
-                  <span>{tasksDoneCount}</span>
+                  <span>{taskCounts.done}</span>
                 </div>
                 <p>
                   Tasks
