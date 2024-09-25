@@ -40,7 +40,7 @@ class Summary extends React.Component<SummaryProps, SummaryState> {
                   <div className="task-in-board-icon">
                     <img
                       src="./../assets/img/summary/board.svg"
-                      alt="Urgent task icon"
+                      alt="Board task icon"
                     />
                     <span>1</span>
                   </div>
@@ -54,10 +54,74 @@ class Summary extends React.Component<SummaryProps, SummaryState> {
             </div>
           </div>
           <div className="content-container-lower">
-            <div className="task-todo"></div>
-            <div className="task-container"></div>
-            <div className="task-container"></div>
-            <div className="task-done"></div>
+            <div className="task-todo">
+              <div className="task-todo-container">
+                <div className="task-todo-info">
+                  <div className="task-todo-icon">
+                    <img
+                      src="./../assets/img/summary/todo.svg"
+                      alt="Todo task icon"
+                    />
+                    <span>1</span>
+                  </div>
+                  <p>Tasks To-do</p>
+                </div>
+              </div>
+            </div>
+            <div className="task-other">
+              <div className="task-other-container">
+                <div className="task-other-info">
+                  <div className="task-other-icon">
+                    <img
+                      src="./../assets/img/summary/in-progress.svg"
+                      alt="Todo task icon"
+                    />
+                    <span>1</span>
+                  </div>
+                  <p>
+                    Tasks in
+                    <br />
+                    Progress
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="task-other">
+              <div className="task-other-container">
+                <div className="task-other-info">
+                  <div className="task-other-icon">
+                    <img
+                      src="./../assets/img/summary/awaiting-feedback.svg"
+                      alt="Todo task icon"
+                    />
+                    <span>1</span>
+                  </div>
+                  <p>
+                    Awaiting
+                    <br />
+                    Feedback
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="task-done">
+              <div className="task-done-container">
+                <div className="task-done-info">
+                  <div className="task-done-icon">
+                    <img
+                      src="./../assets/img/summary/done.svg"
+                      alt="Todo task icon"
+                    />
+                    <span>1</span>
+                  </div>
+                  <p>
+                    Tasks
+                    <br />
+                    Done
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
