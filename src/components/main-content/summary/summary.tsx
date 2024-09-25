@@ -34,7 +34,24 @@ class Summary extends React.Component<SummaryProps, SummaryState> {
                 </div>
               </div>
             </div>
-            <div className="task-in-board"></div>
+            <div className="task-in-board">
+              <div className="task-in-board-container">
+                <div className="task-in-board-info">
+                  <div className="task-in-board-icon">
+                    <img
+                      src="./../assets/img/summary/board.svg"
+                      alt="Urgent task icon"
+                    />
+                    <span>1</span>
+                  </div>
+                  <p>
+                    Tasks in
+                    <br />
+                    Board
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="content-container-lower">
             <div className="task-todo"></div>

@@ -31,14 +31,6 @@
   padding-bottom: 32px;
 }
 
-.urgent-task-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  gap: 32px;
-  transition: transform 125ms;
-}
-
 .urgent-task {
   width: 576px;
   height: 135px;
@@ -59,6 +51,14 @@
   transform: scale(1.02);
 }
 
+.urgent-task-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  gap: 32px;
+  transition: transform 125ms;
+}
+
 .urgent-task:hover .urgent-task-info p,
 .urgent-task:hover .urgent-task-icon span,
 .urgent-task:hover .urgent-task-deadline span,
@@ -74,6 +74,12 @@
   transform: scale(1.2);
 }
 
+.urgent-task-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .urgent-task-info p {
   font-size: 23px;
   font-weight: 400;
@@ -84,6 +90,7 @@
 
 .urgent-task-icon {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 24px;
 }
@@ -95,8 +102,8 @@
 }
 
 .urgent-task-icon img {
-  width: 66px;
-  height: 66px;
+  width: 62px;
+  height: 62px;
   border-radius: 100%;
   border: 5px solid var(--white);
   background-color: var(--light-blue);
@@ -130,9 +137,9 @@
 }
 
 .task-in-board {
-  width: 128px;
-  height: 111px;
-  padding: 40px;
+  width: 156px;
+  height: 139px;
+  padding: 24px;
   border-radius: 30px;
   background-color: var(--white);
   border: 2px solid rgba(0, 0, 0, 0.05);
@@ -148,6 +155,52 @@
   border-top-left-radius: 0px;
   background-color: var(--blue);
   transform: scaleX(1.4) scaleY(1.08);
+}
+
+.task-in-board-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  gap: 32px;
+  transition: transform 125ms;
+}
+
+.task-in-board:hover .task-in-board-container {
+  transform: scaleX(0.8) scaleY(1);
+}
+
+.task-in-board:hover .task-in-board-info p,
+.task-in-board:hover .task-in-board-icon span {
+  color: var(--white);
+}
+
+.task-in-board-info p {
+  font-size: 23px;
+  font-weight: 400;
+  margin: 0;
+  padding: 9px;
+  text-align: center;
+  color: var(--light-blue);
+}
+
+.task-in-board-icon {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.task-in-board-icon span {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.task-in-board-icon img {
+  width: 62px;
+  height: 62px;
+  border-radius: 100%;
+  border: 5px solid var(--white);
+  background-color: var(--light-blue);
 }
 
 /* Lower content container */
