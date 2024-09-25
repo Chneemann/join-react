@@ -1,0 +1,143 @@
+@import "./../../../styles/colors.css";
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  width: 100%;
+  padding-top: 96px;
+}
+
+.headline {
+  font-size: 48px;
+  font-weight: 400;
+  padding-bottom: 32px;
+}
+
+.headline span {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--light-blue);
+}
+
+/* Content */
+/* Upper content container */
+
+.content-container-upper {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 32px;
+}
+
+.urgent-tasks {
+  width: 576px;
+  height: 135px;
+  padding: 28px 48px;
+  gap: 35px;
+  border-radius: 30px;
+  background-color: var(--light-blue);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
+    transform 125ms;
+}
+
+.urgent-tasks:hover {
+  border-top-left-radius: 0px;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  background-color: var(--white);
+  transform: scale(1.02);
+}
+
+.task-in-board {
+  width: 128px;
+  height: 111px;
+  padding: 40px;
+  border-radius: 30px;
+  background-color: var(--white);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
+    transform 125ms;
+  transform-origin: top right;
+}
+
+.task-in-board:hover {
+  border-color: var(--blue);
+  border-top-left-radius: 0px;
+  background-color: var(--blue);
+  transform: scaleX(1.4) scaleY(1.08);
+}
+
+/* Lower content container */
+
+.content-container-lower {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.task-todo {
+  width: 124px;
+  height: 139px;
+  padding: 40px;
+  border-radius: 30px;
+  border: 2px solid var(--very-light-blue);
+  background-color: var(--very-light-blue);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
+    transform 125ms;
+  transform-origin: top left;
+}
+
+.task-todo:hover {
+  border-color: rgba(0, 0, 0, 0.05);
+  border-top-left-radius: 0px;
+  background-color: var(--white);
+  transform: scaleX(1.3) scaleY(0.92);
+}
+
+.task-container {
+  width: 124px;
+  height: 139px;
+  padding: 40px;
+  border-radius: 30px;
+  background-color: var(--white);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
+    transform 125ms;
+}
+
+.task-container:hover {
+  border-top-left-radius: 0px;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  background-color: var(--blue);
+  transform: scale(1.1);
+}
+
+.task-done {
+  width: 124px;
+  height: 139px;
+  padding: 40px;
+  border-radius: 30px;
+  background-color: var(--white);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
+    transform 125ms;
+  transform-origin: top right;
+}
+
+.task-done:hover {
+  border-color: var(--blue);
+  border-top-left-radius: 0px;
+  background-color: var(--blue);
+  transform: scaleX(1.1) scaleY(1.15);
+}
