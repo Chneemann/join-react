@@ -31,7 +31,7 @@ const Summary: React.FC = () => {
           counts.inProgress++;
           break;
         case "awaitfeedback":
-          counts.awaitingFeedback++;
+          counts.awaitFeedback++;
           break;
         case "done":
           counts.done++;
@@ -42,7 +42,7 @@ const Summary: React.FC = () => {
     {
       todo: 0,
       inProgress: 0,
-      awaitingFeedback: 0,
+      awaitFeedback: 0,
       done: 0,
       urgent: [] as Task[],
     }
@@ -144,10 +144,10 @@ const Summary: React.FC = () => {
               <div className="task-other-info">
                 <div className="task-other-icon">
                   <img
-                    src="./../assets/img/summary/awaiting-feedback.svg"
+                    src="./../assets/img/summary/await-feedback.svg"
                     alt="Todo task icon"
                   />
-                  <span>{taskCounts.awaitingFeedback}</span>
+                  <span>{taskCounts.awaitFeedback}</span>
                 </div>
                 <p>
                   Awaiting
