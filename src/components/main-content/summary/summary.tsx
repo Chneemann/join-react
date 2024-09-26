@@ -98,7 +98,18 @@ const Summary: React.FC = () => {
               <div className="urgent-task-divider"></div>
               <div className="urgent-task-deadline">
                 {/* Placeholder for the due date */}
-                <span>{loading ? "Loading..." : formattedDueDate}</span>
+                <span>
+                  {loading ? (
+                    <span className="loading-dots">
+                      Loading
+                      <span className="dot"></span>
+                      <span className="dot"></span>
+                      <span className="dot"></span>
+                    </span>
+                  ) : (
+                    formattedDueDate
+                  )}
+                </span>
                 <p>Upcoming Deadline</p>
               </div>
             </div>
