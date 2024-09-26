@@ -5,6 +5,7 @@ import "./summary.css";
 
 const Summary: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // Ladezustand hinzufügen
 
   const loadTasks = async () => {
     try {
@@ -12,6 +13,8 @@ const Summary: React.FC = () => {
       setTasks(tasksList);
     } catch (error) {
       console.error("Error loading tasks:", error);
+    } finally {
+      setLoading(false); // Ladezustand beenden, egal ob erfolgreich oder mit Fehler
     }
   };
 
@@ -76,13 +79,15 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/urgent.svg"
                     alt="Urgent task icon"
                   />
-                  <span>{taskCounts.urgent.length}</span>
+                  {/* Placeholder for the number of urgent tasks */}
+                  <span>{loading ? "..." : taskCounts.urgent.length}</span>
                 </div>
                 <p>Tasks Urgent</p>
               </div>
               <div className="urgent-task-divider"></div>
               <div className="urgent-task-deadline">
-                <span>{formattedDueDate}</span>
+                {/* Placeholder for the due date */}
+                <span>{loading ? "Loading..." : formattedDueDate}</span>
                 <p>Upcoming Deadline</p>
               </div>
             </div>
@@ -95,7 +100,8 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/board.svg"
                     alt="Board task icon"
                   />
-                  <span>{tasks.length}</span>
+                  {/* Placeholder for the number of tasks in the board */}
+                  <span>{loading ? "..." : tasks.length}</span>
                 </div>
                 <p>
                   Tasks in
@@ -115,7 +121,8 @@ const Summary: React.FC = () => {
                     src="./../assets/img/summary/todo.svg"
                     alt="Todo task icon"
                   />
-                  <span>{taskCounts.todo}</span>
+                  {/* Placeholder for the number of to-do tasks */}
+                  <span>{loading ? "..." : taskCounts.todo}</span>
                 </div>
                 <p>Tasks To-do</p>
               </div>
@@ -127,9 +134,10 @@ const Summary: React.FC = () => {
                 <div className="task-other-icon">
                   <img
                     src="./../assets/img/summary/in-progress.svg"
-                    alt="Todo task icon"
+                    alt="In progress task icon"
                   />
-                  <span>{taskCounts.inProgress}</span>
+                  {/* Placeholder for the number of in-progress tasks */}
+                  <span>{loading ? "..." : taskCounts.inProgress}</span>
                 </div>
                 <p>
                   Tasks in
@@ -145,9 +153,10 @@ const Summary: React.FC = () => {
                 <div className="task-other-icon">
                   <img
                     src="./../assets/img/summary/await-feedback.svg"
-                    alt="Todo task icon"
+                    alt="Await feedback task icon"
                   />
-                  <span>{taskCounts.awaitFeedback}</span>
+                  {/* Placeholder for the number of Await Feedback tasks */}
+                  <span>{loading ? "..." : taskCounts.awaitFeedback}</span>
                 </div>
                 <p>
                   Awaiting
@@ -163,9 +172,10 @@ const Summary: React.FC = () => {
                 <div className="task-done-icon">
                   <img
                     src="./../assets/img/summary/done.svg"
-                    alt="Todo task icon"
+                    alt="Done task icon"
                   />
-                  <span>{taskCounts.done}</span>
+                  {/* Placeholder for the number of completed tasks */}
+                  <span>{loading ? "..." : taskCounts.done}</span>
                 </div>
                 <p>
                   Tasks
