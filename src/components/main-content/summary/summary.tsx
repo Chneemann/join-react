@@ -5,7 +5,7 @@ import "./summary.css";
 
 const Summary: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Ladezustand hinzufügen
+  const [loading, setLoading] = useState<boolean>(true);
 
   const loadTasks = async () => {
     try {
@@ -14,7 +14,7 @@ const Summary: React.FC = () => {
     } catch (error) {
       console.error("Error loading tasks:", error);
     } finally {
-      setLoading(false); // Ladezustand beenden, egal ob erfolgreich oder mit Fehler
+      setLoading(false);
     }
   };
 
@@ -76,11 +76,22 @@ const Summary: React.FC = () => {
               <div className="urgent-task-info">
                 <div className="urgent-task-icon">
                   <img
+                    className="img"
                     src="./../assets/img/summary/urgent.svg"
                     alt="Urgent task icon"
                   />
                   {/* Placeholder for the number of urgent tasks */}
-                  <span>{loading ? "..." : taskCounts.urgent.length}</span>
+                  <span>
+                    {loading ? (
+                      <img
+                        className="sync-img"
+                        src="./../assets/img/sync.svg"
+                        alt=""
+                      />
+                    ) : (
+                      taskCounts.urgent.length
+                    )}
+                  </span>
                 </div>
                 <p>Tasks Urgent</p>
               </div>
@@ -97,11 +108,22 @@ const Summary: React.FC = () => {
               <div className="task-in-board-info">
                 <div className="task-in-board-icon">
                   <img
+                    className="img"
                     src="./../assets/img/summary/board.svg"
                     alt="Board task icon"
                   />
                   {/* Placeholder for the number of tasks in the board */}
-                  <span>{loading ? "..." : tasks.length}</span>
+                  <span>
+                    {loading ? (
+                      <img
+                        className="sync-img"
+                        src="./../assets/img/sync.svg"
+                        alt=""
+                      />
+                    ) : (
+                      tasks.length
+                    )}
+                  </span>
                 </div>
                 <p>
                   Tasks in
@@ -118,11 +140,22 @@ const Summary: React.FC = () => {
               <div className="task-todo-info">
                 <div className="task-todo-icon">
                   <img
+                    className="img"
                     src="./../assets/img/summary/todo.svg"
                     alt="Todo task icon"
                   />
                   {/* Placeholder for the number of to-do tasks */}
-                  <span>{loading ? "..." : taskCounts.todo}</span>
+                  <span>
+                    {loading ? (
+                      <img
+                        className="sync-img"
+                        src="./../assets/img/sync.svg"
+                        alt=""
+                      />
+                    ) : (
+                      taskCounts.todo
+                    )}
+                  </span>
                 </div>
                 <p>Tasks To-do</p>
               </div>
@@ -133,11 +166,22 @@ const Summary: React.FC = () => {
               <div className="task-other-info">
                 <div className="task-other-icon">
                   <img
+                    className="img"
                     src="./../assets/img/summary/in-progress.svg"
                     alt="In progress task icon"
                   />
                   {/* Placeholder for the number of in-progress tasks */}
-                  <span>{loading ? "..." : taskCounts.inProgress}</span>
+                  <span>
+                    {loading ? (
+                      <img
+                        className="sync-img"
+                        src="./../assets/img/sync.svg"
+                        alt=""
+                      />
+                    ) : (
+                      taskCounts.inProgress
+                    )}
+                  </span>
                 </div>
                 <p>
                   Tasks in
@@ -152,11 +196,22 @@ const Summary: React.FC = () => {
               <div className="task-other-info">
                 <div className="task-other-icon">
                   <img
+                    className="img"
                     src="./../assets/img/summary/await-feedback.svg"
                     alt="Await feedback task icon"
                   />
                   {/* Placeholder for the number of Await Feedback tasks */}
-                  <span>{loading ? "..." : taskCounts.awaitFeedback}</span>
+                  <span>
+                    {loading ? (
+                      <img
+                        className="sync-img"
+                        src="./../assets/img/sync.svg"
+                        alt=""
+                      />
+                    ) : (
+                      taskCounts.awaitFeedback
+                    )}
+                  </span>
                 </div>
                 <p>
                   Awaiting
@@ -171,11 +226,22 @@ const Summary: React.FC = () => {
               <div className="task-done-info">
                 <div className="task-done-icon">
                   <img
+                    className="img"
                     src="./../assets/img/summary/done.svg"
                     alt="Done task icon"
                   />
                   {/* Placeholder for the number of completed tasks */}
-                  <span>{loading ? "..." : taskCounts.done}</span>
+                  <span>
+                    {loading ? (
+                      <img
+                        className="sync-img"
+                        src="./../assets/img/sync.svg"
+                        alt=""
+                      />
+                    ) : (
+                      taskCounts.done
+                    )}
+                  </span>
                 </div>
                 <p>
                   Tasks

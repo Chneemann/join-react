@@ -21,6 +21,25 @@
   color: var(--light-blue);
 }
 
+.sync-img {
+  display: flex;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  animation: rotate 2s linear infinite;
+  filter: drop-shadow(1px 1px 1px var(--black));
+  margin-left: 12px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 /* Content */
 /* Upper content container */
 
@@ -91,9 +110,9 @@
 
 .urgent-task-icon {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  width: 120px;
 }
 
 .urgent-task-icon span {
@@ -102,7 +121,7 @@
   color: var(--white);
 }
 
-.urgent-task-icon img {
+.urgent-task-icon .img {
   width: 62px;
   height: 62px;
   border-radius: 100%;
@@ -187,16 +206,19 @@
 .task-in-board-icon {
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  width: 120px;
 }
 
 .task-in-board-icon span {
+  display: flex;
+  justify-content: center;
   font-size: 48px;
   font-weight: 700;
   color: var(--black);
 }
 
-.task-in-board-icon img {
+.task-in-board-icon .img {
   width: 62px;
   height: 62px;
   border-radius: 100%;
@@ -262,9 +284,9 @@
 
 .task-todo-icon {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  width: 120px;
 }
 
 .task-todo-icon span {
@@ -273,7 +295,7 @@
   color: var(--black);
 }
 
-.task-todo-icon img {
+.task-todo-icon .img {
   width: 62px;
   height: 62px;
   border-radius: 100%;
@@ -330,9 +352,9 @@
 
 .task-other-icon {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  width: 120px;
 }
 
 .task-other-icon span {
@@ -341,7 +363,7 @@
   color: var(--black);
 }
 
-.task-other-icon img {
+.task-other-icon .img {
   width: 62px;
   height: 62px;
   border-radius: 100%;
@@ -399,9 +421,9 @@
 
 .task-done-icon {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  width: 120px;
 }
 
 .task-done-icon span {
@@ -410,7 +432,7 @@
   color: var(--black);
 }
 
-.task-done-icon img {
+.task-done-icon .img {
   width: 62px;
   height: 62px;
   border-radius: 100%;
