@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { fetchTasks } from "../../../services/firebase.service";
+import React from "react";
 import { Task } from "../../../interfaces/task.interface";
 import "./summary.css";
 
-const Summary: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+interface SummaryProps {
+  tasks: Task[];
+  loading: boolean;
+}
 
-  const loadTasks = async () => {
-    try {
-      const tasksList = await fetchTasks();
-      setTasks(tasksList);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
-
+const Summary: React.FC<SummaryProps> = ({ tasks, loading }) => {
   // Aggregate task counts
   const taskCounts = tasks.reduce(
     (counts, task) => {
