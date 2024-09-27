@@ -390,6 +390,21 @@
   transition: transform 125ms;
 }
 
+.urgent-task-container {
+  justify-content: space-evenly;
+}
+
+/* Task Icon */
+.urgent-task-info,
+.task-in-board-info,
+.task-todo-info,
+.task-other-info,
+.task-done-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Task Icon */
 .urgent-task-icon,
 .task-in-board-icon,

@@ -2,6 +2,16 @@
   "header": {
     "title": "Kanban Project Management Tool"
   },
+  "summary": {
+    "goodMorning": "Good morning,",
+    "tasksUrgent": "Tasks Urgent",
+    "upcomingDeadline": "Upcoming Deadline",
+    "tasksInBoard": "Tasks in Board",
+    "tasksTodo": "Tasks To-do",
+    "tasksInProgress": "Tasks in Progress",
+    "awaitFeedback": "Awaiting Feedback",
+    "tasksDone": "Tasks Done"
+  },
   "help": {
     "header": "Help",
     "welcome": "Welcome to the help page for Join, your guide to using our kanban project management tool. Here, we'll provide an overview of what Join is, how it can benefit you, and how to use it.",
