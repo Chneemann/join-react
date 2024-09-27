@@ -1,14 +1,16 @@
 @import "./../../../styles/colors.css";
 
+/* Summary */
 .summary {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: top;
+  justify-content: flex-start;
   width: 100%;
   padding-top: 96px;
 }
 
+/* Headline */
 .headline {
   font-size: 48px;
   font-weight: 400;
@@ -21,6 +23,7 @@
   color: var(--light-blue);
 }
 
+/* Sync Image */
 .sync-img {
   display: flex;
   align-items: center;
@@ -40,6 +43,7 @@
   }
 }
 
+/* Loading Dots */
 .loading-dots {
   display: inline-block;
 }
@@ -84,16 +88,19 @@
   }
 }
 
-/* Content */
-/* Upper content container */
-
-.content-container-upper {
+/* Content Containers */
+.content-container-upper,
+.content-container-lower {
   display: flex;
   justify-content: space-between;
   gap: 32px;
+}
+
+.content-container-upper {
   padding-bottom: 32px;
 }
 
+/* Urgent Task */
 .urgent-task {
   width: 591px;
   height: 135px;
@@ -113,14 +120,6 @@
   border: 2px solid rgba(0, 0, 0, 0.05);
   background-color: var(--white);
   transform: scale(1.02);
-}
-
-.urgent-task-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  gap: 32px;
-  transition: transform 125ms;
 }
 
 .urgent-task:hover .urgent-task-info p,
@@ -149,19 +148,6 @@
   font-weight: 400;
   margin: 0;
   padding-top: 12px;
-  color: var(--white);
-}
-
-.urgent-task-icon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 120px;
-}
-
-.urgent-task-icon span {
-  font-size: 48px;
-  font-weight: 700;
   color: var(--white);
 }
 
@@ -200,6 +186,7 @@
   color: var(--white);
 }
 
+/* Task in board */
 .task-in-board {
   width: 156px;
   height: 139px;
@@ -221,14 +208,6 @@
   transform: scaleX(1.4) scaleY(1.08);
 }
 
-.task-in-board-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  gap: 32px;
-  transition: transform 125ms;
-}
-
 .task-in-board:hover .task-in-board-container {
   transform: scaleX(0.8) scaleY(1);
 }
@@ -247,21 +226,6 @@
   color: var(--light-blue);
 }
 
-.task-in-board-icon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 120px;
-}
-
-.task-in-board-icon span {
-  display: flex;
-  justify-content: center;
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--black);
-}
-
 .task-in-board-icon .img {
   width: 62px;
   height: 62px;
@@ -270,14 +234,7 @@
   background-color: var(--light-blue);
 }
 
-/* Lower content container */
-
-.content-container-lower {
-  display: flex;
-  justify-content: space-between;
-  gap: 32px;
-}
-
+/* Task in todo */
 .task-todo {
   width: 156px;
   height: 171px;
@@ -299,15 +256,6 @@
   transform: scaleX(1.3) scaleY(0.92);
 }
 
-.task-todo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  gap: 32px;
-  transition: transform 125ms;
-}
-
 .task-todo:hover .task-todo-container {
   transform: scaleX(0.92) scaleY(1.3);
 }
@@ -324,19 +272,6 @@
   padding: 9px;
   text-align: center;
   color: var(--light-blue);
-}
-
-.task-todo-icon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 120px;
-}
-
-.task-todo-icon span {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--black);
 }
 
 .task-todo-icon .img {
@@ -367,15 +302,6 @@
   transform: scale(1.1);
 }
 
-.task-other-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  gap: 32px;
-  transition: transform 125ms;
-}
-
 .task-other:hover .task-other-container {
   transform: scale(1.1);
 }
@@ -394,19 +320,6 @@
   color: var(--light-blue);
 }
 
-.task-other-icon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 120px;
-}
-
-.task-other-icon span {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--black);
-}
-
 .task-other-icon .img {
   width: 62px;
   height: 62px;
@@ -415,6 +328,7 @@
   background-color: var(--light-blue);
 }
 
+/* Task done */
 .task-done {
   width: 156px;
   height: 171px;
@@ -436,15 +350,6 @@
   transform: scaleX(1.1) scaleY(1.15);
 }
 
-.task-done-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  gap: 32px;
-  transition: transform 125ms;
-}
-
 .task-done:hover .task-done-container {
   transform: scaleX(1.15) scaleY(1.1);
 }
@@ -463,6 +368,33 @@
   color: var(--light-blue);
 }
 
+.task-done-icon .img {
+  width: 62px;
+  height: 62px;
+  border-radius: 100%;
+  border: 5px solid var(--white);
+  background-color: var(--light-blue);
+}
+
+/* Task Container */
+.urgent-task-container,
+.task-in-board-container,
+.task-todo-container,
+.task-other-container,
+.task-done-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 32px;
+  transition: transform 125ms;
+}
+
+/* Task Icon */
+.urgent-task-icon,
+.task-in-board-icon,
+.task-todo-icon,
+.task-other-icon,
 .task-done-icon {
   display: flex;
   align-items: center;
@@ -470,16 +402,16 @@
   width: 120px;
 }
 
+.urgent-task-icon span,
+.task-in-board-icon span,
+.task-todo-icon span,
+.task-other-icon span,
 .task-done-icon span {
   font-size: 48px;
   font-weight: 700;
   color: var(--black);
 }
 
-.task-done-icon .img {
-  width: 62px;
-  height: 62px;
-  border-radius: 100%;
-  border: 5px solid var(--white);
-  background-color: var(--light-blue);
+.urgent-task-icon span {
+  color: var(--white);
 }
