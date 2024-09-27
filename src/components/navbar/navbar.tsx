@@ -18,7 +18,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/summary.svg" alt="S" />
+            <img src="./../../assets/img/navbar/summary.svg" alt="S" />
             <span>Summary</span>
           </NavLink>
           <NavLink
@@ -27,7 +27,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/add-task.svg" alt="T" />
+            <img src="./../../assets/img/navbar/add-task.svg" alt="T" />
             <span>Add Task</span>
           </NavLink>
           <NavLink
@@ -36,7 +36,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/board.svg" alt="B" />
+            <img src="./../../assets/img/navbar/board.svg" alt="B" />
             <span>Board</span>
           </NavLink>
           <NavLink
@@ -45,14 +45,39 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/contacts.svg" alt="C" />
+            <img src="./../../assets/img/navbar/contacts.svg" alt="C" />
             <span>Contacts</span>
           </NavLink>
         </nav>
         <div className="navbar-footer">
-          <div className="navbar-footer-item">Privacy Policy</div>
-          <div className="navbar-footer-item">Legal Notice</div>
-          <div className="navbar-footer-item">Log Out</div>
+          <div className="navbar-footer-item">
+            <div className="footer-text">Privacy Policy</div>
+            <div className="footer-icon">
+              <img
+                src="./../../assets/img/navbar/privacy-policy.svg"
+                alt="privacy policy"
+              />
+            </div>
+          </div>
+          <div className="navbar-footer-item">
+            <div className="footer-text">Legal Notice</div>
+            <div className="footer-icon">
+              <img
+                src="./../../assets/img/navbar/legal-notice.svg"
+                alt="privacy policy"
+              />
+            </div>
+          </div>
+          <div className="navbar-footer-item">
+            {" "}
+            <div className="footer-text">Log Out</div>
+            <div className="footer-icon">
+              <img
+                src="./../../assets/img/navbar/log-out.svg"
+                alt="privacy policy"
+              />
+            </div>
+          </div>
         </div>
       </div>
     );

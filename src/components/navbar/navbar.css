@@ -1,5 +1,7 @@
 @import "./../../styles/colors.css";
 
+/* Navbar */
+
 .navbar {
   display: flex;
   flex-direction: column;
@@ -72,4 +74,51 @@
 
 .navbar-footer-item:hover {
   color: var(--light-blue);
+}
+
+.footer-icon {
+  display: none;
+}
+
+.footer-icon img {
+  width: 24px;
+  height: auto;
+}
+
+.footer-icon:hover {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(87%) saturate(2444%)
+    hue-rotate(202deg) brightness(101%) contrast(101%);
+}
+
+/* Media queries */
+
+@media (max-width: 1200px) {
+  .navbar {
+    width: 60px;
+  }
+
+  .nav-item {
+    width: 40px;
+  }
+
+  .navbar nav {
+    width: 34px;
+    padding: 13px;
+  }
+
+  .nav-item img {
+    margin: 0 8px;
+  }
+
+  .nav-item span {
+    display: none;
+  }
+
+  .footer-text {
+    display: none;
+  }
+
+  .footer-icon {
+    display: block;
+  }
 }
