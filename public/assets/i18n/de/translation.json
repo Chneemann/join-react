@@ -2,6 +2,15 @@
   "header": {
     "title": "Kanban Projektmanagement-Tool"
   },
+  "navbar": {
+    "summary": "Übersicht",
+    "addTask": "Neue Aufgabe",
+    "board": "Tafel",
+    "contacts": "Kontakte",
+    "privacyPolicy": "Datenschutzerklärung",
+    "legalNotice": "Rechtlicher Hinweis",
+    "logout": "Abmelden"
+  },
   "summary": {
     "goodMorning": "Guten Morgen,",
     "tasksUrgent": "Dringende Aufgaben",

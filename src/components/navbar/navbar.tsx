@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { withTranslation, WithTranslation } from "react-i18next";
 import "./navbar.css";
 
-interface NavbarProps {}
+interface NavbarProps extends WithTranslation {}
 
-interface NavbarState {}
-
-class Navbar extends React.Component<NavbarProps, NavbarState> {
-  state = {};
+class Navbar extends React.Component<NavbarProps> {
   render() {
+    const { t } = this.props;
+
     return (
       <div className="navbar">
         <nav>
@@ -19,7 +19,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
             }
           >
             <img src="./../../assets/img/navbar/summary.svg" alt="S" />
-            <span>Summary</span>
+            <span>{t("navbar.summary")}</span>
           </NavLink>
           <NavLink
             to="/add-task"
@@ -28,7 +28,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
             }
           >
             <img src="./../../assets/img/navbar/add-task.svg" alt="T" />
-            <span>Add Task</span>
+            <span>{t("navbar.addTask")}</span>
           </NavLink>
           <NavLink
             to="/board"
@@ -37,7 +37,7 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
             }
           >
             <img src="./../../assets/img/navbar/board.svg" alt="B" />
-            <span>Board</span>
+            <span>{t("navbar.board")}</span>
           </NavLink>
           <NavLink
             to="/contacts"
@@ -46,12 +46,12 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
             }
           >
             <img src="./../../assets/img/navbar/contacts.svg" alt="C" />
-            <span>Contacts</span>
+            <span>{t("navbar.contacts")}</span>
           </NavLink>
         </nav>
         <div className="navbar-footer">
           <div className="navbar-footer-item">
-            <div className="footer-text">Privacy Policy</div>
+            <div className="footer-text">{t("navbar.privacyPolicy")}</div>
             <div className="footer-icon">
               <img
                 src="./../../assets/img/navbar/privacy-policy.svg"
@@ -60,22 +60,18 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
             </div>
           </div>
           <div className="navbar-footer-item">
-            <div className="footer-text">Legal Notice</div>
+            <div className="footer-text">{t("navbar.legalNotice")}</div>
             <div className="footer-icon">
               <img
                 src="./../../assets/img/navbar/legal-notice.svg"
-                alt="privacy policy"
+                alt="legal notice"
               />
             </div>
           </div>
           <div className="navbar-footer-item">
-            {" "}
-            <div className="footer-text">Log Out</div>
+            <div className="footer-text">{t("navbar.logout")}</div>
             <div className="footer-icon">
-              <img
-                src="./../../assets/img/navbar/log-out.svg"
-                alt="privacy policy"
-              />
+              <img src="./../../assets/img/navbar/log-out.svg" alt="log out" />
             </div>
           </div>
         </div>
@@ -84,4 +80,4 @@ class Navbar extends React.Component<NavbarProps, NavbarState> {
   }
 }
 
-export default Navbar;
+export default withTranslation()(Navbar);
