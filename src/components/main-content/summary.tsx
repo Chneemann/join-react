@@ -1,5 +1,5 @@
 import React from "react";
-import { Task } from "../../../interfaces/task.interface";
+import { Task } from "../../interfaces/task.interface";
 import { useTranslation } from "react-i18next";
 import "./summary.css";
 

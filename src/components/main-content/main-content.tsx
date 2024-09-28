@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./main-content.css";
-import Help from "../shared/legal/help/help";
-import Summary from "./summary/summary";
-import AddTask from "./add-task/add-task";
-import Contacts from "./contacts/contacts";
-import Board from "./board/board";
+import Help from "../shared/components/legal/help";
+import Summary from "./summary";
+import AddTask from "./add-task";
+import Contacts from "./contacts";
+import Board from "./board";
 import { fetchTasks } from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
 

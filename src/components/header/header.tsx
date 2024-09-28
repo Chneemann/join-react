@@ -1,7 +1,7 @@
 import React from "react";
 import "./header.css";
-import SmallBtn from "../shared/buttons/small-btn/small-btn";
-import MemberCircle from "../shared/member-circle/member-circle";
+import SmallBtn from "../shared/components/buttons/small-btn/small-btn";
+import MemberCircle from "../shared/components/member-circle/member-circle";
 import { withTranslation, WithTranslation } from "react-i18next";
 
 interface HeaderProps extends WithTranslation {}
