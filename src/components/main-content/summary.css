@@ -110,6 +110,7 @@
   border: 2px solid var(--light-blue);
   background-color: var(--light-blue);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
     transform 125ms;
@@ -141,6 +142,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-left: 24px;
 }
 
 .urgent-task-info p {
@@ -170,6 +172,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: 24px;
   gap: 12px;
 }
 
@@ -195,6 +198,7 @@
   background-color: var(--white);
   border: 2px solid rgba(0, 0, 0, 0.05);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
     transform 125ms;
@@ -243,6 +247,7 @@
   border: 2px solid var(--very-light-blue);
   background-color: var(--very-light-blue);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
     transform 125ms;
@@ -290,6 +295,7 @@
   background-color: var(--white);
   border: 2px solid rgba(0, 0, 0, 0.05);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
     transform 125ms;
@@ -337,6 +343,7 @@
   background-color: var(--white);
   border: 2px solid rgba(0, 0, 0, 0.05);
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 125ms, border 125ms, border-top-left-radius 125ms,
     transform 125ms;

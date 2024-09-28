@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Task } from "../../interfaces/task.interface";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 import "./summary.css";
 
 interface SummaryProps extends WithTranslation {
@@ -115,7 +116,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
         </div>
         <div className="content">
           <div className="content-container-upper">
-            <div className="urgent-task">
+            <NavLink to="/board" className="urgent-task">
               <div className="urgent-task-container">
                 <div className="urgent-task-info">
                   <div className="urgent-task-icon">
@@ -155,8 +156,8 @@ class Summary extends Component<SummaryProps, SummaryState> {
                   <p>{t("summary.upcomingDeadline")}</p>
                 </div>
               </div>
-            </div>
-            <div className="task-in-board">
+            </NavLink>
+            <NavLink to="/board" className="task-in-board">
               <div className="task-in-board-container">
                 <div className="task-in-board-info">
                   <div className="task-in-board-icon">
@@ -180,10 +181,10 @@ class Summary extends Component<SummaryProps, SummaryState> {
                   <p>{t("summary.tasksInBoard")}</p>
                 </div>
               </div>
-            </div>
+            </NavLink>
           </div>
           <div className="content-container-lower">
-            <div className="task-todo">
+            <NavLink to="/board" className="task-todo">
               <div className="task-todo-container">
                 <div className="task-todo-info">
                   <div className="task-todo-icon">
@@ -207,8 +208,8 @@ class Summary extends Component<SummaryProps, SummaryState> {
                   <p>{t("summary.tasksTodo")}</p>
                 </div>
               </div>
-            </div>
-            <div className="task-other">
+            </NavLink>
+            <NavLink to="/board" className="task-other">
               <div className="task-other-container">
                 <div className="task-other-info">
                   <div className="task-other-icon">
@@ -232,8 +233,8 @@ class Summary extends Component<SummaryProps, SummaryState> {
                   <p>{t("summary.tasksInProgress")}</p>
                 </div>
               </div>
-            </div>
-            <div className="task-other">
+            </NavLink>
+            <NavLink to="/board" className="task-other">
               <div className="task-other-container">
                 <div className="task-other-info">
                   <div className="task-other-icon">
@@ -257,8 +258,8 @@ class Summary extends Component<SummaryProps, SummaryState> {
                   <p>{t("summary.awaitFeedback")}</p>
                 </div>
               </div>
-            </div>
-            <div className="task-done">
+            </NavLink>
+            <NavLink to="/board" className="task-done">
               <div className="task-done-container">
                 <div className="task-done-info">
                   <div className="task-done-icon">
@@ -282,7 +283,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                   <p>{t("summary.tasksDone")}</p>
                 </div>
               </div>
-            </div>
+            </NavLink>
           </div>
         </div>
       </div>

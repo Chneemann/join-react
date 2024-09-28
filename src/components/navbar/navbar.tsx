@@ -18,7 +18,7 @@ class Navbar extends React.Component<NavbarProps> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/navbar/summary.svg" alt="S" />
+            <img src="./../../assets/img/navbar/summary.svg" alt="summary" />
             <span>{t("navbar.summary")}</span>
           </NavLink>
           <NavLink
@@ -27,7 +27,7 @@ class Navbar extends React.Component<NavbarProps> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/navbar/add-task.svg" alt="T" />
+            <img src="./../../assets/img/navbar/add-task.svg" alt="add task" />
             <span>{t("navbar.addTask")}</span>
           </NavLink>
           <NavLink
@@ -36,7 +36,7 @@ class Navbar extends React.Component<NavbarProps> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/navbar/board.svg" alt="B" />
+            <img src="./../../assets/img/navbar/board.svg" alt="board" />
             <span>{t("navbar.board")}</span>
           </NavLink>
           <NavLink
@@ -45,7 +45,7 @@ class Navbar extends React.Component<NavbarProps> {
               isActive ? "nav-item active" : "nav-item"
             }
           >
-            <img src="./../../assets/img/navbar/contacts.svg" alt="C" />
+            <img src="./../../assets/img/navbar/contacts.svg" alt="contacts" />
             <span>{t("navbar.contacts")}</span>
           </NavLink>
         </nav>
