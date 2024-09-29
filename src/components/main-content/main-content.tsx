@@ -49,7 +49,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
           />
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/contacts" element={<Contacts />} />
-          <Route path="/board" element={<Board />} />
+          <Route path="/board" element={<Board tasks={tasks} />} />
         </Routes>
       </main>
     );

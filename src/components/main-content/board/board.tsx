@@ -3,19 +3,21 @@ import "./board.css";
 import { Task } from "../../../interfaces/task.interface";
 import Tasks from "./tasks";
 
-interface State {
-  searchValue: string;
+interface BoardProps {
   tasks: Task[];
 }
 
-class Board extends Component<{}, State> {
+interface BoardState {
+  searchValue: string;
+}
+
+class Board extends Component<BoardProps, BoardState> {
   searchInput: HTMLInputElement | null = null;
 
-  constructor(props: {}) {
+  constructor(props: BoardProps) {
     super(props);
     this.state = {
       searchValue: "",
-      tasks: [],
     };
   }
 
@@ -25,6 +27,7 @@ class Board extends Component<{}, State> {
 
   render() {
     const { searchValue } = this.state;
+    const { tasks } = this.props;
 
     const statusDisplayNames: { [key: string]: string } = {
       todo: "To-do",
@@ -32,6 +35,11 @@ class Board extends Component<{}, State> {
       awaitfeedback: "Await Feedback",
       done: "Done",
     };
+
+    // Filter tasks based on search value
+    const filteredTasks = tasks.filter((task) =>
+      task.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
     return (
       <div className="board">
@@ -84,7 +92,11 @@ class Board extends Component<{}, State> {
                   <span>{statusDisplayNames[status]}</span>
                   <img src="./../../../assets/img/board/plus.svg" alt="add" />
                 </div>
-                <Tasks status={status}></Tasks>
+                {/* Pass filtered tasks to Tasks component */}
+                <Tasks
+                  tasks={filteredTasks.filter((task) => task.status === status)}
+                  status={status}
+                ></Tasks>
               </div>
             ))}
           </div>
