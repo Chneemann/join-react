@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./board.css";
-import { Task } from "../../interfaces/task.interface";
+import { Task } from "../../../interfaces/task.interface";
+import Tasks from "./tasks";
 
 interface State {
   searchValue: string;
@@ -83,9 +84,7 @@ class Board extends Component<{}, State> {
                   <span>{statusDisplayNames[status]}</span>
                   <img src="./../../../assets/img/board/plus.svg" alt="add" />
                 </div>
-                <div id={status} className="details">
-                  <div>Task Placeholder</div>
-                </div>
+                <Tasks status={status}></Tasks>
               </div>
             ))}
           </div>
