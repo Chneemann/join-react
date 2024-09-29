@@ -1,0 +1,23 @@
+@import "./../../../styles/colors.css";
+
+/* Tasks */
+
+/* No Task */
+.no-tasks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 268px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px dashed var(--gray);
+  background-color: var(--very-light-gray2);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  color: var(--gray);
+  margin: 15.5px 0;
+  p {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}

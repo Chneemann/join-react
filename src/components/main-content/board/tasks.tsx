@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Task } from "../../../interfaces/task.interface";
+import "./tasks.css";
 
 interface Props {
   status: string;
@@ -26,11 +27,11 @@ class Tasks extends Component<Props, State> {
     const tasksWithStatus = this.getTaskStatus(status);
 
     return (
-      <div id={status} className="details">
+      <div id={status} className="tasks">
         {tasksWithStatus.length > 0 ? (
           tasksWithStatus.map((task) => <div key={task.id}>{task.title}</div>)
         ) : (
-          <div>No Tasks</div>
+          <div className="no-tasks">No Tasks</div>
         )}
       </div>
     );
