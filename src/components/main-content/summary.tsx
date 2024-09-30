@@ -111,7 +111,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
 
     return (
       <div className="summary">
-        <div className="headline">
+        <div className="summary-headline">
           {t("summary.goodMorning")} <span>Guest</span>
         </div>
         <div className="content">

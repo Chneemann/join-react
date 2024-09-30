@@ -11,13 +11,13 @@
 }
 
 /* Headline */
-.headline {
+.summary-headline {
   font-size: 48px;
   font-weight: 400;
   padding-bottom: 32px;
 }
 
-.headline span {
+.summary-headline span {
   font-size: 64px;
   font-weight: 700;
   color: var(--light-blue);
