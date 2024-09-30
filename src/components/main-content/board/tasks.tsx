@@ -20,6 +20,30 @@ class Tasks extends Component<TasksProps> {
     console.log("Button clicked for task:", taskId);
   };
 
+  /**
+   * Counts the number of subtasks that are completed
+   * @param {Task} task The task object
+   * @returns {number} The number of completed subtasks
+   */
+  completedSubtasks(task: Task): number {
+    return task.subtasksDone.filter((subtask: boolean) => subtask === true)
+      .length;
+  }
+
+  /**
+   * Calculates the percentage of subtasks that are completed
+   * @param {Task} task The task object
+   * @returns {number} The percentage of completed subtasks
+   */
+  completedSubtasksPercent(task: Task): number {
+    const subtasks = task.subtasksDone;
+    const completedSubtasksCount = subtasks.filter(
+      (subtask: boolean) => subtask === true
+    ).length;
+
+    return (completedSubtasksCount / subtasks.length) * 100;
+  }
+
   render() {
     const { status, tasks } = this.props;
     const isPageViewMedia = true;
@@ -57,6 +81,22 @@ class Tasks extends Component<TasksProps> {
               </div>
               <div className="task-headline">{task.title}</div>
               <div className="task-description">{task.description}</div>
+              {task.subtasksTitle.length > 0 && (
+                <div className="task-subtask">
+                  <div className="task-subtask-line">
+                    <span
+                      className="task-subtask-line-filler"
+                      style={{
+                        width: `${this.completedSubtasksPercent(task)}%`,
+                      }}
+                    ></span>
+                  </div>
+                  <div className="task-subtask-text">
+                    {this.completedSubtasks(task)} / {task.subtasksTitle.length}
+                    &nbsp;Subtasks
+                  </div>
+                </div>
+              )}
             </div>
           ))
         ) : (

@@ -76,6 +76,37 @@
   overflow: auto;
 }
 
+.task-subtask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.task-subtask-line {
+  display: flex;
+  width: 140px;
+  height: 8px;
+  padding-right: 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 8px;
+  background-color: var(--light-gray);
+  margin-right: 11px;
+}
+
+.task-subtask-line-filler {
+  border-radius: 16px;
+  background-color: var(--light-blue);
+  height: 8px;
+}
+
+.task-subtask-text {
+  font-size: 12px;
+  font-weight: 400;
+}
+
 /* No Task */
 .no-tasks {
   display: flex;
