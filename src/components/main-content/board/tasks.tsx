@@ -29,9 +29,9 @@ class Tasks extends Component<TasksProps> {
         {tasks.length > 0 ? (
           tasks.map((task) => (
             <div key={task.id} className="task">
-              <div className="header">
+              <div className="task-header">
                 <div
-                  className="category"
+                  className="task-category"
                   style={{
                     backgroundColor:
                       this.categoryColors.get(task.category) || "#ccc",
@@ -55,6 +55,8 @@ class Tasks extends Component<TasksProps> {
                   </div>
                 )}
               </div>
+              <div className="task-headline">{task.title}</div>
+              <div className="task-description">{task.description}</div>
             </div>
           ))
         ) : (
