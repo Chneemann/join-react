@@ -9,7 +9,22 @@ interface TasksProps {
   users: User[];
 }
 
-class Tasks extends Component<TasksProps> {
+interface TasksState {
+  dialogId: string;
+  dialogX: number;
+  dialogY: number;
+}
+
+class Tasks extends Component<TasksProps, TasksState> {
+  constructor(props: TasksProps) {
+    super(props);
+    this.state = {
+      dialogId: "",
+      dialogX: 0,
+      dialogY: 0,
+    };
+  }
+
   categoryColors = new Map<string, string>([
     ["User Story", "#0038ff"],
     ["Technical Task", "#20d7c2"],
@@ -22,14 +37,19 @@ class Tasks extends Component<TasksProps> {
     console.log("Button clicked for task:", taskId);
   };
 
-  handleMouseMove = (user: string, event: MouseEvent<HTMLSpanElement>) => {
-    console.log("Mouse moved over user:", user, event);
-    // Füge hier zusätzliche Logik für Dialog-Handling hinzu
+  handleDialogMouseMove = (
+    userId: string,
+    event: MouseEvent<HTMLSpanElement>
+  ) => {
+    this.setState({
+      dialogId: userId,
+      dialogX: event.clientX + 25,
+      dialogY: event.clientY + 10,
+    });
   };
 
-  handleMouseLeave = () => {
-    console.log("Mouse left");
-    // Füge hier zusätzliche Logik für Dialog-Handling hinzu
+  handleDialogMouseLeave = () => {
+    this.setState({ dialogId: "" });
   };
 
   /**
@@ -38,13 +58,8 @@ class Tasks extends Component<TasksProps> {
    * @returns The color of the user or an empty string
    */
   userBadgedColor(id: string): string {
-    const userId = String(id);
-    const user = this.props.users.find((user) => user.id === userId);
-    if (user) {
-      return user.color;
-    } else {
-      return "";
-    }
+    const user = this.props.users.find((user) => user.id === id);
+    return user ? user.color : "";
   }
 
   /**
@@ -53,48 +68,38 @@ class Tasks extends Component<TasksProps> {
    * @returns User initials or an empty string
    */
   userBadged(id: string): string {
-    const userId = String(id);
-    const user = this.props.users.find((user) => user.id === userId);
-    if (user) {
-      if (user.firstName === "Guest") {
-        return user.firstName.charAt(0);
-      } else {
-        const firstNameLetter = user.firstName.charAt(0);
-        const lastNameLetter = user.lastName.charAt(0);
-        return firstNameLetter + lastNameLetter;
-      }
-    } else {
-      return "";
-    }
+    const user = this.props.users.find((user) => user.id === id);
+    if (!user) return "";
+    return user.firstName === "Guest"
+      ? user.firstName.charAt(0)
+      : user.firstName.charAt(0) + user.lastName.charAt(0);
   }
 
   /**
-   * Counts the number of subtasks that are completed
-   * @param {Task} task The task object
-   * @returns {number} The number of completed subtasks
+   * Finds the user details by user ID
+   * @param id The user ID
+   * @returns The User object or undefined if not found
    */
+  getUserById(id: string): User | undefined {
+    return this.props.users.find((user) => user.id === id);
+  }
+
   completedSubtasks(task: Task): number {
-    return task.subtasksDone.filter((subtask: boolean) => subtask === true)
-      .length;
+    return task.subtasksDone.filter((subtask) => subtask).length;
   }
 
-  /**
-   * Calculates the percentage of subtasks that are completed
-   * @param {Task} task The task object
-   * @returns {number} The percentage of completed subtasks
-   */
   completedSubtasksPercent(task: Task): number {
-    const subtasks = task.subtasksDone;
-    const completedSubtasksCount = subtasks.filter(
-      (subtask: boolean) => subtask === true
-    ).length;
-
-    return (completedSubtasksCount / subtasks.length) * 100;
+    const { subtasksDone } = task;
+    return (this.completedSubtasks(task) / subtasksDone.length) * 100;
   }
 
   render() {
     const { status, tasks } = this.props;
+    const { dialogId, dialogX, dialogY } = this.state;
     const isPageViewMedia = true;
+
+    // Hole den Benutzer für den Dialog
+    const user = this.getUserById(dialogId);
 
     return (
       <div id={status} className="tasks">
@@ -115,8 +120,7 @@ class Tasks extends Component<TasksProps> {
                   <div
                     className="menu-btn"
                     onClick={(event) =>
-                      task.id !== undefined &&
-                      this.handleMenuButtonClick(event, task.id)
+                      task.id && this.handleMenuButtonClick(event, task.id)
                     }
                   >
                     <img
@@ -150,8 +154,10 @@ class Tasks extends Component<TasksProps> {
                   {/* Creator Badge */}
                   <span
                     className="footer-badged"
-                    onMouseMove={(e) => this.handleMouseMove(task.creator, e)}
-                    onMouseLeave={this.handleMouseLeave}
+                    onMouseMove={(e) =>
+                      this.handleDialogMouseMove(task.creator, e)
+                    }
+                    onMouseLeave={this.handleDialogMouseLeave}
                     style={{
                       backgroundColor: this.userBadgedColor(task.creator),
                     }}
@@ -162,8 +168,10 @@ class Tasks extends Component<TasksProps> {
                     <span
                       key={index}
                       className="footer-badged"
-                      onMouseMove={(e) => this.handleMouseMove(assigned, e)}
-                      onMouseLeave={this.handleMouseLeave}
+                      onMouseMove={(e) =>
+                        this.handleDialogMouseMove(assigned, e)
+                      }
+                      onMouseLeave={this.handleDialogMouseLeave}
                       style={{
                         backgroundColor: this.userBadgedColor(assigned),
                       }}
@@ -178,6 +186,23 @@ class Tasks extends Component<TasksProps> {
           ))
         ) : (
           <div className="no-tasks">No Tasks</div>
+        )}
+        {dialogId && user && (
+          <div
+            className="task-dialog"
+            style={{
+              left: `${dialogX}px`,
+              top: `${dialogY}px`,
+              position: "absolute",
+            }}
+          >
+            <p>
+              {user.firstName}{" "}
+              {"TODO: Transfer currently logged in user from the database"}
+              {dialogId === this.props.users[0].id && <span>(du)</span>}
+            </p>
+            <p>{user.lastName}</p>
+          </div>
         )}
       </div>
     );

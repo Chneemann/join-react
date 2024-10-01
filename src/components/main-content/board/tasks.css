@@ -173,6 +173,25 @@
   background-image: url(./../../../../public/assets/img/low.svg);
 }
 
+/* Dialog */
+
+.task-dialog {
+  position: fixed;
+  width: fit-content;
+  height: fit-content;
+  padding: 0px 12px;
+  border-radius: 0px 20px 20px 20px;
+  border: 1px solid var(--black);
+  z-index: 2;
+  background-color: var(--white);
+}
+
+.task-dialog p,
+.task-dialog span {
+  font-size: 18px;
+  font-weight: 400;
+}
+
 /* No Task */
 .no-tasks {
   display: flex;
