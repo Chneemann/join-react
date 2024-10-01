@@ -39,16 +39,22 @@ class Board extends Component<BoardProps, BoardState> {
     };
 
     // Filter tasks based on search value
-    const filteredTasks = tasks.filter((task) =>
-      task.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    const filteredTasks = tasks.filter((task) => {
+      const searchValueLower = searchValue.toLowerCase();
+
+      return (
+        task.title.toLowerCase().includes(searchValueLower) ||
+        task.description.toLowerCase().includes(searchValueLower) ||
+        task.category.toLowerCase().includes(searchValueLower)
+      );
+    });
 
     return (
       <div className="board">
-        <div className="header">
-          <div className="title">{"Board"}</div>
-          <div className="search">
-            <div className="search-inner">
+        <div className="board-header">
+          <div className="board-title">{"Board"}</div>
+          <div className="board-search">
+            <div className="board-search-inner">
               <input
                 ref={(input) => (this.searchInput = input)}
                 id="search-task"
@@ -61,22 +67,22 @@ class Board extends Component<BoardProps, BoardState> {
                 {searchValue ? (
                   <img
                     src="./../../../assets/img/board/clear.svg"
-                    className="icon-clear"
+                    className="board-icon-clear"
                     alt="clear"
                     onClick={this.clearInput}
                   />
                 ) : (
                   <img
                     src="./../../../assets/img/board/search.svg"
-                    className="icon-search"
+                    className="board-icon-search"
                     alt="search"
                   />
                 )}
               </span>
-              <span className="line"></span>
+              <span className="board-line"></span>
             </div>
-            <button className="btn" type="submit">
-              <div className="btn-inside">
+            <button className="board-btn" type="submit">
+              <div className="board-btn-inside">
                 <span>Add Task</span>
                 <img
                   src="./../../../assets/img/board/add_white.svg"
@@ -86,11 +92,11 @@ class Board extends Component<BoardProps, BoardState> {
             </button>
           </div>
         </div>
-        <div className="content">
-          <div className="status">
+        <div className="board-content">
+          <div className="board-status">
             {["todo", "inprogress", "awaitfeedback", "done"].map((status) => (
-              <div key={status} className="column">
-                <div className="headline">
+              <div key={status} className="board-column">
+                <div className="board-headline">
                   <span>{statusDisplayNames[status]}</span>
                   <img src="./../../../assets/img/board/plus.svg" alt="add" />
                 </div>
@@ -103,7 +109,7 @@ class Board extends Component<BoardProps, BoardState> {
               </div>
             ))}
           </div>
-          <div id="content-tasks"></div>
+          <div id="board-content-tasks"></div>
         </div>
       </div>
     );
