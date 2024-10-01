@@ -6,24 +6,28 @@ import Summary from "./summary";
 import AddTask from "./add-task";
 import Contacts from "./contacts";
 import Board from "./board/board";
-import { fetchTasks } from "../../services/firebase.service";
+import { fetchTasks, fetchUsers } from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
+import { User } from "../../interfaces/user.interface";
 
 interface MainContentProps {}
 
 interface MainContentState {
   tasks: Task[];
+  users: User[];
   loading: boolean;
 }
 
 class MainContent extends React.Component<MainContentProps, MainContentState> {
   state: MainContentState = {
     tasks: [],
+    users: [],
     loading: true,
   };
 
   componentDidMount() {
     this.loadTasks();
+    this.loadUsers();
   }
 
   loadTasks = async () => {
@@ -37,8 +41,19 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  loadUsers = async () => {
+    try {
+      const userList = await fetchUsers();
+      this.setState({ users: userList });
+    } catch (error) {
+      console.error("Error loading users:", error);
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
   render() {
-    const { tasks, loading } = this.state;
+    const { tasks, users, loading } = this.state;
     return (
       <main>
         <Routes>
@@ -49,7 +64,10 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
           />
           <Route path="/add-task" element={<AddTask />} />
           <Route path="/contacts" element={<Contacts />} />
-          <Route path="/board" element={<Board tasks={tasks} />} />
+          <Route
+            path="/board"
+            element={<Board tasks={tasks} users={users} />}
+          />
         </Routes>
       </main>
     );

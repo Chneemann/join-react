@@ -1,10 +1,12 @@
 import React, { Component, MouseEvent } from "react";
 import { Task } from "../../../interfaces/task.interface";
+import { User } from "../../../interfaces/user.interface";
 import "./tasks.css";
 
 interface TasksProps {
   status: string;
   tasks: Task[];
+  users: User[];
 }
 
 class Tasks extends Component<TasksProps> {
@@ -19,6 +21,52 @@ class Tasks extends Component<TasksProps> {
   ) => {
     console.log("Button clicked for task:", taskId);
   };
+
+  handleMouseMove = (user: string, event: MouseEvent<HTMLSpanElement>) => {
+    console.log("Mouse moved over user:", user, event);
+    // Füge hier zusätzliche Logik für Dialog-Handling hinzu
+  };
+
+  handleMouseLeave = () => {
+    console.log("Mouse left");
+    // Füge hier zusätzliche Logik für Dialog-Handling hinzu
+  };
+
+  /**
+   * Return the color of a user with the given id.
+   * @param id The id of the user to find
+   * @returns The color of the user or an empty string
+   */
+  userBadgedColor(id: string): string {
+    const userId = String(id);
+    const user = this.props.users.find((user) => user.id === userId);
+    if (user) {
+      return user.color;
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * Returns the initials of the user with the given id.
+   * @param id The id of the user to find
+   * @returns User initials or an empty string
+   */
+  userBadged(id: string): string {
+    const userId = String(id);
+    const user = this.props.users.find((user) => user.id === userId);
+    if (user) {
+      if (user.firstName === "Guest") {
+        return user.firstName.charAt(0);
+      } else {
+        const firstNameLetter = user.firstName.charAt(0);
+        const lastNameLetter = user.lastName.charAt(0);
+        return firstNameLetter + lastNameLetter;
+      }
+    } else {
+      return "";
+    }
+  }
 
   /**
    * Counts the number of subtasks that are completed
@@ -97,6 +145,35 @@ class Tasks extends Component<TasksProps> {
                   </div>
                 </div>
               )}
+              <div className="footer">
+                <div className="footer-badge">
+                  {/* Creator Badge */}
+                  <span
+                    className="footer-badged"
+                    onMouseMove={(e) => this.handleMouseMove(task.creator, e)}
+                    onMouseLeave={this.handleMouseLeave}
+                    style={{
+                      backgroundColor: this.userBadgedColor(task.creator),
+                    }}
+                  >
+                    {this.userBadged(task.creator)}
+                  </span>
+                  {task.assigned.map((assigned, index) => (
+                    <span
+                      key={index}
+                      className="footer-badged"
+                      onMouseMove={(e) => this.handleMouseMove(assigned, e)}
+                      onMouseLeave={this.handleMouseLeave}
+                      style={{
+                        backgroundColor: this.userBadgedColor(assigned),
+                      }}
+                    >
+                      {this.userBadged(assigned)}
+                    </span>
+                  ))}
+                </div>
+                <div className={`footer-priority prio-${task.priority}`}></div>
+              </div>
             </div>
           ))
         ) : (

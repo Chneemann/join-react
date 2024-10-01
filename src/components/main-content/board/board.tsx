@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "./board.css";
 import { Task } from "../../../interfaces/task.interface";
+import { User } from "../../../interfaces/user.interface";
 import Tasks from "./tasks";
 
 interface BoardProps {
   tasks: Task[];
+  users: User[];
 }
 
 interface BoardState {
@@ -27,7 +29,7 @@ class Board extends Component<BoardProps, BoardState> {
 
   render() {
     const { searchValue } = this.state;
-    const { tasks } = this.props;
+    const { tasks, users } = this.props;
 
     const statusDisplayNames: { [key: string]: string } = {
       todo: "To-do",
@@ -95,6 +97,7 @@ class Board extends Component<BoardProps, BoardState> {
                 {/* Pass filtered tasks to Tasks component */}
                 <Tasks
                   tasks={filteredTasks.filter((task) => task.status === status)}
+                  users={users}
                   status={status}
                 ></Tasks>
               </div>
