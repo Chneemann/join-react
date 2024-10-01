@@ -6,7 +6,11 @@ import Summary from "./summary";
 import AddTask from "./add-task";
 import Contacts from "./contacts";
 import Board from "./board/board";
-import { fetchTasks, fetchUsers } from "../../services/firebase.service";
+import {
+  fetchTasks,
+  fetchUsers,
+  updateTaskStatus,
+} from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
 
@@ -52,12 +56,17 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
-  updateTaskStatus = (taskId: string, newStatus: string) => {
-    this.setState((prevState) => ({
-      tasks: prevState.tasks.map((task) =>
-        task.id === taskId ? { ...task, status: newStatus } : task
-      ),
-    }));
+  updateTaskStatus = async (taskId: string, newStatus: string) => {
+    try {
+      await updateTaskStatus(taskId, newStatus);
+      this.setState((prevState) => ({
+        tasks: prevState.tasks.map((task) =>
+          task.id === taskId ? { ...task, status: newStatus } : task
+        ),
+      }));
+    } catch (error) {
+      console.error("Error updating task status on server:", error);
+    }
   };
 
   render() {
