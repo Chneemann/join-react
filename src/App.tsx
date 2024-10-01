@@ -4,7 +4,7 @@ import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import MainContent from "./components/main-content/main-content";
 import "./App.css";
-import "./i18n.tsx";
+import "./i18n";
 
 class App extends Component {
   state = {};

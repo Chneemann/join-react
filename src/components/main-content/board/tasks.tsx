@@ -16,6 +16,80 @@ interface TasksState {
   dialogY: number;
 }
 
+class Tasks extends Component<TasksProps, TasksState> {
+  constructor(props: TasksProps) {
+    super(props);
+    this.state = {
+      dialogId: "",
+      dialogX: 0,
+      dialogY: 0,
+    };
+  }
+
+  handleDialogMouseMove = (
+    userId: string,
+    event: MouseEvent<HTMLSpanElement>
+  ) => {
+    this.setState({
+      dialogId: userId,
+      dialogX: event.clientX + 25,
+      dialogY: event.clientY + 10,
+    });
+  };
+
+  handleDialogMouseLeave = () => {
+    this.setState({ dialogId: "" });
+  };
+
+  render() {
+    const { status, tasks, users } = this.props;
+    const { dialogId, dialogX, dialogY } = this.state;
+    const user = users.find((u) => u.id === dialogId);
+
+    return (
+      <div id={status} className="tasks">
+        {tasks.length > 0 ? (
+          tasks.map((task) => (
+            <DraggableTask
+              key={task.id}
+              task={task}
+              users={users}
+              handleDialogMouseMove={this.handleDialogMouseMove}
+              handleDialogMouseLeave={this.handleDialogMouseLeave}
+            />
+          ))
+        ) : (
+          <div className="no-tasks">No Tasks</div>
+        )}
+        {dialogId && user && (
+          <div
+            className="task-dialog"
+            style={{
+              left: `${dialogX}px`,
+              top: `${dialogY}px`,
+              position: "absolute",
+            }}
+          >
+            <p>
+              {user.firstName} {dialogId === users[0].id && <span>(du)</span>}
+            </p>
+            <p>{user.lastName}</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+/**
+ * @description A single task in the board, which can be dragged to change
+ * its status.
+ * @param {Object} task - The task object from the database.
+ * @param {Array<User>} users - List of all users in the database.
+ * @param {Function} handleDialogMouseMove - Function to handle user mouse move events.
+ * @param {Function} handleDialogMouseLeave - Function to handle user mouse leave events.
+ * @returns {ReactElement} A React component representing a single task.
+ */
 const DraggableTask = ({
   task,
   users,
@@ -30,11 +104,21 @@ const DraggableTask = ({
     }),
   }));
 
+  /**
+   * @description Given a user id, returns the color associated with that user.
+   * @param {string} id - The id of the user.
+   * @returns {string} The color associated with the user.
+   */
   const userBadgedColor = (id: string): string => {
     const user = users.find((user: User) => user.id === id);
     return user ? user.color : "";
   };
 
+  /**
+   * @description Given a user id, returns the initials associated with that user.
+   * @param {string} id - The id of the user.
+   * @returns {string} The initials associated with the user.
+   */
   const userBadged = (id: string): string => {
     const user = users.find((user: User) => user.id === id);
     return user
@@ -116,70 +200,5 @@ const DraggableTask = ({
     </div>
   );
 };
-
-class Tasks extends Component<TasksProps, TasksState> {
-  constructor(props: TasksProps) {
-    super(props);
-    this.state = {
-      dialogId: "",
-      dialogX: 0,
-      dialogY: 0,
-    };
-  }
-
-  handleDialogMouseMove = (
-    userId: string,
-    event: MouseEvent<HTMLSpanElement>
-  ) => {
-    this.setState({
-      dialogId: userId,
-      dialogX: event.clientX + 25,
-      dialogY: event.clientY + 10,
-    });
-  };
-
-  handleDialogMouseLeave = () => {
-    this.setState({ dialogId: "" });
-  };
-
-  render() {
-    const { status, tasks, users } = this.props;
-    const { dialogId, dialogX, dialogY } = this.state;
-    const user = users.find((u) => u.id === dialogId);
-
-    return (
-      <div id={status} className="tasks">
-        {tasks.length > 0 ? (
-          tasks.map((task) => (
-            <DraggableTask
-              key={task.id}
-              task={task}
-              users={users}
-              handleDialogMouseMove={this.handleDialogMouseMove}
-              handleDialogMouseLeave={this.handleDialogMouseLeave}
-            />
-          ))
-        ) : (
-          <div className="no-tasks">No Tasks</div>
-        )}
-        {dialogId && user && (
-          <div
-            className="task-dialog"
-            style={{
-              left: `${dialogX}px`,
-              top: `${dialogY}px`,
-              position: "absolute",
-            }}
-          >
-            <p>
-              {user.firstName} {dialogId === users[0].id && <span>(du)</span>}
-            </p>
-            <p>{user.lastName}</p>
-          </div>
-        )}
-      </div>
-    );
-  }
-}
 
 export default Tasks;

@@ -9,7 +9,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 interface BoardProps {
   tasks: Task[];
   users: User[];
-  updateTaskStatus: (taskId: string, newStatus: string) => void; // Neue Prop zur Statusaktualisierung
+  updateTaskStatus: (taskId: string, newStatus: string) => void;
 }
 
 interface BoardState {
