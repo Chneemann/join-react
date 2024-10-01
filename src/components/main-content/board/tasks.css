@@ -174,9 +174,9 @@
   background-image: url(./../../../../public/assets/img/low.svg);
 }
 
-/* Dialog */
+/* Assigned Dialog */
 
-.task-dialog {
+.task-assigned-dialog {
   position: fixed;
   width: fit-content;
   height: fit-content;
@@ -187,10 +187,40 @@
   background-color: var(--white);
 }
 
-.task-dialog p,
-.task-dialog span {
+.task-assigned-dialog p,
+.task-assigned-dialog span {
   font-size: 18px;
   font-weight: 400;
+}
+
+/* Task Menu */
+
+.task-menu {
+  position: absolute;
+  top: 30px;
+  right: 45px;
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--light-blue);
+  border-radius: 20px 0 20px 20px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 5;
+}
+
+.task-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.task-menu-link:hover {
+  background-color: var(--blue);
 }
 
 /* No Task */

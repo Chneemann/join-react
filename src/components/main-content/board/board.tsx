@@ -144,7 +144,13 @@ const DroppableColumn = ({
         <span>{statusDisplayNames[status]}</span>
         <img src="./../../../assets/img/board/plus.svg" alt="add" />
       </div>
-      <Tasks tasks={tasks} users={users} status={status} />
+      <Tasks
+        tasks={tasks}
+        users={users}
+        status={status}
+        statusDisplayNames={statusDisplayNames}
+        updateTaskStatus={updateTaskStatus}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from "react";
+import React, { Component, MouseEvent, useState } from "react";
 import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
 import "./tasks.css";
@@ -8,6 +8,8 @@ interface TasksProps {
   status: string;
   tasks: Task[];
   users: User[];
+  statusDisplayNames: { [key: string]: string };
+  updateTaskStatus: (taskId: string, newStatus: string) => void;
 }
 
 interface TasksState {
@@ -54,6 +56,8 @@ class Tasks extends Component<TasksProps, TasksState> {
               key={task.id}
               task={task}
               users={users}
+              statusDisplayNames={this.props.statusDisplayNames}
+              updateTaskStatus={this.props.updateTaskStatus}
               handleDialogMouseMove={this.handleDialogMouseMove}
               handleDialogMouseLeave={this.handleDialogMouseLeave}
             />
@@ -63,7 +67,7 @@ class Tasks extends Component<TasksProps, TasksState> {
         )}
         {dialogId && user && (
           <div
-            className="task-dialog"
+            className="task-assigned-dialog"
             style={{
               left: `${dialogX}px`,
               top: `${dialogY}px`,
@@ -95,6 +99,8 @@ const DraggableTask = ({
   users,
   handleDialogMouseMove,
   handleDialogMouseLeave,
+  updateTaskStatus,
+  statusDisplayNames,
 }: any) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "TASK",
@@ -128,6 +134,16 @@ const DraggableTask = ({
       : "";
   };
 
+  /**
+   * @description Toggles the visibility of the task menu associated with the given taskId.
+   * If the menu is currently visible, it will be hidden, and vice versa.
+   * @param {string} taskId - The id of the task whose menu should be toggled.
+   */
+  const [menuId, setMenuId] = useState<string | null>(null);
+  const toggleTaskMenu = (taskId: string) => {
+    setMenuId(menuId === taskId ? null : taskId);
+  };
+
   return (
     <div ref={drag} className={`task ${isDragging ? "dragging" : ""}`}>
       <div className="task-header">
@@ -140,7 +156,7 @@ const DraggableTask = ({
         >
           {task.category}
         </div>
-        <div className="menu-btn" onClick={() => console.log("Menu clicked")}>
+        <div className="menu-btn" onClick={() => toggleTaskMenu(task.id)}>
           <img
             className="menu-img"
             src="./../../../../assets/img/board/menu.svg"
@@ -197,6 +213,49 @@ const DraggableTask = ({
         </div>
         <div className={`footer-priority prio-${task.priority}`}></div>
       </div>
+      {menuId === task.id && (
+        <TaskMenu
+          task={task}
+          updateTaskStatus={updateTaskStatus}
+          statusDisplayNames={statusDisplayNames}
+        />
+      )}
+    </div>
+  );
+};
+
+/**
+ * A dropdown menu for changing the status of a task.
+ * @param {Task} task - The task to change the status of.
+ * @param {(taskId: string, newStatus: string) => void} updateTaskStatus - A function to call when a new status is selected.
+ * @param {{[key: string]: string}} statusDisplayNames - A mapping of status codes to display names.
+ * @returns A React component that renders a dropdown menu with links to change the status of a task.
+ */
+const TaskMenu = ({
+  task,
+  updateTaskStatus,
+  statusDisplayNames,
+}: {
+  task: Task;
+  updateTaskStatus: (taskId: string, newStatus: string) => void;
+  statusDisplayNames: { [key: string]: string };
+}) => {
+  const statusOptions = Object.keys(statusDisplayNames);
+
+  return (
+    <div className="task-menu">
+      {statusOptions.map(
+        (status) =>
+          task.status !== status && (
+            <div
+              key={status}
+              className="task-menu-link"
+              onClick={() => task.id && updateTaskStatus(task.id, status)}
+            >
+              {statusDisplayNames[status]}
+            </div>
+          )
+      )}
     </div>
   );
 };
