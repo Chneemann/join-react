@@ -52,8 +52,17 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  updateTaskStatus = (taskId: string, newStatus: string) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task
+      ),
+    }));
+  };
+
   render() {
     const { tasks, users, loading } = this.state;
+
     return (
       <main>
         <Routes>
@@ -66,7 +75,13 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
           <Route path="/contacts" element={<Contacts />} />
           <Route
             path="/board"
-            element={<Board tasks={tasks} users={users} />}
+            element={
+              <Board
+                tasks={tasks}
+                users={users}
+                updateTaskStatus={this.updateTaskStatus}
+              />
+            }
           />
         </Routes>
       </main>

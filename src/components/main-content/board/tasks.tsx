@@ -2,6 +2,7 @@ import React, { Component, MouseEvent } from "react";
 import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
 import "./tasks.css";
+import { useDrag } from "react-dnd";
 
 interface TasksProps {
   status: string;
@@ -15,6 +16,107 @@ interface TasksState {
   dialogY: number;
 }
 
+const DraggableTask = ({
+  task,
+  users,
+  handleDialogMouseMove,
+  handleDialogMouseLeave,
+}: any) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "TASK",
+    item: { id: task.id },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
+  const userBadgedColor = (id: string): string => {
+    const user = users.find((user: User) => user.id === id);
+    return user ? user.color : "";
+  };
+
+  const userBadged = (id: string): string => {
+    const user = users.find((user: User) => user.id === id);
+    return user
+      ? user.firstName === "Guest"
+        ? user.firstName.charAt(0)
+        : user.firstName.charAt(0) + user.lastName.charAt(0)
+      : "";
+  };
+
+  return (
+    <div ref={drag} className={`task ${isDragging ? "dragging" : ""}`}>
+      <div className="task-header">
+        <div
+          className="task-category"
+          style={{
+            backgroundColor:
+              task.category === "User Story" ? "#0038ff" : "#20d7c2",
+          }}
+        >
+          {task.category}
+        </div>
+        <div className="menu-btn" onClick={() => console.log("Menu clicked")}>
+          <img
+            className="menu-img"
+            src="./../../../../assets/img/board/menu.svg"
+            alt="menu"
+          />
+        </div>
+      </div>
+      <div className="task-headline">{task.title}</div>
+      <div className="task-description">{task.description}</div>
+      {task.subtasksTitle.length > 0 && (
+        <div className="task-subtask">
+          <div className="task-subtask-line">
+            <span
+              className="task-subtask-line-filler"
+              style={{
+                width: `${
+                  (task.subtasksDone.length / task.subtasksTitle.length) * 100
+                }%`,
+              }}
+            ></span>
+          </div>
+          <div className="task-subtask-text">
+            {task.subtasksDone.length} / {task.subtasksTitle.length} Subtasks
+          </div>
+        </div>
+      )}
+      <div className="footer">
+        <div className="footer-badge">
+          <span
+            className="footer-badged"
+            onMouseMove={(e) => handleDialogMouseMove(task.creator, e)}
+            onMouseLeave={handleDialogMouseLeave}
+            style={{
+              backgroundColor: userBadgedColor(task.creator),
+            }}
+          >
+            {userBadged(task.creator)}
+          </span>
+          {task.assigned.map(
+            (assigned: string, index: React.Key | null | undefined) => (
+              <span
+                key={index}
+                className="footer-badged"
+                onMouseMove={(e) => handleDialogMouseMove(assigned, e)}
+                onMouseLeave={handleDialogMouseLeave}
+                style={{
+                  backgroundColor: userBadgedColor(assigned),
+                }}
+              >
+                {userBadged(assigned)}
+              </span>
+            )
+          )}
+        </div>
+        <div className={`footer-priority prio-${task.priority}`}></div>
+      </div>
+    </div>
+  );
+};
+
 class Tasks extends Component<TasksProps, TasksState> {
   constructor(props: TasksProps) {
     super(props);
@@ -24,18 +126,6 @@ class Tasks extends Component<TasksProps, TasksState> {
       dialogY: 0,
     };
   }
-
-  categoryColors = new Map<string, string>([
-    ["User Story", "#0038ff"],
-    ["Technical Task", "#20d7c2"],
-  ]);
-
-  handleMenuButtonClick = (
-    event: MouseEvent<HTMLDivElement>,
-    taskId: string
-  ) => {
-    console.log("Button clicked for task:", taskId);
-  };
 
   handleDialogMouseMove = (
     userId: string,
@@ -52,137 +142,22 @@ class Tasks extends Component<TasksProps, TasksState> {
     this.setState({ dialogId: "" });
   };
 
-  /**
-   * Return the color of a user with the given id.
-   * @param id The id of the user to find
-   * @returns The color of the user or an empty string
-   */
-  userBadgedColor(id: string): string {
-    const user = this.props.users.find((user) => user.id === id);
-    return user ? user.color : "";
-  }
-
-  /**
-   * Returns the initials of the user with the given id.
-   * @param id The id of the user to find
-   * @returns User initials or an empty string
-   */
-  userBadged(id: string): string {
-    const user = this.props.users.find((user) => user.id === id);
-    if (!user) return "";
-    return user.firstName === "Guest"
-      ? user.firstName.charAt(0)
-      : user.firstName.charAt(0) + user.lastName.charAt(0);
-  }
-
-  /**
-   * Finds the user details by user ID
-   * @param id The user ID
-   * @returns The User object or undefined if not found
-   */
-  getUserById(id: string): User | undefined {
-    return this.props.users.find((user) => user.id === id);
-  }
-
-  completedSubtasks(task: Task): number {
-    return task.subtasksDone.filter((subtask) => subtask).length;
-  }
-
-  completedSubtasksPercent(task: Task): number {
-    const { subtasksDone } = task;
-    return (this.completedSubtasks(task) / subtasksDone.length) * 100;
-  }
-
   render() {
-    const { status, tasks } = this.props;
+    const { status, tasks, users } = this.props;
     const { dialogId, dialogX, dialogY } = this.state;
-    const isPageViewMedia = true;
-
-    // Hole den Benutzer für den Dialog
-    const user = this.getUserById(dialogId);
+    const user = users.find((u) => u.id === dialogId);
 
     return (
       <div id={status} className="tasks">
         {tasks.length > 0 ? (
           tasks.map((task) => (
-            <div key={task.id} className="task">
-              <div className="task-header">
-                <div
-                  className="task-category"
-                  style={{
-                    backgroundColor:
-                      this.categoryColors.get(task.category) || "#ccc",
-                  }}
-                >
-                  {task.category}
-                </div>
-                {isPageViewMedia && (
-                  <div
-                    className="menu-btn"
-                    onClick={(event) =>
-                      task.id && this.handleMenuButtonClick(event, task.id)
-                    }
-                  >
-                    <img
-                      className="menu-img"
-                      src="./../../../../assets/img/board/menu.svg"
-                      alt="menu"
-                    />
-                  </div>
-                )}
-              </div>
-              <div className="task-headline">{task.title}</div>
-              <div className="task-description">{task.description}</div>
-              {task.subtasksTitle.length > 0 && (
-                <div className="task-subtask">
-                  <div className="task-subtask-line">
-                    <span
-                      className="task-subtask-line-filler"
-                      style={{
-                        width: `${this.completedSubtasksPercent(task)}%`,
-                      }}
-                    ></span>
-                  </div>
-                  <div className="task-subtask-text">
-                    {this.completedSubtasks(task)} / {task.subtasksTitle.length}
-                    &nbsp;Subtasks
-                  </div>
-                </div>
-              )}
-              <div className="footer">
-                <div className="footer-badge">
-                  {/* Creator Badge */}
-                  <span
-                    className="footer-badged"
-                    onMouseMove={(e) =>
-                      this.handleDialogMouseMove(task.creator, e)
-                    }
-                    onMouseLeave={this.handleDialogMouseLeave}
-                    style={{
-                      backgroundColor: this.userBadgedColor(task.creator),
-                    }}
-                  >
-                    {this.userBadged(task.creator)}
-                  </span>
-                  {task.assigned.map((assigned, index) => (
-                    <span
-                      key={index}
-                      className="footer-badged"
-                      onMouseMove={(e) =>
-                        this.handleDialogMouseMove(assigned, e)
-                      }
-                      onMouseLeave={this.handleDialogMouseLeave}
-                      style={{
-                        backgroundColor: this.userBadgedColor(assigned),
-                      }}
-                    >
-                      {this.userBadged(assigned)}
-                    </span>
-                  ))}
-                </div>
-                <div className={`footer-priority prio-${task.priority}`}></div>
-              </div>
-            </div>
+            <DraggableTask
+              key={task.id}
+              task={task}
+              users={users}
+              handleDialogMouseMove={this.handleDialogMouseMove}
+              handleDialogMouseLeave={this.handleDialogMouseLeave}
+            />
           ))
         ) : (
           <div className="no-tasks">No Tasks</div>
@@ -197,9 +172,7 @@ class Tasks extends Component<TasksProps, TasksState> {
             }}
           >
             <p>
-              {user.firstName}{" "}
-              {"TODO: Transfer currently logged in user from the database"}
-              {dialogId === this.props.users[0].id && <span>(du)</span>}
+              {user.firstName} {dialogId === users[0].id && <span>(du)</span>}
             </p>
             <p>{user.lastName}</p>
           </div>

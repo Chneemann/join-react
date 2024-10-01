@@ -3,10 +3,13 @@ import "./board.css";
 import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
 import Tasks from "./tasks";
+import { DndProvider, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 interface BoardProps {
   tasks: Task[];
   users: User[];
+  updateTaskStatus: (taskId: string, newStatus: string) => void; // Neue Prop zur Statusaktualisierung
 }
 
 interface BoardState {
@@ -29,8 +32,9 @@ class Board extends Component<BoardProps, BoardState> {
 
   render() {
     const { searchValue } = this.state;
-    const { tasks, users } = this.props;
+    const { tasks, users, updateTaskStatus } = this.props;
 
+    // Definition of the status display names
     const statusDisplayNames: { [key: string]: string } = {
       todo: "To-do",
       inprogress: "In Progress",
@@ -50,70 +54,99 @@ class Board extends Component<BoardProps, BoardState> {
     });
 
     return (
-      <div className="board">
-        <div className="board-header">
-          <div className="board-title">{"Board"}</div>
-          <div className="board-search">
-            <div className="board-search-inner">
-              <input
-                ref={(input) => (this.searchInput = input)}
-                id="search-task"
-                type="text"
-                placeholder="Find Task"
-                value={searchValue}
-                onChange={(e) => this.setState({ searchValue: e.target.value })}
-              />
-              <span>
-                {searchValue ? (
-                  <img
-                    src="./../../../assets/img/board/clear.svg"
-                    className="board-icon-clear"
-                    alt="clear"
-                    onClick={this.clearInput}
-                  />
-                ) : (
-                  <img
-                    src="./../../../assets/img/board/search.svg"
-                    className="board-icon-search"
-                    alt="search"
-                  />
-                )}
-              </span>
-              <span className="board-line"></span>
-            </div>
-            <button className="board-btn" type="submit">
-              <div className="board-btn-inside">
-                <span>Add Task</span>
-                <img
-                  src="./../../../assets/img/board/add_white.svg"
-                  alt="check"
+      <DndProvider backend={HTML5Backend}>
+        <div className="board">
+          <div className="board-header">
+            <div className="board-title">{"Board"}</div>
+            <div className="board-search">
+              <div className="board-search-inner">
+                <input
+                  ref={(input) => (this.searchInput = input)}
+                  id="search-task"
+                  type="text"
+                  placeholder="Find Task"
+                  value={searchValue}
+                  onChange={(e) =>
+                    this.setState({ searchValue: e.target.value })
+                  }
                 />
+                <span>
+                  {searchValue ? (
+                    <img
+                      src="./../../../assets/img/board/clear.svg"
+                      className="board-icon-clear"
+                      alt="clear"
+                      onClick={this.clearInput}
+                    />
+                  ) : (
+                    <img
+                      src="./../../../assets/img/board/search.svg"
+                      className="board-icon-search"
+                      alt="search"
+                    />
+                  )}
+                </span>
+                <span className="board-line"></span>
               </div>
-            </button>
-          </div>
-        </div>
-        <div className="board-content">
-          <div className="board-status">
-            {["todo", "inprogress", "awaitfeedback", "done"].map((status) => (
-              <div key={status} className="board-column">
-                <div className="board-headline">
-                  <span>{statusDisplayNames[status]}</span>
-                  <img src="./../../../assets/img/board/plus.svg" alt="add" />
+              <button className="board-btn" type="submit">
+                <div className="board-btn-inside">
+                  <span>Add Task</span>
+                  <img
+                    src="./../../../assets/img/board/add_white.svg"
+                    alt="check"
+                  />
                 </div>
-                {/* Pass filtered tasks to Tasks component */}
-                <Tasks
+              </button>
+            </div>
+          </div>
+          <div className="board-content">
+            <div className="board-status">
+              {["todo", "inprogress", "awaitfeedback", "done"].map((status) => (
+                <DroppableColumn
+                  key={status}
+                  status={status}
                   tasks={filteredTasks.filter((task) => task.status === status)}
                   users={users}
-                  status={status}
-                ></Tasks>
-              </div>
-            ))}
+                  updateTaskStatus={updateTaskStatus}
+                  statusDisplayNames={statusDisplayNames}
+                />
+              ))}
+            </div>
+            <div id="board-content-tasks"></div>
           </div>
-          <div id="board-content-tasks"></div>
         </div>
-      </div>
+      </DndProvider>
     );
   }
 }
+
+// Droppable Column Component
+const DroppableColumn = ({
+  status,
+  tasks,
+  users,
+  updateTaskStatus,
+  statusDisplayNames,
+}: any) => {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "TASK",
+    drop: (item: { id: string }) => {
+      updateTaskStatus(item.id, status);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
+
+  return (
+    <div ref={drop} className={`board-column ${isOver ? "hovered" : ""}`}>
+      <div className="board-headline">
+        <span>{statusDisplayNames[status]}</span>
+        <img src="./../../../assets/img/board/plus.svg" alt="add" />
+      </div>
+      <Tasks tasks={tasks} users={users} status={status} />
+    </div>
+  );
+};
 
 export default Board;
