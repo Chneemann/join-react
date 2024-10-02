@@ -11,6 +11,15 @@
     "legalNotice": "Rechtlicher Hinweis",
     "logout": "Abmelden"
   },
+  "board": {
+    "board": "Tafel",
+    "todo": "Zu Erledigen",
+    "inprogress": "In Bearbeitung",
+    "awaitfeedback": "Warte auf Rückmeldung",
+    "done": "Erledigt",
+    "searchText": "Aufgabe suchen",
+    "searchBtn": "Neue Aufgabe"
+  },
   "summary": {
     "goodMorning": "Guten Morgen,",
     "tasksUrgent": "Dringende Aufgaben",

@@ -5,8 +5,9 @@ import { User } from "../../../interfaces/user.interface";
 import Tasks from "./tasks";
 import { DndProvider, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface BoardProps {
+interface BoardProps extends WithTranslation {
   tasks: Task[];
   users: User[];
   updateTaskStatus: (taskId: string, newStatus: string) => void;
@@ -32,14 +33,14 @@ class Board extends Component<BoardProps, BoardState> {
 
   render() {
     const { searchValue } = this.state;
-    const { tasks, users, updateTaskStatus } = this.props;
+    const { t, tasks, users, updateTaskStatus } = this.props;
 
     // Definition of the status display names
     const statusDisplayNames: { [key: string]: string } = {
-      todo: "To-do",
-      inprogress: "In Progress",
-      awaitfeedback: "Await Feedback",
-      done: "Done",
+      todo: t("board.todo"),
+      inprogress: t("board.inprogress"),
+      awaitfeedback: t("board.awaitfeedback"),
+      done: t("board.done"),
     };
 
     // Filter tasks based on search value
@@ -57,14 +58,14 @@ class Board extends Component<BoardProps, BoardState> {
       <DndProvider backend={HTML5Backend}>
         <div className="board">
           <div className="board-header">
-            <div className="board-title">{"Board"}</div>
+            <div className="board-title">{t("board.board")}</div>
             <div className="board-search">
               <div className="board-search-inner">
                 <input
                   ref={(input) => (this.searchInput = input)}
                   id="search-task"
                   type="text"
-                  placeholder="Find Task"
+                  placeholder={t("board.searchText")}
                   value={searchValue}
                   onChange={(e) =>
                     this.setState({ searchValue: e.target.value })
@@ -90,7 +91,7 @@ class Board extends Component<BoardProps, BoardState> {
               </div>
               <button className="board-btn" type="submit">
                 <div className="board-btn-inside">
-                  <span>Add Task</span>
+                  <span>{t("board.searchBtn")}</span>
                   <img
                     src="./../../../assets/img/board/add_white.svg"
                     alt="check"
@@ -155,4 +156,4 @@ const DroppableColumn = ({
   );
 };
 
-export default Board;
+export default withTranslation()(Board);

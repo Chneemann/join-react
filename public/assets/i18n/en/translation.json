@@ -11,6 +11,15 @@
     "legalNotice": "Legal Notice",
     "logout": "Log Out"
   },
+  "board": {
+    "board": "Board",
+    "todo": "To-do",
+    "inprogress": "In Progress",
+    "awaitfeedback": "Await Feedback",
+    "done": "Done",
+    "searchText": "Find Task",
+    "searchBtn": "Add Task"
+  },
   "summary": {
     "goodMorning": "Good morning,",
     "tasksUrgent": "Tasks Urgent",
