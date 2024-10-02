@@ -150,11 +150,13 @@
 .board-column {
   display: flex;
   flex-direction: column;
+  padding: 12px;
+  border-radius: 12px;
   width: 270px;
-  padding-right: 32px;
-  padding-top: 6px;
+  margin: 0 12px;
 }
 
-.board-column:first-child {
-  padding-left: 0;
+.board-column.hovered {
+  background-color: var(--light-gray);
+  transition: background-color 0.3s ease-in-out;
 }
