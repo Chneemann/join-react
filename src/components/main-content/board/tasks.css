@@ -1,7 +1,7 @@
 @import "./../../../styles/colors.css";
 
 .tasks {
-  margin: 15.5px 0;
+  padding: 6px;
 }
 
 /* Tasks */
@@ -10,7 +10,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 238px;
+  width: 226px;
+  min-width: 226px;
+  height: fit-content;
   padding: 16px;
   margin-bottom: 12px;
   border-radius: 24px;
@@ -86,7 +88,7 @@
 
 .task-subtask-line {
   display: flex;
-  width: 140px;
+  width: 130px;
   height: 8px;
   padding-right: 0px;
   flex-direction: column;
@@ -241,4 +243,19 @@
 .no-tasks p {
   font-size: 18px;
   font-weight: 400;
+}
+
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 750px) {
+  .tasks {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .no-tasks {
+    width: 100%;
+    max-width: 100%;
+  }
 }
