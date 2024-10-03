@@ -3,10 +3,34 @@
 /* Responsive */
 
 @media screen and (max-width: 1200px) {
+  .summary {
+    padding: 48px 0;
+  }
+
+  /* Content */
+
   .content-container-upper {
     flex-direction: column;
     align-items: center;
   }
+
+  .content-container-lower {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+
+  .content-container-lower .task-in-board,
+  .content-container-lower .task-other,
+  .content-container-lower .task-todo,
+  .content-container-lower .task-done {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+  }
+
+  /* Tasks */
 
   .task-todo {
     width: 591px;
@@ -29,7 +53,23 @@
     transform: scale(1.02);
   }
 
-  .task-todo:hover .task-todo-container {
+  .task-in-board:hover,
+  .task-other:hover,
+  .task-done:hover {
+    border-color: var(--blue);
+    border-top-left-radius: 0px;
+    background-color: var(--blue);
+    transform: scale(1.02);
+  }
+
+  .urgent-task:hover .urgent-task-container,
+  .task-todo:hover .task-todo-container,
+  .task-other:hover .task-other-container,
+  .task-done:hover .task-done-container,
+  .task-in-board:hover .task-in-board-container {
     transform: scale(1.2);
   }
+}
+
+@media screen and (max-width: 800px) {
 }
