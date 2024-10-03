@@ -3,6 +3,7 @@ import { Task } from "../../interfaces/task.interface";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import "./summary.css";
+import "./summary-mobile.css";
 
 interface SummaryProps extends WithTranslation {
   tasks: Task[];
@@ -18,6 +19,7 @@ interface SummaryState {
     urgent: Task[];
   };
   formattedDueDate: string;
+  isMobile: boolean;
 }
 
 class Summary extends Component<SummaryProps, SummaryState> {
@@ -33,7 +35,9 @@ class Summary extends Component<SummaryProps, SummaryState> {
         urgent: [],
       },
       formattedDueDate: "No Deadline",
+      isMobile: window.innerWidth <= 1200,
     };
+    this.handleResize = this.handleResize.bind(this);
   }
 
   /**
@@ -41,6 +45,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
    */
   componentDidMount() {
     this.aggregateTaskCounts(this.props.tasks);
+    window.addEventListener("resize", this.handleResize);
   }
 
   /**
@@ -52,6 +57,14 @@ class Summary extends Component<SummaryProps, SummaryState> {
     if (prevProps.tasks !== this.props.tasks) {
       this.aggregateTaskCounts(this.props.tasks);
     }
+  }
+
+  /**
+   * Remove the event listener from the window that listens for the "resize" event.
+   * This is called when the component is being unmounted.
+   */
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   }
 
   /**
@@ -105,9 +118,13 @@ class Summary extends Component<SummaryProps, SummaryState> {
     this.setState({ taskCounts, formattedDueDate });
   }
 
+  handleResize() {
+    this.setState({ isMobile: window.innerWidth <= 1200 });
+  }
+
   render() {
     const { t, loading } = this.props;
-    const { taskCounts, formattedDueDate } = this.state;
+    const { taskCounts, formattedDueDate, isMobile } = this.state;
 
     return (
       <div className="summary">
@@ -157,58 +174,114 @@ class Summary extends Component<SummaryProps, SummaryState> {
                 </div>
               </div>
             </NavLink>
-            <NavLink to="/board" className="task-in-board">
-              <div className="task-in-board-container">
-                <div className="task-in-board-info">
-                  <div className="task-in-board-icon">
-                    <img
-                      className="img"
-                      src="./../assets/img/summary/board.svg"
-                      alt="Board task icon"
-                    />
-                    <span>
-                      {loading ? (
-                        <img
-                          className="sync-img"
-                          src="./../assets/img/sync.svg"
-                          alt=""
-                        />
-                      ) : (
-                        this.props.tasks.length
-                      )}
-                    </span>
+            {!isMobile ? (
+              <NavLink to="/board" className="task-in-board">
+                <div className="task-in-board-container">
+                  <div className="task-in-board-info">
+                    <div className="task-in-board-icon">
+                      <img
+                        className="img"
+                        src="./../assets/img/summary/board.svg"
+                        alt="Board task icon"
+                      />
+                      <span>
+                        {loading ? (
+                          <img
+                            className="sync-img"
+                            src="./../assets/img/sync.svg"
+                            alt=""
+                          />
+                        ) : (
+                          this.props.tasks.length
+                        )}
+                      </span>
+                    </div>
+                    <p>{t("summary.tasksInBoard")}</p>
                   </div>
-                  <p>{t("summary.tasksInBoard")}</p>
                 </div>
-              </div>
-            </NavLink>
+              </NavLink>
+            ) : (
+              <NavLink to="/board" className="task-todo">
+                <div className="task-todo-container">
+                  <div className="task-todo-info">
+                    <div className="task-todo-icon">
+                      <img
+                        className="img"
+                        src="./../assets/img/summary/todo.svg"
+                        alt="Todo task icon"
+                      />
+                      <span>
+                        {loading ? (
+                          <img
+                            className="sync-img"
+                            src="./../assets/img/sync.svg"
+                            alt=""
+                          />
+                        ) : (
+                          taskCounts.todo
+                        )}
+                      </span>
+                    </div>
+                    <p>{t("summary.tasksTodo")}</p>
+                  </div>
+                </div>
+              </NavLink>
+            )}
           </div>
           <div className="content-container-lower">
-            <NavLink to="/board" className="task-todo">
-              <div className="task-todo-container">
-                <div className="task-todo-info">
-                  <div className="task-todo-icon">
-                    <img
-                      className="img"
-                      src="./../assets/img/summary/todo.svg"
-                      alt="Todo task icon"
-                    />
-                    <span>
-                      {loading ? (
-                        <img
-                          className="sync-img"
-                          src="./../assets/img/sync.svg"
-                          alt=""
-                        />
-                      ) : (
-                        taskCounts.todo
-                      )}
-                    </span>
+            {isMobile ? (
+              <NavLink to="/board" className="task-in-board">
+                <div className="task-in-board-container">
+                  <div className="task-in-board-info">
+                    <div className="task-in-board-icon">
+                      <img
+                        className="img"
+                        src="./../assets/img/summary/board.svg"
+                        alt="Board task icon"
+                      />
+                      <span>
+                        {loading ? (
+                          <img
+                            className="sync-img"
+                            src="./../assets/img/sync.svg"
+                            alt=""
+                          />
+                        ) : (
+                          this.props.tasks.length
+                        )}
+                      </span>
+                    </div>
+                    <p>{t("summary.tasksInBoard")}</p>
                   </div>
-                  <p>{t("summary.tasksTodo")}</p>
                 </div>
-              </div>
-            </NavLink>
+              </NavLink>
+            ) : (
+              <NavLink to="/board" className="task-todo">
+                <div className="task-todo-container">
+                  <div className="task-todo-info">
+                    <div className="task-todo-icon">
+                      <img
+                        className="img"
+                        src="./../assets/img/summary/todo.svg"
+                        alt="Todo task icon"
+                      />
+                      <span>
+                        {loading ? (
+                          <img
+                            className="sync-img"
+                            src="./../assets/img/sync.svg"
+                            alt=""
+                          />
+                        ) : (
+                          taskCounts.todo
+                        )}
+                      </span>
+                    </div>
+                    <p>{t("summary.tasksTodo")}</p>
+                  </div>
+                </div>
+              </NavLink>
+            )}
             <NavLink to="/board" className="task-other">
               <div className="task-other-container">
                 <div className="task-other-info">
