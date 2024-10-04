@@ -72,4 +72,76 @@
 }
 
 @media screen and (max-width: 800px) {
+  .content-container-upper,
+  .content-container-lower {
+    width: 500px;
+  }
+
+  .summary-headline {
+    display: none;
+  }
+
+  .urgent-task,
+  .task-todo {
+    width: 450px;
+    padding: 14px 24px;
+  }
+
+  .task-in-board,
+  .task-other,
+  .task-done {
+    height: 134px !important;
+    padding: 14px 24px;
+  }
+
+  .urgent-task-info {
+    width: 120px;
+    padding-left: 12px;
+  }
+
+  .urgent-task-divider {
+    height: 85%;
+  }
+
+  .urgent-task-container {
+    gap: 18px;
+  }
+
+  .urgent-task-deadline p,
+  .urgent-task-info p,
+  .task-todo-info p,
+  .task-in-board-info p,
+  .task-other-info p,
+  .task-done-info p {
+    font-size: 18px;
+  }
+
+  .urgent-task-deadline span {
+    font-size: 23px;
+  }
+
+  .urgent-task-info span,
+  .task-todo-info span,
+  .task-in-board-info span,
+  .task-other-info span,
+  .task-done-info span {
+    font-size: 36px;
+  }
+
+  .urgent-task-icon,
+  .task-todo-icon,
+  .task-in-board-icon,
+  .task-other-icon,
+  .task-done-icon {
+    width: 90px;
+  }
+
+  .urgent-task-icon .img,
+  .task-todo-icon .img,
+  .task-in-board-icon .img,
+  .task-other-icon .img,
+  .task-done-icon .img {
+    width: 42px;
+    height: 42px;
+  }
 }

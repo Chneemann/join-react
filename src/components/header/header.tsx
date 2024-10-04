@@ -22,12 +22,16 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
     return (
       <header>
-        <img className="logo" src="./assets/img/logo-small-white.svg" alt="" />
-        <div className="container-right">
-          <p>{t("header.title")}</p>
+        <img
+          className="header-logo"
+          src="./assets/img/logo-small-white.svg"
+          alt=""
+        />
+        <div className="header-container">
+          <p className="header-title">{t("header.title")}</p>
           <SmallBtn image="help.svg" to="/help" />
           <SmallBtn image="language.svg" onClick={this.changeLanguage} />
-          <MemberCircle memberInitials="GG" />
+          <MemberCircle memberInitials="G" />
         </div>
       </header>
     );
