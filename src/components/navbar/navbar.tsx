@@ -5,7 +5,6 @@ import "./navbar.css";
 
 interface NavbarProps extends WithTranslation {}
 
-// Create NavItem component
 const NavItem = ({
   to,
   icon,
@@ -24,7 +23,6 @@ const NavItem = ({
   </NavLink>
 );
 
-// Create FooterItem component
 const FooterItem = ({ icon, label }: { icon: string; label: string }) => (
   <div className="navbar-footer-item">
     <div className="footer-text">{label}</div>
@@ -34,64 +32,76 @@ const FooterItem = ({ icon, label }: { icon: string; label: string }) => (
   </div>
 );
 
-// Navbar component
+const DesktopNavbar: React.FC<NavbarProps> = ({ t }) => {
+  const navItems = [
+    {
+      to: "/summary",
+      icon: "/assets/img/navbar/summary.svg",
+      label: t("navbar.summary"),
+    },
+    {
+      to: "/add-task",
+      icon: "/assets/img/navbar/add-task.svg",
+      label: t("navbar.addTask"),
+    },
+    {
+      to: "/board",
+      icon: "/assets/img/navbar/board.svg",
+      label: t("navbar.board"),
+    },
+    {
+      to: "/contacts",
+      icon: "/assets/img/navbar/contacts.svg",
+      label: t("navbar.contacts"),
+    },
+  ];
+
+  const footerItems = [
+    {
+      icon: "/assets/img/navbar/privacy-policy.svg",
+      label: t("navbar.privacyPolicy"),
+    },
+    {
+      icon: "/assets/img/navbar/legal-notice.svg",
+      label: t("navbar.legalNotice"),
+    },
+    { icon: "/assets/img/navbar/log-out.svg", label: t("navbar.logout") },
+  ];
+
+  return (
+    <React.Fragment>
+      <nav>
+        {navItems.map((item, index) => (
+          <NavItem
+            key={index}
+            to={item.to}
+            icon={item.icon}
+            label={item.label}
+          />
+        ))}
+      </nav>
+      <div className="navbar-footer">
+        {footerItems.map((item, index) => (
+          <FooterItem key={index} icon={item.icon} label={item.label} />
+        ))}
+      </div>
+    </React.Fragment>
+  );
+};
+
+const NavbarMobile: React.FC<NavbarProps> = () => (
+  <React.Fragment></React.Fragment>
+);
+
 class Navbar extends React.Component<NavbarProps> {
   render() {
-    const { t } = this.props;
-
-    // Navbar Items Configuration
-    const navItems = [
-      {
-        to: "/summary",
-        icon: "/assets/img/navbar/summary.svg",
-        label: t("navbar.summary"),
-      },
-      {
-        to: "/add-task",
-        icon: "/assets/img/navbar/add-task.svg",
-        label: t("navbar.addTask"),
-      },
-      {
-        to: "/board",
-        icon: "/assets/img/navbar/board.svg",
-        label: t("navbar.board"),
-      },
-      {
-        to: "/contacts",
-        icon: "/assets/img/navbar/contacts.svg",
-        label: t("navbar.contacts"),
-      },
-    ];
-
-    // Footer Items Configuration
-    const footerItems = [
-      {
-        icon: "/assets/img/navbar/privacy-policy.svg",
-        label: t("navbar.privacyPolicy"),
-      },
-      {
-        icon: "/assets/img/navbar/legal-notice.svg",
-        label: t("navbar.legalNotice"),
-      },
-      { icon: "/assets/img/navbar/log-out.svg", label: t("navbar.logout") },
-    ];
-
     return (
-      <div className="navbar">
-        <nav>
-          {navItems.map((item, index) => (
-            <NavItem
-              key={index}
-              to={item.to}
-              icon={item.icon}
-              label={item.label}
-            />
-          ))}
-        </nav>
-        <div className="navbar-footer">
-          {footerItems.map((item, index) => (
-            <FooterItem key={index} icon={item.icon} label={item.label} />
-          ))}
+      <div>
+        <div className="navbar-desktop">
+          <DesktopNavbar {...this.props} />
+        </div>
+        <div className="navbar-mobile">
+          <NavbarMobile {...this.props} />
         </div>
       </div>
     );

@@ -2,7 +2,7 @@
 
 /* Navbar */
 
-.navbar {
+.navbar-desktop {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,7 +12,7 @@
   background-color: var(--white);
 }
 
-.navbar nav {
+.navbar-desktop nav {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,7 +93,7 @@
 /* Media queries */
 
 @media (max-width: 1200px) {
-  .navbar {
+  .navbar-desktop {
     width: 60px;
   }
 
@@ -101,7 +101,7 @@
     width: 40px;
   }
 
-  .navbar nav {
+  .navbar-desktop nav {
     width: 34px;
     padding: 13px;
   }
@@ -124,7 +124,11 @@
 }
 
 @media screen and (max-width: 600px) {
-  .navbar {
+  .navbar-desktop {
     display: none;
+  }
+
+  .navbar-mobile {
+    display: block;
   }
 }
