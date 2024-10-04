@@ -23,6 +23,26 @@ const NavItem = ({
   </NavLink>
 );
 
+const NavItemMobile = ({
+  to,
+  icon,
+  label,
+}: {
+  to: string;
+  icon: string;
+  label: string;
+}) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) =>
+      isActive ? "nav-item-mobile active" : "nav-item-mobile"
+    }
+  >
+    <img src={icon} alt={label} />
+    <span>{label}</span>
+  </NavLink>
+);
+
 const FooterItem = ({ icon, label }: { icon: string; label: string }) => (
   <div className="navbar-footer-item">
     <div className="footer-text">{label}</div>
@@ -32,29 +52,32 @@ const FooterItem = ({ icon, label }: { icon: string; label: string }) => (
   </div>
 );
 
+// Definition der navItems
+const getNavItems = (t: any) => [
+  {
+    to: "/summary",
+    icon: "/assets/img/navbar/summary.svg",
+    label: t("navbar.summary"),
+  },
+  {
+    to: "/add-task",
+    icon: "/assets/img/navbar/add-task.svg",
+    label: t("navbar.addTask"),
+  },
+  {
+    to: "/board",
+    icon: "/assets/img/navbar/board.svg",
+    label: t("navbar.board"),
+  },
+  {
+    to: "/contacts",
+    icon: "/assets/img/navbar/contacts.svg",
+    label: t("navbar.contacts"),
+  },
+];
+
 const DesktopNavbar: React.FC<NavbarProps> = ({ t }) => {
-  const navItems = [
-    {
-      to: "/summary",
-      icon: "/assets/img/navbar/summary.svg",
-      label: t("navbar.summary"),
-    },
-    {
-      to: "/add-task",
-      icon: "/assets/img/navbar/add-task.svg",
-      label: t("navbar.addTask"),
-    },
-    {
-      to: "/board",
-      icon: "/assets/img/navbar/board.svg",
-      label: t("navbar.board"),
-    },
-    {
-      to: "/contacts",
-      icon: "/assets/img/navbar/contacts.svg",
-      label: t("navbar.contacts"),
-    },
-  ];
+  const navItems = getNavItems(t);
 
   const footerItems = [
     {
@@ -89,9 +112,24 @@ const DesktopNavbar: React.FC<NavbarProps> = ({ t }) => {
   );
 };
 
-const NavbarMobile: React.FC<NavbarProps> = () => (
-  <React.Fragment></React.Fragment>
-);
+const NavbarMobile: React.FC<NavbarProps> = ({ t }) => {
+  const navItems = getNavItems(t);
+
+  return (
+    <React.Fragment>
+      <nav>
+        {navItems.map((item, index) => (
+          <NavItemMobile
+            key={index}
+            to={item.to}
+            icon={item.icon}
+            label={item.label}
+          />
+        ))}
+      </nav>
+    </React.Fragment>
+  );
+};
 
 class Navbar extends React.Component<NavbarProps> {
   render() {
