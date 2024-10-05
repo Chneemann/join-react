@@ -438,9 +438,3 @@
 .urgent-task-icon span {
   color: var(--white);
 }
-
-@media screen and (max-width: 600px) {
-  .summary {
-    margin-bottom: 76px;
-  }
-}

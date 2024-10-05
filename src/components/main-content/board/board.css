@@ -223,3 +223,10 @@
     padding: 0 5px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .board {
+    padding: 24px;
+    margin-bottom: 76px;
+  }
+}

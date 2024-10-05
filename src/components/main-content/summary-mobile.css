@@ -145,3 +145,11 @@
     height: 42px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .summary {
+    padding: 24px;
+    margin-bottom: 76px;
+    width: calc(100% - 48px);
+  }
+}

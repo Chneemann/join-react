@@ -99,8 +99,9 @@
   left: 0;
   height: 76px;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 2px solid rgba(0, 0, 0, 0.05);
   background-color: var(--white);
+  z-index: 2;
 }
 
 .navbar-mobile nav {

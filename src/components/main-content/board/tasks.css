@@ -1,7 +1,7 @@
 @import "./../../../styles/colors.css";
 
 .tasks {
-  padding: 6px;
+  padding: 9px;
 }
 
 /* Tasks */
@@ -17,12 +17,12 @@
   margin-bottom: 12px;
   border-radius: 24px;
   background-color: var(--white);
-  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
 }
 
 .task:hover {
-  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Task Header */
