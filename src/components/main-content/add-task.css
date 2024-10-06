@@ -1,0 +1,56 @@
+@import "./../../styles/colors.css";
+
+.red-dot {
+  color: var(--light-red);
+}
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 6px;
+  p {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--red);
+    margin: 0;
+  }
+}
+
+/* Add task */
+
+.add-task {
+  padding: 48px;
+  width: 100%;
+}
+
+.add-task-title p,
+.add-task-description p {
+  font-size: 20px;
+  font-weight: 400;
+  padding-bottom: 6px;
+  margin: 0;
+}
+
+input,
+textarea,
+select {
+  font-size: 20px;
+  font-weight: 400;
+  border-radius: 10px;
+  border: 1px solid var(--light-gray);
+  padding: 12px 21px;
+  width: calc(100% - 42px);
+  color: var(--black);
+  background-color: var(--white);
+  resize: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Left side */
+
+.add-task-left {
+  width: 45%;
+}

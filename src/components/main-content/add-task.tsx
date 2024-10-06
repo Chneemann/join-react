@@ -1,4 +1,5 @@
 import React from "react";
+import "./add-task.css";
 
 interface TaskData {
   title: string;
@@ -28,24 +29,26 @@ class TaskForm extends React.Component<{}, State> {
     };
   }
 
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
+  handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    field: "title" | "description"
+  ) => {
+    this.setState((prevState) => ({
       taskData: {
-        ...this.state.taskData,
-        title: event.target.value,
+        ...prevState.taskData,
+        [field]: event.target.value,
       },
-      titleTouched: false,
-    });
+      titleTouched: field === "title" ? false : prevState.titleTouched,
+      descriptionTouched:
+        field === "description" ? false : prevState.descriptionTouched,
+    }));
   };
 
-  handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    this.setState({
-      taskData: {
-        ...this.state.taskData,
-        description: event.target.value,
-      },
-      descriptionTouched: false,
-    });
+  openAssignedUserList = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const inputValue = event.target.value;
+    console.log(inputValue);
   };
 
   render() {
@@ -65,65 +68,79 @@ class TaskForm extends React.Component<{}, State> {
     const isDescriptionEmpty = taskData.description.length === 0;
 
     return (
-      <div>
-        <div className="title">
-          <p>
-            Title
-            <span className="red-dot">*</span>
-          </p>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            placeholder={taskData.title ? taskData.title : "Enter title..."}
-            value={taskData.title}
-            autoComplete="off"
-            required
-            onChange={this.handleInputChange}
-            onBlur={() => {
-              this.setState({
-                titleTouched: true,
-                titleError: isTitleEmpty
-                  ? "Required"
-                  : !isTitleValid
-                  ? "Minimum 8 letters required"
-                  : "",
-              });
-            }}
-          />
-          <div className="error-msg">
-            {titleTouched && titleError && <p>{titleError}</p>}
+      <div className="add-task">
+        <div className="add-task-left">
+          <div className="add-task-title">
+            <p>
+              Title
+              <span className="red-dot">*</span>
+            </p>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder={taskData.title ? taskData.title : "Enter title..."}
+              value={taskData.title}
+              autoComplete="off"
+              required
+              onChange={(event) => this.handleInputChange(event, "title")}
+              onBlur={() => {
+                this.setState({
+                  titleTouched: true,
+                  titleError: isTitleEmpty
+                    ? "Required"
+                    : !isTitleValid
+                    ? "Minimum 8 letters required"
+                    : "",
+                });
+              }}
+            />
+            <div className="error-msg">
+              {titleTouched && titleError && <p>{titleError}</p>}
+            </div>
           </div>
-        </div>
-        <div className="description">
-          <p>
-            Description
-            <span className="red-dot">*</span>
-          </p>
-          <textarea
-            id="description"
-            rows={5}
-            name="description"
-            value={taskData.description}
-            onChange={this.handleDescriptionChange}
-            onBlur={() => {
-              this.setState({
-                descriptionTouched: true,
-                descriptionError: isDescriptionEmpty
-                  ? "Required"
-                  : !isDescriptionValid
-                  ? "Minimum 24 letters required"
-                  : "",
-              });
-            }}
-            placeholder="Enter a description..."
-            autoComplete="off"
-            required
-          ></textarea>
-          <div className="error-msg">
-            {descriptionTouched && descriptionError && (
-              <p>{descriptionError}</p>
-            )}
+          <div className="add-task-description">
+            <p>
+              Description
+              <span className="red-dot">*</span>
+            </p>
+            <textarea
+              id="description"
+              rows={5}
+              name="description"
+              value={taskData.description}
+              onChange={(event) => this.handleInputChange(event, "description")}
+              onBlur={() => {
+                this.setState({
+                  descriptionTouched: true,
+                  descriptionError: isDescriptionEmpty
+                    ? "Required"
+                    : !isDescriptionValid
+                    ? "Minimum 24 letters required"
+                    : "",
+                });
+              }}
+              placeholder="Enter a description..."
+              autoComplete="off"
+              required
+            ></textarea>
+            <div className="error-msg">
+              {descriptionTouched && descriptionError && (
+                <p>{descriptionError}</p>
+              )}
+            </div>
+          </div>
+          <div className="add-task-assigned">
+            <p>Assigned to</p>
+            <input
+              type="text"
+              id="assigned"
+              name="assigned"
+              placeholder="Search..."
+              autoComplete="off"
+              required
+              onChange={(event) => this.openAssignedUserList(event)}
+            />
           </div>
         </div>
       </div>
