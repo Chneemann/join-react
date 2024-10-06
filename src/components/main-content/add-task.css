@@ -1,34 +1,18 @@
 @import "./../../styles/colors.css";
 
-.red-dot {
-  color: var(--light-red);
-}
-
-.error-msg {
-  display: flex;
-  align-items: center;
-  height: 24px;
-  padding: 6px;
-  p {
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--red);
-    margin: 0;
-  }
-}
-
 /* Add task */
 
 .add-task {
   display: flex;
   padding: 48px;
-  width: 100%;
+  width: calc(100% - 96px);
   height: 450px;
 }
 
 .add-task-title p,
 .add-task-description p,
-.add-task-assigned p {
+.add-task-assigned p,
+.add-task-date p {
   font-size: 20px;
   font-weight: 400;
   padding-bottom: 6px;
@@ -76,4 +60,24 @@ select {
 
 .add-task-right {
   width: 45%;
+}
+
+/* Error message */
+
+.red-dot {
+  color: var(--light-red);
+}
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 6px;
+}
+
+.error-msg p {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--red);
+  margin: 0;
 }

@@ -4,6 +4,7 @@ import "./add-task.css";
 interface TaskData {
   title: string;
   description: string;
+  date: string;
 }
 
 interface State {
@@ -12,6 +13,9 @@ interface State {
   titleError: string;
   descriptionTouched: boolean;
   descriptionError: string;
+  dateTouched: boolean;
+  dateError: string;
+  dateInPast: boolean;
 }
 
 class TaskForm extends React.Component<{}, State> {
@@ -21,11 +25,15 @@ class TaskForm extends React.Component<{}, State> {
       taskData: {
         title: "",
         description: "",
+        date: "",
       },
       titleTouched: false,
       titleError: "",
       descriptionTouched: false,
       descriptionError: "",
+      dateTouched: false,
+      dateError: "",
+      dateInPast: false,
     };
   }
 
@@ -44,6 +52,39 @@ class TaskForm extends React.Component<{}, State> {
     }));
   };
 
+  handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const today = new Date();
+    const selectedDate = new Date(value);
+
+    // Check if the date is in the past
+    const isDateInPast = selectedDate < today;
+
+    this.setState((prevState) => ({
+      taskData: {
+        ...prevState.taskData,
+        date: value,
+      },
+      dateTouched: false,
+      dateInPast: isDateInPast,
+      dateError: value === "" ? "Date is required" : "",
+    }));
+  };
+
+  handleDateBlur = () => {
+    const { date } = this.state.taskData;
+    const today = new Date();
+    const selectedDate = new Date(date);
+
+    const isDateInPast = selectedDate < today;
+
+    this.setState({
+      dateTouched: true,
+      dateError: date === "" ? "Date is required" : "",
+      dateInPast: isDateInPast,
+    });
+  };
+
   openAssignedUserList = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -58,6 +99,9 @@ class TaskForm extends React.Component<{}, State> {
       titleError,
       descriptionTouched,
       descriptionError,
+      dateTouched,
+      dateError,
+      dateInPast,
     } = this.state;
 
     // Validation logic
@@ -143,10 +187,35 @@ class TaskForm extends React.Component<{}, State> {
             />
           </div>
         </div>
+
         <div className="add-task-middle">
           <div className="line"></div>
         </div>
-        <div className="add-task-right"></div>
+
+        <div className="add-task-right">
+          <div className="add-task-date">
+            <p>
+              Date
+              <span className="red-dot">*</span>
+            </p>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={taskData.date}
+              onChange={this.handleDateChange}
+              onBlur={this.handleDateBlur}
+              autoComplete="off"
+              required
+            />
+            <div className="error-msg">
+              {dateTouched && dateError && <p>{dateError}</p>}
+              {dateTouched && !dateError && dateInPast && (
+                <p>Date cannot be in the past</p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
