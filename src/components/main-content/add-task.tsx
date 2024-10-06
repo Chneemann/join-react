@@ -143,6 +143,10 @@ class TaskForm extends React.Component<{}, State> {
             />
           </div>
         </div>
+        <div className="add-task-middle">
+          <div className="line"></div>
+        </div>
+        <div className="add-task-right"></div>
       </div>
     );
   }
