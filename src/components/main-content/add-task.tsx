@@ -1,18 +1,10 @@
 import React from "react";
 import "./add-task.css";
-
-interface TaskData {
-  title: string;
-  description: string;
-  date: string;
-  priority: string;
-  category: string;
-  subtasksTitle: string[];
-  subtasksDone: boolean[];
-}
+import { Task } from "../../interfaces/task.interface";
+import LargeButton from "../shared/components/buttons/large-btn";
 
 interface State {
-  taskData: TaskData;
+  taskData: Task;
   titleTouched: boolean;
   titleError: string;
   descriptionTouched: boolean;
@@ -37,6 +29,9 @@ class TaskForm extends React.Component<{}, State> {
         category: "",
         subtasksTitle: [],
         subtasksDone: [],
+        assigned: [],
+        creator: "",
+        status: "todo",
       },
       titleTouched: false,
       titleError: "",
@@ -186,251 +181,259 @@ class TaskForm extends React.Component<{}, State> {
 
     return (
       <div className="add-task">
-        <div className="add-task-left">
-          <div className="add-task-title">
-            <p>
-              Title
-              <span className="red-dot">*</span>
-            </p>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              placeholder={taskData.title ? taskData.title : "Enter title..."}
-              value={taskData.title}
-              autoComplete="off"
-              required
-              onChange={(event) => this.handleInputChange(event, "title")}
-              onBlur={() => {
-                this.setState({
-                  titleTouched: true,
-                  titleError: isTitleEmpty
-                    ? "Required"
-                    : !isTitleValid
-                    ? "Minimum 8 letters required"
-                    : "",
-                });
-              }}
-            />
-            <div className="error-msg">
-              {titleTouched && titleError && <p>{titleError}</p>}
-            </div>
-          </div>
-          <div className="add-task-description">
-            <p>
-              Description
-              <span className="red-dot">*</span>
-            </p>
-            <textarea
-              id="description"
-              rows={5}
-              name="description"
-              value={taskData.description}
-              onChange={(event) => this.handleInputChange(event, "description")}
-              onBlur={() => {
-                this.setState({
-                  descriptionTouched: true,
-                  descriptionError: isDescriptionEmpty
-                    ? "Required"
-                    : !isDescriptionValid
-                    ? "Minimum 24 letters required"
-                    : "",
-                });
-              }}
-              placeholder="Enter a description..."
-              autoComplete="off"
-              required
-            ></textarea>
-            <div className="error-msg">
-              {descriptionTouched && descriptionError && (
-                <p>{descriptionError}</p>
-              )}
-            </div>
-          </div>
-          <div className="add-task-assigned">
-            <p>Assigned to</p>
-            <input
-              type="text"
-              id="assigned"
-              name="assigned"
-              placeholder="Search..."
-              autoComplete="off"
-              required
-              onChange={(event) => this.openAssignedUserList(event)}
-            />
-          </div>
-        </div>
-
-        <div className="add-task-middle">
-          <div className="line"></div>
-        </div>
-
-        <div className="add-task-right">
-          <div className="add-task-date">
-            <p>
-              Date
-              <span className="red-dot">*</span>
-            </p>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={taskData.date}
-              onChange={this.handleDateChange}
-              onBlur={this.handleDateBlur}
-              autoComplete="off"
-              required
-            />
-            <div className="error-msg">
-              {dateTouched && dateError && <p>{dateError}</p>}
-              {dateTouched && !dateError && dateInPast && (
-                <p>Date cannot be in the past</p>
-              )}
-            </div>
-          </div>
-          <div className="add-task-priority">
-            <p>Priority</p>
-            <div className="add-task-priority-btns">
-              <button
-                type="button"
-                className={`add-task-priority-btn ${
-                  taskData.priority === "urgent"
-                    ? "add-task-priority-btn-active"
-                    : ""
-                }`}
-                style={{
-                  backgroundColor:
-                    taskData.priority === "urgent" ? "red" : "white",
-                }}
-                onClick={() => this.togglePriority("urgent")}
-              >
-                <div className="add-task-priority-btn-text">
-                  <span>Urgent</span>
-                  <img src="/assets/img/urgent.svg" alt="Urgent" />
-                </div>
-              </button>
-              <button
-                type="button"
-                className={`add-task-priority-btn ${
-                  taskData.priority === "medium"
-                    ? "add-task-priority-btn-active"
-                    : ""
-                }`}
-                style={{
-                  backgroundColor:
-                    taskData.priority === "medium" ? "orange" : "white",
-                }}
-                onClick={() => this.togglePriority("medium")}
-              >
-                <div className="add-task-priority-btn-text">
-                  <span>Medium</span>
-                  <img src="/assets/img/medium.svg" alt="Medium" />
-                </div>
-              </button>
-              <button
-                type="button"
-                className={`add-task-priority-btn ${
-                  taskData.priority === "low"
-                    ? "add-task-priority-btn-active"
-                    : ""
-                }`}
-                style={{
-                  backgroundColor:
-                    taskData.priority === "low" ? "green" : "white",
-                }}
-                onClick={() => this.togglePriority("low")}
-              >
-                <div className="add-task-priority-btn-text">
-                  <span>Low</span>
-                  <img src="/assets/img/low.svg" alt="Low" />
-                </div>
-              </button>
-            </div>
-          </div>
-          <div className="add-task-category">
-            <p>
-              Category<span className="red-dot">*</span>
-            </p>
-            <select
-              id="category"
-              name="category"
-              value={taskData.category}
-              onChange={(event) => this.handleInputChange(event, "category")}
-              onBlur={() => {
-                if (!taskData.category) {
+        <div className="add-task-content">
+          <div className="add-task-left">
+            <div className="add-task-title">
+              <p>
+                Title
+                <span className="red-dot">*</span>
+              </p>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder={taskData.title ? taskData.title : "Enter title..."}
+                value={taskData.title}
+                autoComplete="off"
+                required
+                onChange={(event) => this.handleInputChange(event, "title")}
+                onBlur={() => {
                   this.setState({
-                    categoryTouched: true,
-                    categoryError: "Required",
+                    titleTouched: true,
+                    titleError: isTitleEmpty
+                      ? "Required"
+                      : !isTitleValid
+                      ? "Minimum 8 letters required"
+                      : "",
                   });
+                }}
+              />
+              <div className="error-msg">
+                {titleTouched && titleError && <p>{titleError}</p>}
+              </div>
+            </div>
+            <div className="add-task-description">
+              <p>
+                Description
+                <span className="red-dot">*</span>
+              </p>
+              <textarea
+                id="description"
+                rows={5}
+                name="description"
+                value={taskData.description}
+                onChange={(event) =>
+                  this.handleInputChange(event, "description")
                 }
-              }}
-              required
-            >
-              <option value="" disabled>
-                Select Category
-              </option>
-              <option value="User Story">User Story</option>
-              <option value="Technical Task">Technical Task</option>
-            </select>
-            <img
-              className="open"
-              src="/assets/img/add-task/arrow-down.svg"
-              alt=""
-            />
-            <div className="error-msg">
-              {categoryTouched && categoryError && <p>{categoryError}</p>}
+                onBlur={() => {
+                  this.setState({
+                    descriptionTouched: true,
+                    descriptionError: isDescriptionEmpty
+                      ? "Required"
+                      : !isDescriptionValid
+                      ? "Minimum 24 letters required"
+                      : "",
+                  });
+                }}
+                placeholder="Enter a description..."
+                autoComplete="off"
+                required
+              ></textarea>
+              <div className="error-msg">
+                {descriptionTouched && descriptionError && (
+                  <p>{descriptionError}</p>
+                )}
+              </div>
+            </div>
+            <div className="add-task-assigned">
+              <p>Assigned to</p>
+              <input
+                type="text"
+                id="assigned"
+                name="assigned"
+                placeholder="Search..."
+                autoComplete="off"
+                required
+                onChange={(event) => this.openAssignedUserList(event)}
+              />
             </div>
           </div>
-          <div className="add-task-subtask">
-            <p>Subtask</p>
-            <input
-              type="text"
-              id="subtask"
-              name="subtask"
-              placeholder="Enter subtask..."
-              value={subtaskValue}
-              onChange={this.updateSubtaskValue}
-              autoComplete="off"
-            />
-            {subtaskValue ? (
-              <div className="add-task-subtask-btns">
-                <img
-                  src="./../../../assets/img/add-task/close.svg"
-                  alt="Clear"
-                  onClick={() => this.setState({ subtaskValue: "" })}
-                />
-                <span className="add-task-subtask-line"></span>
-                <img
-                  src="./../../../assets/img/add-task/check.svg"
-                  alt="Add"
-                  onClick={this.addSubtask}
-                />
-              </div>
-            ) : (
-              <img
-                className="add-task-add"
-                src="./../../../assets/img/add-task/add.svg"
-                alt="Add"
-              />
-            )}
-            {taskData.subtasksTitle.length > 0 && (
-              <div className="add-task-subtask-list">
-                {taskData.subtasksTitle
-                  .slice()
-                  .reverse()
-                  .map((task, index) => (
-                    <div key={index} className="add-task-single-subtask">
-                      <p>- {task}</p>
-                      <img
-                        src="./../../../assets/img/add-task/close.svg"
-                        alt="Delete"
-                        onClick={() => this.deleteSubtask(task, index)}
-                      />
-                    </div>
-                  ))}
-              </div>
-            )}
+
+          <div className="add-task-middle">
+            <div className="line"></div>
           </div>
+
+          <div className="add-task-right">
+            <div className="add-task-date">
+              <p>
+                Date
+                <span className="red-dot">*</span>
+              </p>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={taskData.date}
+                onChange={this.handleDateChange}
+                onBlur={this.handleDateBlur}
+                autoComplete="off"
+                required
+              />
+              <div className="error-msg">
+                {dateTouched && dateError && <p>{dateError}</p>}
+                {dateTouched && !dateError && dateInPast && (
+                  <p>Date cannot be in the past</p>
+                )}
+              </div>
+            </div>
+            <div className="add-task-priority">
+              <p>Priority</p>
+              <div className="add-task-priority-btns">
+                <button
+                  type="button"
+                  className={`add-task-priority-btn ${
+                    taskData.priority === "urgent"
+                      ? "add-task-priority-btn-active"
+                      : ""
+                  }`}
+                  style={{
+                    backgroundColor:
+                      taskData.priority === "urgent" ? "red" : "white",
+                  }}
+                  onClick={() => this.togglePriority("urgent")}
+                >
+                  <div className="add-task-priority-btn-text">
+                    <span>Urgent</span>
+                    <img src="/assets/img/urgent.svg" alt="Urgent" />
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  className={`add-task-priority-btn ${
+                    taskData.priority === "medium"
+                      ? "add-task-priority-btn-active"
+                      : ""
+                  }`}
+                  style={{
+                    backgroundColor:
+                      taskData.priority === "medium" ? "orange" : "white",
+                  }}
+                  onClick={() => this.togglePriority("medium")}
+                >
+                  <div className="add-task-priority-btn-text">
+                    <span>Medium</span>
+                    <img src="/assets/img/medium.svg" alt="Medium" />
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  className={`add-task-priority-btn ${
+                    taskData.priority === "low"
+                      ? "add-task-priority-btn-active"
+                      : ""
+                  }`}
+                  style={{
+                    backgroundColor:
+                      taskData.priority === "low" ? "green" : "white",
+                  }}
+                  onClick={() => this.togglePriority("low")}
+                >
+                  <div className="add-task-priority-btn-text">
+                    <span>Low</span>
+                    <img src="/assets/img/low.svg" alt="Low" />
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div className="add-task-category">
+              <p>
+                Category<span className="red-dot">*</span>
+              </p>
+              <select
+                id="category"
+                name="category"
+                value={taskData.category}
+                onChange={(event) => this.handleInputChange(event, "category")}
+                onBlur={() => {
+                  if (!taskData.category) {
+                    this.setState({
+                      categoryTouched: true,
+                      categoryError: "Required",
+                    });
+                  }
+                }}
+                required
+              >
+                <option value="" disabled>
+                  Select Category
+                </option>
+                <option value="User Story">User Story</option>
+                <option value="Technical Task">Technical Task</option>
+              </select>
+              <img
+                className="open"
+                src="/assets/img/add-task/arrow-down.svg"
+                alt=""
+              />
+              <div className="error-msg">
+                {categoryTouched && categoryError && <p>{categoryError}</p>}
+              </div>
+            </div>
+            <div className="add-task-subtask">
+              <p>Subtask</p>
+              <input
+                type="text"
+                id="subtask"
+                name="subtask"
+                placeholder="Enter subtask..."
+                value={subtaskValue}
+                onChange={this.updateSubtaskValue}
+                autoComplete="off"
+              />
+              {subtaskValue ? (
+                <div className="add-task-subtask-btns">
+                  <img
+                    src="./../../../assets/img/add-task/close.svg"
+                    alt="Clear"
+                    onClick={() => this.setState({ subtaskValue: "" })}
+                  />
+                  <span className="add-task-subtask-line"></span>
+                  <img
+                    src="./../../../assets/img/add-task/check.svg"
+                    alt="Add"
+                    onClick={this.addSubtask}
+                  />
+                </div>
+              ) : (
+                <img
+                  className="add-task-add"
+                  src="./../../../assets/img/add-task/add.svg"
+                  alt="Add"
+                />
+              )}
+              {taskData.subtasksTitle.length > 0 && (
+                <div className="add-task-subtask-list">
+                  {taskData.subtasksTitle
+                    .slice()
+                    .reverse()
+                    .map((task, index) => (
+                      <div key={index} className="add-task-single-subtask">
+                        <p>- {task}</p>
+                        <img
+                          src="./../../../assets/img/add-task/close.svg"
+                          alt="Delete"
+                          onClick={() => this.deleteSubtask(task, index)}
+                        />
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="add-task-footer">
+          <LargeButton value="Clear" type="reset" imgPath="clear" />
+          <LargeButton value="Add Task" type="submit" imgPath="add" />
         </div>
       </div>
     );

@@ -1,0 +1,50 @@
+@import "./../../../../styles/colors.css";
+
+.large-btn {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  width: fit-content;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 24px;
+  background-color: var(--blue);
+  border: 1px solid var(--blue);
+  transition: 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.large-btn p {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 4px 0 0;
+}
+
+.large-btn:not(:disabled):hover {
+  background-color: var(--white);
+  border: 1px solid var(--blue);
+}
+
+.large-btn:not(:disabled):hover p {
+  transition: 300ms ease-in-out;
+  color: var(--blue);
+}
+
+.large-btn:not(:disabled):hover .large-btn-icon {
+  transition: 300ms ease-in-out;
+  filter: brightness(0) saturate(100%) invert(26%) sepia(77%) saturate(2342%)
+    hue-rotate(228deg) brightness(83%) contrast(115%);
+}
+
+.large-btn:disabled {
+  background-color: var(--light-blue);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--light-blue);
+  cursor: default;
+}
+
+.large-btn-icon {
+  height: 24px;
+  width: auto;
+  margin: 0 0 0 4px;
+}

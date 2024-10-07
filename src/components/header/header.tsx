@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.css";
-import SmallBtn from "../shared/components/buttons/small-btn/small-btn";
+import SmallBtn from "../shared/components/buttons/small-btn";
 import MemberCircle from "../shared/components/member-circle/member-circle";
 import { withTranslation, WithTranslation } from "react-i18next";
 

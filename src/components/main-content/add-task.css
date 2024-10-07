@@ -3,10 +3,13 @@
 /*** Add task ***/
 
 .add-task {
-  display: flex;
   padding: 48px;
   width: calc(100% - 96px);
-  height: 450px;
+}
+
+.add-task-content {
+  display: flex;
+  min-height: 460px;
 }
 
 .add-task-title p,
@@ -185,6 +188,15 @@ select {
 .add-task-single-subtask img:hover {
   filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
     brightness(92%) contrast(92%);
+}
+
+/* Footer */
+.add-task-footer {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  margin-top: 36px;
+  gap: 32px;
 }
 
 /* Error message */
