@@ -158,6 +158,7 @@ class AddTask extends React.Component<{}, AddTaskState> {
     }));
   };
 
+  // Method to reset the form
   resetForm = () => {
     this.setState({
       taskData: {
@@ -185,29 +186,74 @@ class AddTask extends React.Component<{}, AddTaskState> {
     });
   };
 
+  // Method to validate the fields
+  validateFields = () => {
+    const { taskData } = this.state;
+
+    const isTitleValid = taskData.title.length >= 8;
+    const isDescriptionValid = taskData.description.length >= 24;
+    const isDateValid = taskData.date !== "";
+    const isCategoryValid = taskData.category !== "";
+
+    return {
+      isTitleValid,
+      isDescriptionValid,
+      isDateValid,
+      isCategoryValid,
+      isTitleEmpty: taskData.title.length === 0,
+      isDescriptionEmpty: taskData.description.length === 0,
+      dateError: taskData.date === "" ? "Date is required" : "",
+      categoryError: taskData.category === "" ? "Required" : "",
+    };
+  };
+
+  // Methode zur Prüfung, ob das gesamte Formular valide ist
+  isFormValid = () => {
+    const { isTitleValid, isDescriptionValid, isDateValid, isCategoryValid } =
+      this.validateFields();
+    return isTitleValid && isDescriptionValid && isDateValid && isCategoryValid;
+  };
+
+  // Method to submit the form
+  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const { taskData } = this.state;
+
+    if (
+      taskData.title &&
+      taskData.description &&
+      taskData.date &&
+      taskData.category
+    ) {
+      console.log("Form submitted successfully", taskData);
+    } else {
+      console.log("Please fill all required fields.");
+    }
+  };
+
   render() {
     const {
       taskData,
       titleTouched,
-      titleError,
       descriptionTouched,
-      descriptionError,
       dateTouched,
-      dateError,
       dateInPast,
       categoryTouched,
-      categoryError,
       subtaskValue,
     } = this.state;
 
-    // Validation logic
-    const isTitleValid = taskData.title.length >= 8;
-    const isTitleEmpty = taskData.title.length === 0;
-    const isDescriptionValid = taskData.description.length >= 24;
-    const isDescriptionEmpty = taskData.description.length === 0;
+    const {
+      isTitleValid,
+      isDescriptionValid,
+      isTitleEmpty,
+      isDescriptionEmpty,
+      dateError,
+      categoryError,
+    } = this.validateFields();
 
     return (
-      <form className="add-task">
+      <form className="add-task" onSubmit={this.handleSubmit}>
         <div className="add-task-content">
           <div className="add-task-left">
             <div className="add-task-title">
@@ -227,16 +273,16 @@ class AddTask extends React.Component<{}, AddTaskState> {
                 onBlur={() => {
                   this.setState({
                     titleTouched: true,
-                    titleError: isTitleEmpty
-                      ? "Required"
-                      : !isTitleValid
-                      ? "Minimum 8 letters required"
-                      : "",
                   });
                 }}
               />
               <div className="error-msg">
-                {titleTouched && titleError && <p>{titleError}</p>}
+                {titleTouched &&
+                  (isTitleEmpty ? (
+                    <p>Title is required</p>
+                  ) : (
+                    !isTitleValid && <p>Minimum 8 letters required</p>
+                  ))}
               </div>
             </div>
             <div className="add-task-description">
@@ -255,11 +301,6 @@ class AddTask extends React.Component<{}, AddTaskState> {
                 onBlur={() => {
                   this.setState({
                     descriptionTouched: true,
-                    descriptionError: isDescriptionEmpty
-                      ? "Required"
-                      : !isDescriptionValid
-                      ? "Minimum 24 letters required"
-                      : "",
                   });
                 }}
                 placeholder="Enter a description..."
@@ -267,9 +308,12 @@ class AddTask extends React.Component<{}, AddTaskState> {
                 required
               ></textarea>
               <div className="error-msg">
-                {descriptionTouched && descriptionError && (
-                  <p>{descriptionError}</p>
-                )}
+                {descriptionTouched &&
+                  (isDescriptionEmpty ? (
+                    <p>Description is required</p>
+                  ) : !isDescriptionValid ? (
+                    <p>Minimum 24 letters required</p>
+                  ) : null)}
               </div>
             </div>
             <div className="add-task-assigned">
@@ -280,7 +324,6 @@ class AddTask extends React.Component<{}, AddTaskState> {
                 name="assigned"
                 placeholder="Search..."
                 autoComplete="off"
-                required
                 onChange={(event) => this.openAssignedUserList(event)}
               />
             </div>
@@ -385,7 +428,6 @@ class AddTask extends React.Component<{}, AddTaskState> {
                   if (!taskData.category) {
                     this.setState({
                       categoryTouched: true,
-                      categoryError: "Required",
                     });
                   }
                 }}
@@ -403,7 +445,11 @@ class AddTask extends React.Component<{}, AddTaskState> {
                 alt=""
               />
               <div className="error-msg">
-                {categoryTouched && categoryError && <p>{categoryError}</p>}
+                {categoryTouched && categoryError && (
+                  <p>
+                    <p>Category is required</p>
+                  </p>
+                )}
               </div>
             </div>
             <div className="add-task-subtask">
@@ -466,7 +512,12 @@ class AddTask extends React.Component<{}, AddTaskState> {
             isWhite={true}
             onClick={this.resetForm}
           />
-          <LargeButton value="Add Task" type="submit" imgPath="add" />
+          <LargeButton
+            value="Add Task"
+            type="submit"
+            imgPath="add"
+            disabled={!this.isFormValid()}
+          />
         </div>
       </form>
     );

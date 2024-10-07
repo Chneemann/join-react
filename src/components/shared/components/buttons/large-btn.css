@@ -37,10 +37,20 @@
 }
 
 .large-btn:disabled {
-  background-color: var(--light-blue);
+  background-color: var(--light-gray);
   color: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--light-blue);
+  border: 1px solid var(--gray);
+  color: var(--black);
   cursor: default;
+}
+
+.large-btn:disabled p {
+  color: var(--dark-gray);
+}
+
+.large-btn:disabled .large-btn-icon {
+  filter: brightness(0) saturate(100%) invert(45%) sepia(0%) saturate(1279%)
+    hue-rotate(222deg) brightness(94%) contrast(89%);
 }
 
 .large-btn-icon {
