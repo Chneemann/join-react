@@ -7,16 +7,22 @@ interface LargeButtonProps {
   imgPath?: string;
   isWhite?: boolean;
   value: string;
+  onClick?: () => void;
 }
 
 class LargeButton extends React.Component<LargeButtonProps> {
   render() {
-    const { type, disabled, imgPath, isWhite, value } = this.props;
+    const { type, disabled, imgPath, isWhite, value, onClick } = this.props;
 
     const buttonClass = `large-btn ${isWhite ? "white" : ""}`;
 
     return (
-      <button className={buttonClass} type={type} disabled={disabled}>
+      <button
+        className={buttonClass}
+        type={type}
+        disabled={disabled}
+        onClick={onClick}
+      >
         <p>{value}</p>
         {imgPath && (
           <img

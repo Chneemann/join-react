@@ -3,7 +3,7 @@ import "./add-task.css";
 import { Task } from "../../interfaces/task.interface";
 import LargeButton from "../shared/components/buttons/large-btn";
 
-interface State {
+interface AddTaskState {
   taskData: Task;
   titleTouched: boolean;
   titleError: string;
@@ -17,7 +17,7 @@ interface State {
   subtaskValue: string;
 }
 
-class TaskForm extends React.Component<{}, State> {
+class AddTask extends React.Component<{}, AddTaskState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -158,6 +158,33 @@ class TaskForm extends React.Component<{}, State> {
     }));
   };
 
+  resetForm = () => {
+    this.setState({
+      taskData: {
+        title: "",
+        description: "",
+        date: "",
+        priority: "medium",
+        category: "",
+        subtasksTitle: [],
+        subtasksDone: [],
+        assigned: [],
+        creator: "",
+        status: "todo",
+      },
+      titleTouched: false,
+      titleError: "",
+      descriptionTouched: false,
+      descriptionError: "",
+      dateTouched: false,
+      dateError: "",
+      dateInPast: false,
+      categoryTouched: false,
+      categoryError: "",
+      subtaskValue: "",
+    });
+  };
+
   render() {
     const {
       taskData,
@@ -180,7 +207,7 @@ class TaskForm extends React.Component<{}, State> {
     const isDescriptionEmpty = taskData.description.length === 0;
 
     return (
-      <div className="add-task">
+      <form className="add-task">
         <div className="add-task-content">
           <div className="add-task-left">
             <div className="add-task-title">
@@ -434,15 +461,16 @@ class TaskForm extends React.Component<{}, State> {
         <div className="add-task-footer">
           <LargeButton
             value="Clear"
-            type="reset"
+            type="button"
             imgPath="clear"
             isWhite={true}
+            onClick={this.resetForm}
           />
           <LargeButton value="Add Task" type="submit" imgPath="add" />
         </div>
-      </div>
+      </form>
     );
   }
 }
 
-export default TaskForm;
+export default AddTask;
