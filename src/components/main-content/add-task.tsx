@@ -5,6 +5,7 @@ interface TaskData {
   title: string;
   description: string;
   date: string;
+  priority: string;
 }
 
 interface State {
@@ -26,6 +27,7 @@ class TaskForm extends React.Component<{}, State> {
         title: "",
         description: "",
         date: "",
+        priority: "medium",
       },
       titleTouched: false,
       titleError: "",
@@ -90,6 +92,15 @@ class TaskForm extends React.Component<{}, State> {
   ) => {
     const inputValue = event.target.value;
     console.log(inputValue);
+  };
+
+  togglePriority = (priority: string) => {
+    this.setState((prevState) => ({
+      taskData: {
+        ...prevState.taskData,
+        priority: priority,
+      },
+    }));
   };
 
   render() {
@@ -213,6 +224,65 @@ class TaskForm extends React.Component<{}, State> {
               {dateTouched && !dateError && dateInPast && (
                 <p>Date cannot be in the past</p>
               )}
+            </div>
+          </div>
+          <div className="add-task-priority">
+            <p>Priority</p>
+            <div className="add-task-priority-btns">
+              <button
+                type="button"
+                className={`add-task-priority-btn ${
+                  taskData.priority === "urgent"
+                    ? "add-task-priority-btn-active"
+                    : ""
+                }`}
+                style={{
+                  backgroundColor:
+                    taskData.priority === "urgent" ? "red" : "white",
+                }}
+                onClick={() => this.togglePriority("urgent")}
+              >
+                <div className="add-task-priority-btn-text">
+                  <span>Urgent</span>
+                  <img src="/assets/img/urgent.svg" alt="Urgent" />
+                </div>
+              </button>
+              <button
+                type="button"
+                className={`add-task-priority-btn ${
+                  taskData.priority === "medium"
+                    ? "add-task-priority-btn-active"
+                    : ""
+                }`}
+                style={{
+                  backgroundColor:
+                    taskData.priority === "medium" ? "orange" : "white",
+                }}
+                onClick={() => this.togglePriority("medium")}
+              >
+                <div className="add-task-priority-btn-text">
+                  <span>Medium</span>
+                  <img src="/assets/img/medium.svg" alt="Medium" />
+                </div>
+              </button>
+              <button
+                type="button"
+                className={`add-task-priority-btn ${
+                  taskData.priority === "low"
+                    ? "add-task-priority-btn-active"
+                    : ""
+                }`}
+                style={{
+                  backgroundColor:
+                    taskData.priority === "low" ? "green" : "white",
+                }}
+                onClick={() => this.togglePriority("low")}
+              >
+                <div className="add-task-priority-btn-text">
+                  <span>Low</span>
+                  <img src="/assets/img/low.svg" alt="Low" />
+                </div>
+              </button>
             </div>
           </div>
         </div>

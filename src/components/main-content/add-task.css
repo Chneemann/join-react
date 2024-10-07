@@ -12,7 +12,8 @@
 .add-task-title p,
 .add-task-description p,
 .add-task-assigned p,
-.add-task-date p {
+.add-task-date p,
+.add-task-priority p {
   font-size: 20px;
   font-weight: 400;
   padding-bottom: 6px;
@@ -60,6 +61,46 @@ select {
 
 .add-task-right {
   width: 45%;
+}
+
+.add-task-priority-btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.add-task-priority-btn-text {
+  display: flex;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 400;
+  gap: 8px;
+}
+
+.add-task-priority-btn {
+  background-color: var(--white);
+  font-size: 20px;
+  font-weight: 400;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--light-gray);
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.add-task-priority-btn-active {
+  cursor: unset;
+  color: var(--white);
+}
+
+.add-task-priority-btn-active img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%)
+    hue-rotate(346deg) brightness(99%) contrast(103%);
+}
+
+.add-task-priority-btn:hover {
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 /* Error message */
