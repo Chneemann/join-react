@@ -6,6 +6,7 @@ interface TaskData {
   description: string;
   date: string;
   priority: string;
+  category: string;
 }
 
 interface State {
@@ -17,6 +18,8 @@ interface State {
   dateTouched: boolean;
   dateError: string;
   dateInPast: boolean;
+  categoryTouched: boolean;
+  categoryError: string;
 }
 
 class TaskForm extends React.Component<{}, State> {
@@ -28,6 +31,7 @@ class TaskForm extends React.Component<{}, State> {
         description: "",
         date: "",
         priority: "medium",
+        category: "",
       },
       titleTouched: false,
       titleError: "",
@@ -36,12 +40,16 @@ class TaskForm extends React.Component<{}, State> {
       dateTouched: false,
       dateError: "",
       dateInPast: false,
+      categoryTouched: false,
+      categoryError: "",
     };
   }
 
   handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    field: "title" | "description"
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+    field: "title" | "description" | "category"
   ) => {
     this.setState((prevState) => ({
       taskData: {
@@ -51,6 +59,7 @@ class TaskForm extends React.Component<{}, State> {
       titleTouched: field === "title" ? false : prevState.titleTouched,
       descriptionTouched:
         field === "description" ? false : prevState.descriptionTouched,
+      categoryTouched: field === "category" ? false : prevState.categoryTouched,
     }));
   };
 
@@ -113,6 +122,8 @@ class TaskForm extends React.Component<{}, State> {
       dateTouched,
       dateError,
       dateInPast,
+      categoryTouched,
+      categoryError,
     } = this.state;
 
     // Validation logic
@@ -283,6 +294,40 @@ class TaskForm extends React.Component<{}, State> {
                   <img src="/assets/img/low.svg" alt="Low" />
                 </div>
               </button>
+            </div>
+          </div>
+          <div className="add-task-category">
+            <p>
+              Category<span className="red-dot">*</span>
+            </p>
+            <select
+              id="category"
+              name="category"
+              value={taskData.category}
+              onChange={(event) => this.handleInputChange(event, "category")}
+              onBlur={() => {
+                if (!taskData.category) {
+                  this.setState({
+                    categoryTouched: true,
+                    categoryError: "Required",
+                  });
+                }
+              }}
+              required
+            >
+              <option value="" disabled>
+                Select Category
+              </option>
+              <option value="User Story">User Story</option>
+              <option value="Technical Task">Technical Task</option>
+            </select>
+            <img
+              className="open"
+              src="/assets/img/add-task/arrow-down.svg"
+              alt=""
+            />
+            <div className="error-msg">
+              {categoryTouched && categoryError && <p>{categoryError}</p>}
             </div>
           </div>
         </div>
