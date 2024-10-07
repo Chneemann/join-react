@@ -48,3 +48,33 @@
   width: auto;
   margin: 0 0 0 4px;
 }
+
+/* White button */
+
+.large-btn.white {
+  background-color: var(--white);
+  border: 1px solid var(--blue);
+}
+
+.large-btn.white p {
+  color: var(--blue);
+}
+
+.large-btn-icon.white {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(77%) saturate(2342%)
+    hue-rotate(228deg) brightness(83%) contrast(115%);
+}
+
+.large-btn.white:not(:disabled):hover {
+  background-color: var(--blue);
+}
+
+.large-btn.white:not(:disabled):hover p {
+  transition: 300ms ease-in-out;
+  color: var(--white);
+}
+
+.large-btn.white:not(:disabled):hover .large-btn-icon {
+  transition: 300ms ease-in-out;
+  filter: none;
+}

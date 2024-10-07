@@ -432,7 +432,12 @@ class TaskForm extends React.Component<{}, State> {
           </div>
         </div>
         <div className="add-task-footer">
-          <LargeButton value="Clear" type="reset" imgPath="clear" />
+          <LargeButton
+            value="Clear"
+            type="reset"
+            imgPath="clear"
+            isWhite={true}
+          />
           <LargeButton value="Add Task" type="submit" imgPath="add" />
         </div>
       </div>

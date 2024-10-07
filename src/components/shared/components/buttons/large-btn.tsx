@@ -5,21 +5,24 @@ interface LargeButtonProps {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   imgPath?: string;
+  isWhite?: boolean;
   value: string;
 }
 
 class LargeButton extends React.Component<LargeButtonProps> {
   render() {
-    const { type, disabled, imgPath, value } = this.props;
+    const { type, disabled, imgPath, isWhite, value } = this.props;
+
+    const buttonClass = `large-btn ${isWhite ? "white" : ""}`;
 
     return (
-      <button className="large-btn" type={type} disabled={disabled}>
+      <button className={buttonClass} type={type} disabled={disabled}>
         <p>{value}</p>
         {imgPath && (
           <img
             src={`./../../../../assets/img/btns/${imgPath}.svg`}
             alt={imgPath}
-            className="large-btn-icon"
+            className={`large-btn-icon ${isWhite ? "white" : ""}`}
           />
         )}
       </button>
