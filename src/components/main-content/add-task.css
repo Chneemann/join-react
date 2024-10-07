@@ -1,6 +1,6 @@
 @import "./../../styles/colors.css";
 
-/* Add task */
+/*** Add task ***/
 
 .add-task {
   display: flex;
@@ -14,7 +14,8 @@
 .add-task-assigned p,
 .add-task-date p,
 .add-task-priority p,
-.add-task-category p {
+.add-task-category p,
+.add-task-subtask p {
   font-size: 20px;
   font-weight: 400;
   padding-bottom: 6px;
@@ -38,17 +39,13 @@ select {
   appearance: none;
 }
 
-select {
-  width: 100%;
-}
-
-/* Left side */
+/*** Left side ***/
 
 .add-task-left {
   width: 45%;
 }
 
-/* Middle side */
+/*** Middle side ***/
 
 .add-task-middle {
   display: flex;
@@ -62,19 +59,19 @@ select {
   background-color: var(--light-gray);
 }
 
-/* Right side */
+/*** Right side ***/
 
 .add-task-right {
   width: 45%;
 }
 
+/* Priority */
 .add-task-priority-btns {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 36px;
 }
-
 .add-task-priority-btn-text {
   display: flex;
   justify-content: center;
@@ -82,7 +79,6 @@ select {
   font-weight: 400;
   gap: 8px;
 }
-
 .add-task-priority-btn {
   background-color: var(--white);
   font-size: 20px;
@@ -93,19 +89,102 @@ select {
   padding: 10px 16px;
   cursor: pointer;
 }
-
 .add-task-priority-btn-active {
   cursor: unset;
   color: var(--white);
 }
-
 .add-task-priority-btn-active img {
   filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%)
     hue-rotate(346deg) brightness(99%) contrast(103%);
 }
-
 .add-task-priority-btn:hover {
   box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* Category */
+.add-task-category {
+  position: relative;
+}
+.add-task-category select {
+  width: 100%;
+}
+.add-task-category img {
+  position: absolute;
+  top: 53px;
+  right: 20px;
+  width: 14px;
+  height: 7px;
+}
+
+/* Subtask */
+.add-task-subtask {
+  position: relative;
+}
+.add-task-add {
+  position: absolute;
+  top: 48px;
+  right: 15px;
+  width: 16px;
+  height: 16px;
+}
+.add-task-subtask-btns {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 48px;
+  right: 15px;
+}
+.add-task-subtask-btns img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(7500%)
+    hue-rotate(327deg) brightness(96%) contrast(104%);
+  cursor: pointer;
+}
+.add-task-subtask-btns img:last-child {
+  width: 23px;
+  height: 23px;
+}
+.add-task-subtask-btns img:hover {
+  filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
+    brightness(92%) contrast(92%);
+}
+.add-task-subtask-line {
+  height: 18px;
+  padding: 1px;
+  margin: 0 9px;
+  background-color: var(--light-gray);
+}
+
+/* Subtask list */
+.add-task-subtask-list {
+  max-height: 110px;
+  overflow-x: auto;
+  margin-top: 12px;
+}
+.add-task-single-subtask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 9px;
+  cursor: pointer;
+}
+.add-task-single-subtask p {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+}
+.add-task-single-subtask:hover {
+  border-radius: 12px;
+  background-color: var(--light-gray);
+}
+.add-task-single-subtask img {
+  width: 16px;
+  height: 16px;
+}
+.add-task-single-subtask img:hover {
+  filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg)
+    brightness(92%) contrast(92%);
 }
 
 /* Error message */

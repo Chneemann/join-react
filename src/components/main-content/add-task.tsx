@@ -7,6 +7,8 @@ interface TaskData {
   date: string;
   priority: string;
   category: string;
+  subtasksTitle: string[];
+  subtasksDone: boolean[];
 }
 
 interface State {
@@ -20,6 +22,7 @@ interface State {
   dateInPast: boolean;
   categoryTouched: boolean;
   categoryError: string;
+  subtaskValue: string;
 }
 
 class TaskForm extends React.Component<{}, State> {
@@ -32,6 +35,8 @@ class TaskForm extends React.Component<{}, State> {
         date: "",
         priority: "medium",
         category: "",
+        subtasksTitle: [],
+        subtasksDone: [],
       },
       titleTouched: false,
       titleError: "",
@@ -42,9 +47,12 @@ class TaskForm extends React.Component<{}, State> {
       dateInPast: false,
       categoryTouched: false,
       categoryError: "",
+      subtaskValue: "",
     };
   }
 
+  // TITLE, DESCRIPTION, CATEGORY
+  // Method to update the value of the title
   handleInputChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -63,12 +71,12 @@ class TaskForm extends React.Component<{}, State> {
     }));
   };
 
+  // DATE
+  // Method to update the value of the date
   handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const today = new Date();
     const selectedDate = new Date(value);
-
-    // Check if the date is in the past
     const isDateInPast = selectedDate < today;
 
     this.setState((prevState) => ({
@@ -82,6 +90,7 @@ class TaskForm extends React.Component<{}, State> {
     }));
   };
 
+  // Method to handle the blur event of the date
   handleDateBlur = () => {
     const { date } = this.state.taskData;
     const today = new Date();
@@ -96,6 +105,8 @@ class TaskForm extends React.Component<{}, State> {
     });
   };
 
+  // ASSIGNED USERS
+  // Method to open the assigned user list
   openAssignedUserList = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -103,11 +114,51 @@ class TaskForm extends React.Component<{}, State> {
     console.log(inputValue);
   };
 
+  // PRIORITY
+  // Method to update the value of the priority
   togglePriority = (priority: string) => {
     this.setState((prevState) => ({
       taskData: {
         ...prevState.taskData,
         priority: priority,
+      },
+    }));
+  };
+
+  // SUBTASKS
+  // Method to update the value of the subtask
+  updateSubtaskValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      subtaskValue: event.target.value,
+    });
+  };
+
+  // Method to add a new subtask and set subtasksDone to true
+  addSubtask = () => {
+    const { subtaskValue, taskData } = this.state;
+    if (subtaskValue.trim()) {
+      this.setState({
+        taskData: {
+          ...taskData,
+          subtasksTitle: [...taskData.subtasksTitle, subtaskValue],
+          subtasksDone: [...taskData.subtasksDone, true],
+        },
+        subtaskValue: "",
+      });
+    }
+  };
+
+  // Method for deleting a subtask and removing the associated status
+  deleteSubtask = (subtask: string, index: number) => {
+    this.setState((prevState) => ({
+      taskData: {
+        ...prevState.taskData,
+        subtasksTitle: prevState.taskData.subtasksTitle.filter(
+          (_, i) => i !== index
+        ),
+        subtasksDone: prevState.taskData.subtasksDone.filter(
+          (_, i) => i !== index
+        ),
       },
     }));
   };
@@ -124,12 +175,12 @@ class TaskForm extends React.Component<{}, State> {
       dateInPast,
       categoryTouched,
       categoryError,
+      subtaskValue,
     } = this.state;
 
     // Validation logic
     const isTitleValid = taskData.title.length >= 8;
     const isTitleEmpty = taskData.title.length === 0;
-
     const isDescriptionValid = taskData.description.length >= 24;
     const isDescriptionEmpty = taskData.description.length === 0;
 
@@ -329,6 +380,56 @@ class TaskForm extends React.Component<{}, State> {
             <div className="error-msg">
               {categoryTouched && categoryError && <p>{categoryError}</p>}
             </div>
+          </div>
+          <div className="add-task-subtask">
+            <p>Subtask</p>
+            <input
+              type="text"
+              id="subtask"
+              name="subtask"
+              placeholder="Enter subtask..."
+              value={subtaskValue}
+              onChange={this.updateSubtaskValue}
+              autoComplete="off"
+            />
+            {subtaskValue ? (
+              <div className="add-task-subtask-btns">
+                <img
+                  src="./../../../assets/img/add-task/close.svg"
+                  alt="Clear"
+                  onClick={() => this.setState({ subtaskValue: "" })}
+                />
+                <span className="add-task-subtask-line"></span>
+                <img
+                  src="./../../../assets/img/add-task/check.svg"
+                  alt="Add"
+                  onClick={this.addSubtask}
+                />
+              </div>
+            ) : (
+              <img
+                className="add-task-add"
+                src="./../../../assets/img/add-task/add.svg"
+                alt="Add"
+              />
+            )}
+            {taskData.subtasksTitle.length > 0 && (
+              <div className="add-task-subtask-list">
+                {taskData.subtasksTitle
+                  .slice()
+                  .reverse()
+                  .map((task, index) => (
+                    <div key={index} className="add-task-single-subtask">
+                      <p>- {task}</p>
+                      <img
+                        src="./../../../assets/img/add-task/close.svg"
+                        alt="Delete"
+                        onClick={() => this.deleteSubtask(task, index)}
+                      />
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
