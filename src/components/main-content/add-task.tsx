@@ -2,6 +2,11 @@ import React from "react";
 import "./add-task.css";
 import { Task } from "../../interfaces/task.interface";
 import LargeButton from "../shared/components/buttons/large-btn";
+import { addNewTask } from "../../services/firebase.service";
+
+interface AddTaskProps {
+  addTask: (task: Task) => Promise<void>;
+}
 
 interface AddTaskState {
   taskData: Task;
@@ -17,8 +22,9 @@ interface AddTaskState {
   subtaskValue: string;
 }
 
-class AddTask extends React.Component<{}, AddTaskState> {
-  constructor(props: {}) {
+class AddTask extends React.Component<AddTaskProps, AddTaskState> {
+  constructor(props: AddTaskProps) {
+    // Update to receive props
     super(props);
     this.state = {
       taskData: {
@@ -207,28 +213,25 @@ class AddTask extends React.Component<{}, AddTaskState> {
     };
   };
 
-  // Methode zur Prüfung, ob das gesamte Formular valide ist
+  // Method for checking whether the entire form is valid
   isFormValid = () => {
     const { isTitleValid, isDescriptionValid, isDateValid, isCategoryValid } =
       this.validateFields();
     return isTitleValid && isDescriptionValid && isDateValid && isCategoryValid;
   };
 
-  // Method to submit the form
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // Method to submit the form and add a new task
+  handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const { taskData } = this.state;
-
-    if (
-      taskData.title &&
-      taskData.description &&
-      taskData.date &&
-      taskData.category
-    ) {
-      console.log("Form submitted successfully", taskData);
-    } else {
-      console.log("Please fill all required fields.");
+    if (this.isFormValid()) {
+      try {
+        const { taskData } = this.state;
+        await addNewTask(taskData);
+        await this.props.addTask(taskData);
+        this.resetForm();
+      } catch (error) {
+        console.error("Error adding task:", error);
+      }
     }
   };
 

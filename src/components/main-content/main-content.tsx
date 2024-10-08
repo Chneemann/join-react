@@ -10,6 +10,7 @@ import {
   fetchTasks,
   fetchUsers,
   updateTaskStatus,
+  addNewTask,
 } from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
@@ -69,6 +70,17 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  addNewTask = async (newTask: Task) => {
+    try {
+      const taskId = await addNewTask(newTask);
+      this.setState((prevState) => ({
+        tasks: [...prevState.tasks, { ...newTask, id: taskId }],
+      }));
+    } catch (error) {
+      console.error("Error adding new task:", error);
+    }
+  };
+
   render() {
     const { tasks, users, loading } = this.state;
 
@@ -80,7 +92,10 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
             path="/summary"
             element={<Summary tasks={tasks} loading={loading} />}
           />
-          <Route path="/add-task" element={<AddTask />} />
+          <Route
+            path="/add-task"
+            element={<AddTask addTask={this.addNewTask} />}
+          />
           <Route path="/contacts" element={<Contacts />} />
           <Route
             path="/board"

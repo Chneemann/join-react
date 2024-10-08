@@ -6,6 +6,7 @@ import {
   getDocs,
   doc,
   updateDoc,
+  addDoc,
 } from "firebase/firestore";
 import { Task } from "../interfaces/task.interface";
 import { User } from "../interfaces/user.interface";
@@ -99,6 +100,23 @@ export const updateTaskStatus = async (taskId: string, newStatus: string) => {
     await updateDoc(taskRef, { status: newStatus });
   } catch (error) {
     console.error("Error updating task status:", error);
+    throw error;
+  }
+};
+
+/**
+ * Adds a new task to the 'tasks' collection in Firestore.
+ * @param {Task} newTask - The task object to be added.
+ * @returns The id of the newly created task.
+ * @throws Throws any error encountered while adding the task.
+ */
+export const addNewTask = async (newTask: Task): Promise<string> => {
+  try {
+    const tasksCollection = collection(firestore, "tasks");
+    const docRef = await addDoc(tasksCollection, newTask);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding task:", error);
     throw error;
   }
 };
