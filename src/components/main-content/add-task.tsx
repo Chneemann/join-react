@@ -6,6 +6,7 @@ import { addNewTask } from "../../services/firebase.service";
 
 interface AddTaskProps {
   addTask: (task: Task) => Promise<void>;
+  showOverlay: (message: string, timeout?: number) => void;
 }
 
 interface AddTaskState {
@@ -228,6 +229,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         const { taskData } = this.state;
         await addNewTask(taskData);
         await this.props.addTask(taskData);
+        this.props.showOverlay("Task added successfully!", 5000);
         this.resetForm();
       } catch (error) {
         console.error("Error adding task:", error);

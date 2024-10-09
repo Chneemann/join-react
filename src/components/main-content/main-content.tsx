@@ -22,6 +22,9 @@ interface MainContentState {
   tasks: Task[];
   users: User[];
   loading: boolean;
+  showOverlay: boolean;
+  overlayMsg: string;
+  overlayTimeout: number;
 }
 
 class MainContent extends React.Component<MainContentProps, MainContentState> {
@@ -29,13 +32,16 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     tasks: [],
     users: [],
     loading: true,
+    showOverlay: false,
+    overlayMsg: "",
+    overlayTimeout: 0,
   };
 
   componentDidMount() {
     this.loadTasks();
     this.loadUsers();
   }
-
+  // Loads tasks and saves them in the state.
   loadTasks = async () => {
     try {
       const tasksList = await fetchTasks();
@@ -47,6 +53,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  // Loads users and saves them in the state.
   loadUsers = async () => {
     try {
       const userList = await fetchUsers();
@@ -58,6 +65,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  // Updates the status of a task in the state.
   updateTaskStatus = async (taskId: string, newStatus: string) => {
     try {
       await updateTaskStatus(taskId, newStatus);
@@ -71,6 +79,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  // Adds a new task to the state.
   addNewTask = async (newTask: Task) => {
     try {
       const taskId = await addNewTask(newTask);
@@ -82,8 +91,19 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  // Shows an overlay with a message for a specific time.
+  showOverlay = (message: string, timeout?: number) => {
+    const overlayTimeout = timeout || this.state.overlayTimeout;
+
+    this.setState({ showOverlay: true, overlayMsg: message });
+
+    setTimeout(() => {
+      this.setState({ showOverlay: false, overlayMsg: "" });
+    }, overlayTimeout);
+  };
+
   render() {
-    const { tasks, users, loading } = this.state;
+    const { tasks, users, loading, showOverlay, overlayMsg } = this.state;
 
     return (
       <main>
@@ -95,7 +115,12 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
           />
           <Route
             path="/add-task"
-            element={<AddTask addTask={this.addNewTask} />}
+            element={
+              <AddTask
+                addTask={this.addNewTask}
+                showOverlay={this.showOverlay}
+              />
+            }
           />
           <Route path="/contacts" element={<Contacts />} />
           <Route
@@ -109,7 +134,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
             }
           />
         </Routes>
-        <Overlay msg="This is a dialog" />
+        {showOverlay && <Overlay msg={overlayMsg} />}
       </main>
     );
   }
