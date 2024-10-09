@@ -14,6 +14,7 @@ import {
 } from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
+import Overlay from "../shared/components/overlay";
 
 interface MainContentProps {}
 
@@ -108,6 +109,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
             }
           />
         </Routes>
+        <Overlay msg="This is a dialog" />
       </main>
     );
   }
