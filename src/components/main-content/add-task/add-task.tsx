@@ -1,8 +1,9 @@
 import React from "react";
 import "./add-task.css";
-import { Task } from "../../interfaces/task.interface";
-import LargeButton from "../shared/components/buttons/large-btn";
-import { addNewTask } from "../../services/firebase.service";
+import { Task } from "../../../interfaces/task.interface";
+import LargeButton from "../../shared/components/buttons/large-btn";
+import { addNewTask } from "../../../services/firebase.service";
+import Subtask from "./subtasks";
 
 interface AddTaskProps {
   addTask: (task: Task) => Promise<void>;
@@ -20,7 +21,6 @@ interface AddTaskState {
   dateInPast: boolean;
   categoryTouched: boolean;
   categoryError: string;
-  subtaskValue: string;
 }
 
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
@@ -49,7 +49,6 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateInPast: false,
       categoryTouched: false,
       categoryError: "",
-      subtaskValue: "",
     };
   }
 
@@ -128,39 +127,13 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   };
 
   // SUBTASKS
-  // Method to update the value of the subtask
-  updateSubtaskValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      subtaskValue: event.target.value,
-    });
-  };
-
-  // Method to add a new subtask and set subtasksDone to true
-  addSubtask = () => {
-    const { subtaskValue, taskData } = this.state;
-    if (subtaskValue.trim()) {
-      this.setState({
-        taskData: {
-          ...taskData,
-          subtasksTitle: [...taskData.subtasksTitle, subtaskValue],
-          subtasksDone: [...taskData.subtasksDone, true],
-        },
-        subtaskValue: "",
-      });
-    }
-  };
-
-  // Method for deleting a subtask and removing the associated status
-  deleteSubtask = (subtask: string, index: number) => {
+  // Method for receiving changes to subtasks
+  handleSubtasksChange = (subtasksTitle: string[], subtasksDone: boolean[]) => {
     this.setState((prevState) => ({
       taskData: {
         ...prevState.taskData,
-        subtasksTitle: prevState.taskData.subtasksTitle.filter(
-          (_, i) => i !== index
-        ),
-        subtasksDone: prevState.taskData.subtasksDone.filter(
-          (_, i) => i !== index
-        ),
+        subtasksTitle,
+        subtasksDone,
       },
     }));
   };
@@ -189,7 +162,6 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateInPast: false,
       categoryTouched: false,
       categoryError: "",
-      subtaskValue: "",
     });
   };
 
@@ -245,7 +217,6 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateTouched,
       dateInPast,
       categoryTouched,
-      subtaskValue,
     } = this.state;
 
     const {
@@ -457,56 +428,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 )}
               </div>
             </div>
-            <div className="add-task-subtask">
-              <p>Subtask</p>
-              <input
-                type="text"
-                id="subtask"
-                name="subtask"
-                placeholder="Enter subtask..."
-                value={subtaskValue}
-                onChange={this.updateSubtaskValue}
-                autoComplete="off"
-              />
-              {subtaskValue ? (
-                <div className="add-task-subtask-btns">
-                  <img
-                    src="./../../../assets/img/add-task/close.svg"
-                    alt="Clear"
-                    onClick={() => this.setState({ subtaskValue: "" })}
-                  />
-                  <span className="add-task-subtask-line"></span>
-                  <img
-                    src="./../../../assets/img/add-task/check.svg"
-                    alt="Add"
-                    onClick={this.addSubtask}
-                  />
-                </div>
-              ) : (
-                <img
-                  className="add-task-add"
-                  src="./../../../assets/img/add-task/add.svg"
-                  alt="Add"
-                />
-              )}
-              {taskData.subtasksTitle.length > 0 && (
-                <div className="add-task-subtask-list">
-                  {taskData.subtasksTitle
-                    .slice()
-                    .reverse()
-                    .map((task, index) => (
-                      <div key={index} className="add-task-single-subtask">
-                        <p>- {task}</p>
-                        <img
-                          src="./../../../assets/img/add-task/close.svg"
-                          alt="Delete"
-                          onClick={() => this.deleteSubtask(task, index)}
-                        />
-                      </div>
-                    ))}
-                </div>
-              )}
-            </div>
+            <Subtask onSubtasksChange={this.handleSubtasksChange} />
           </div>
         </div>
         <div className="add-task-footer">
