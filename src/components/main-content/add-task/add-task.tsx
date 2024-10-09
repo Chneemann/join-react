@@ -25,7 +25,6 @@ interface AddTaskState {
 
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   constructor(props: AddTaskProps) {
-    // Update to receive props
     super(props);
     this.state = {
       taskData: {
@@ -138,6 +137,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
     }));
   };
 
+  // FORM
   // Method to reset the form
   resetForm = () => {
     this.setState({
@@ -165,6 +165,13 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
     });
   };
 
+  // Method for checking whether the entire form is valid
+  isFormValid = () => {
+    const { isTitleValid, isDescriptionValid, isDateValid, isCategoryValid } =
+      this.validateFields();
+    return isTitleValid && isDescriptionValid && isDateValid && isCategoryValid;
+  };
+
   // Method to validate the fields
   validateFields = () => {
     const { taskData } = this.state;
@@ -186,15 +193,8 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
     };
   };
 
-  // Method for checking whether the entire form is valid
-  isFormValid = () => {
-    const { isTitleValid, isDescriptionValid, isDateValid, isCategoryValid } =
-      this.validateFields();
-    return isTitleValid && isDescriptionValid && isDateValid && isCategoryValid;
-  };
-
   // Method to submit the form and add a new task
-  handleSubmit = async (event: React.FormEvent) => {
+  handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (this.isFormValid()) {
       try {
@@ -203,6 +203,8 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         await this.props.addTask(taskData);
         this.props.showOverlay("Task added successfully!", 5000);
         this.resetForm();
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        window.location.href = "/board";
       } catch (error) {
         console.error("Error adding task:", error);
       }
@@ -229,7 +231,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
     } = this.validateFields();
 
     return (
-      <form className="add-task" onSubmit={this.handleSubmit}>
+      <form className="add-task" onSubmit={this.handleFormSubmit}>
         <div className="add-task-content">
           <div className="add-task-left">
             <div className="add-task-title">
