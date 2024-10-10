@@ -4,8 +4,11 @@ import { Task } from "../../../interfaces/task.interface";
 import LargeButton from "../../shared/components/buttons/large-btn";
 import { addNewTask } from "../../../services/firebase.service";
 import Subtask from "./subtasks";
+import Assigned from "./assigned";
+import { User } from "../../../interfaces/user.interface";
 
 interface AddTaskProps {
+  users: User[];
   addTask: (task: Task) => Promise<void>;
   showOverlay: (message: string, timeout?: number) => void;
 }
@@ -21,6 +24,7 @@ interface AddTaskState {
   dateInPast: boolean;
   categoryTouched: boolean;
   categoryError: string;
+  assigned: string[];
 }
 
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
@@ -48,6 +52,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateInPast: false,
       categoryTouched: false,
       categoryError: "",
+      assigned: [],
     };
   }
 
@@ -106,12 +111,15 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   };
 
   // ASSIGNED USERS
-  // Method to open the assigned user list
-  openAssignedUserList = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const inputValue = event.target.value;
-    console.log(inputValue);
+  // Method to handle the change in the list of assigned users
+  handleAssignedChange = (assigned: string[]) => {
+    this.setState((prevState) => ({
+      taskData: {
+        ...prevState.taskData,
+        assigned,
+      },
+      assigned,
+    }));
   };
 
   // PRIORITY
@@ -296,13 +304,10 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
             </div>
             <div className="add-task-assigned">
               <p>Assigned to</p>
-              <input
-                type="text"
-                id="assigned"
-                name="assigned"
-                placeholder="Search..."
-                autoComplete="off"
-                onChange={(event) => this.openAssignedUserList(event)}
+              <Assigned
+                users={this.props.users}
+                assigned={this.state.taskData.assigned}
+                onAssignedChange={this.handleAssignedChange}
               />
             </div>
           </div>

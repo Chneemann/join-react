@@ -1,0 +1,22 @@
+@import "./../../../styles/colors.css";
+
+/* Assigned */
+.assigned {
+  position: relative;
+}
+
+.assigned-list {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  width: calc(100% - 24px);
+  height: auto;
+  max-height: 125px;
+  padding: 12px;
+  border-radius: 0px 0px 20px 20px;
+  border: 1px solid var(--light-gray);
+  border-top: 0px;
+  background-color: var(--white);
+  overflow-y: auto;
+}
