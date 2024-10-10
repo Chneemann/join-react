@@ -11,6 +11,9 @@ interface AssignedProps {
 interface AssignedState {
   searchQuery: string;
   isListVisible: boolean;
+  hoveredUserId: string;
+  dialogX: number;
+  dialogY: number;
 }
 
 class Assigned extends Component<AssignedProps, AssignedState> {
@@ -19,6 +22,9 @@ class Assigned extends Component<AssignedProps, AssignedState> {
     this.state = {
       searchQuery: "",
       isListVisible: false,
+      hoveredUserId: "",
+      dialogX: 0,
+      dialogY: 0,
     };
   }
 
@@ -66,9 +72,37 @@ class Assigned extends Component<AssignedProps, AssignedState> {
     return users.filter((user) => assigned.includes(user.id!));
   };
 
+  // Handle mouse enter to show dialog
+  handleMouseEnter = (userId: string, event: React.MouseEvent) => {
+    this.setState({
+      hoveredUserId: userId,
+      dialogX: event.clientX + 10,
+      dialogY: event.clientY + 10,
+    });
+  };
+
+  // Handle mouse leave to hide dialog
+  handleMouseLeave = () => {
+    this.setState({
+      hoveredUserId: "",
+    });
+  };
+
+  // Update mouse position while hovering
+  handleMouseMove = (event: React.MouseEvent) => {
+    this.setState({
+      dialogX: event.clientX + 10,
+      dialogY: event.clientY + 10,
+    });
+  };
+
   render() {
     const { assigned } = this.props;
-    const { isListVisible, searchQuery } = this.state;
+    const { isListVisible, searchQuery, hoveredUserId, dialogX, dialogY } =
+      this.state;
+    const hoveredUser = this.props.users.find(
+      (user) => user.id === hoveredUserId
+    );
 
     return (
       <div className="assigned">
@@ -123,12 +157,31 @@ class Assigned extends Component<AssignedProps, AssignedState> {
         <div className="assigned-badge">
           {this.assignedUsers().map((user) => (
             <div key={user.id}>
-              <div className="circle" style={{ backgroundColor: user.color }}>
+              <div
+                className="circle"
+                style={{ backgroundColor: user.color }}
+                onMouseEnter={(event) => this.handleMouseEnter(user.id!, event)}
+                onMouseLeave={this.handleMouseLeave}
+                onMouseMove={this.handleMouseMove}
+              >
                 <div className="initials">{user.initials}</div>
               </div>
             </div>
           ))}
         </div>
+        {hoveredUserId !== "" && hoveredUser && (
+          <div
+            className="assigned-dialog"
+            style={{
+              left: `${dialogX}px`,
+              top: `${dialogY}px`,
+            }}
+          >
+            <p>
+              {hoveredUser.firstName}, {hoveredUser.lastName}
+            </p>
+          </div>
+        )}
       </div>
     );
   }

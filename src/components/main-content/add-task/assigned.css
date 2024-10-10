@@ -82,4 +82,21 @@
   align-items: center;
   margin: 9px;
   height: 40px;
+  gap: 6px;
+}
+
+.assigned-dialog {
+  position: fixed;
+  width: min-content;
+  height: fit-content;
+  padding: 10px 15px;
+  border-radius: 0px 20px 20px 20px;
+  border: 1px solid var(--black);
+  z-index: 2;
+  background-color: var(--white);
+}
+
+.assigned-dialog p {
+  font-size: 18px;
+  font-weight: 400;
 }
