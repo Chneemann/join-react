@@ -76,3 +76,10 @@
   width: 18px;
   height: 18px;
 }
+
+.assigned-badge {
+  display: flex;
+  align-items: center;
+  margin: 9px;
+  height: 40px;
+}

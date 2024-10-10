@@ -60,12 +60,18 @@ class Assigned extends Component<AssignedProps, AssignedState> {
     }, 150);
   };
 
+  // Get the assigned users from the list
+  assignedUsers = () => {
+    const { users, assigned } = this.props;
+    return users.filter((user) => assigned.includes(user.id!));
+  };
+
   render() {
     const { assigned } = this.props;
     const { isListVisible, searchQuery } = this.state;
 
     return (
-      <section className="assigned">
+      <div className="assigned">
         <input
           type="text"
           placeholder="Search..."
@@ -114,7 +120,16 @@ class Assigned extends Component<AssignedProps, AssignedState> {
             ))}
           </div>
         )}
-      </section>
+        <div className="assigned-badge">
+          {this.assignedUsers().map((user) => (
+            <div key={user.id}>
+              <div className="circle" style={{ backgroundColor: user.color }}>
+                <div className="initials">{user.initials}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     );
   }
 }
