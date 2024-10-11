@@ -15,11 +15,28 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
     super(props);
   }
 
+  // Close the dialog if the user clicks outside of it
   handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
     const dialog = document.querySelector(".task-details-dialog");
     if (dialog && !dialog.contains(event.target as Node)) {
       this.props.onClose();
     }
+  };
+
+  // Capitalize the first letter of a string
+  capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  // Convert a date string to a formatted time
+  timeConverter = (dateString: string): string => {
+    const dateObj = new Date(dateString);
+
+    return dateObj.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   };
 
   render() {
@@ -44,6 +61,16 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
           </div>
           <div className="task-details-headline">{task.title}</div>
           <div className="task-details-description">{task.description}</div>
+          <div className="task-details-date">
+            <p>Date:</p>
+            {this.timeConverter(task.date)}
+          </div>
+
+          <div className="task-details-priority">
+            <p>Priority:</p>
+            {this.capitalizeFirstLetter(task.priority)}
+            <div className={`priority-bg priority-${task.priority}`}></div>
+          </div>
         </div>
       </div>
     );
