@@ -27,6 +27,7 @@ interface AddTaskState {
   categoryError: string;
   assigned: string[];
   currentUser: User;
+  isSubmitting: boolean;
 }
 
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
@@ -56,6 +57,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       categoryError: "",
       assigned: [],
       currentUser: this.props.currentUser,
+      isSubmitting: false,
     };
   }
 
@@ -207,10 +209,12 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   // Method to submit the form and add a new task
   handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (this.isFormValid()) {
+
+    if (this.isFormValid() && !this.state.isSubmitting) {
+      this.setState({ isSubmitting: true }); // Setze isSubmitting auf true
+
       try {
         const { taskData } = this.state;
-        await addNewTask(taskData);
         await this.props.addTask(taskData);
         this.props.showOverlay("Task added successfully!", 5000);
         this.resetForm();
@@ -218,6 +222,8 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         window.location.href = "/board";
       } catch (error) {
         console.error("Error adding task:", error);
+      } finally {
+        this.setState({ isSubmitting: false }); // Setze isSubmitting zurück
       }
     }
   };
@@ -449,12 +455,13 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
             imgPath="clear"
             isWhite={true}
             onClick={this.resetForm}
+            disabled={this.state.isSubmitting}
           />
           <LargeButton
             value="Add Task"
             type="submit"
             imgPath="add"
-            disabled={!this.isFormValid()}
+            disabled={!this.isFormValid() || this.state.isSubmitting}
           />
         </div>
       </form>

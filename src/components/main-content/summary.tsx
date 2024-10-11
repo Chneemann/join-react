@@ -121,6 +121,10 @@ class Summary extends Component<SummaryProps, SummaryState> {
     this.setState({ taskCounts, formattedDueDate });
   }
 
+  /**
+   * Handles window resize events and updates the component state to reflect whether the
+   * component should render in mobile or desktop mode.
+   */
   handleResize() {
     this.setState({ isMobile: window.innerWidth <= 1200 });
   }

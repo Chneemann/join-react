@@ -88,3 +88,15 @@
   transition: 300ms ease-in-out;
   filter: none;
 }
+
+.large-btn.white:disabled {
+  background-color: var(--light-gray);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--gray);
+  color: var(--black);
+  cursor: default;
+}
+
+.large-btn.white:disabled p {
+  color: var(--dark-gray);
+}
