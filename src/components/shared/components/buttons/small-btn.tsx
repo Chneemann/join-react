@@ -15,12 +15,12 @@ export default class SmallBtn extends React.Component<SmallBtnProps> {
     return to ? (
       <Link to={to}>
         <div className="small-btn" onClick={onClick}>
-          <img src={"./../../assets/img/" + image} alt="" />
+          <img src={"./../../assets/img/btns/" + image} alt="" />
         </div>
       </Link>
     ) : (
       <div className="small-btn" onClick={onClick}>
-        <img src={"./../../assets/img/" + image} alt="" />
+        <img src={"./../../assets/img/btns/" + image} alt="" />
       </div>
     );
   }

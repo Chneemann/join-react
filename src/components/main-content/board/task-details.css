@@ -18,18 +18,43 @@
 }
 
 .task-details-dialog {
-  width: fit-content;
-  max-width: 60%;
-  height: fit-content;
-  text-align: center;
-  padding: 18px 36px;
-  border-radius: 24px;
+  width: 525px;
+  height: 700px;
+  padding: 48px 40px;
+  border-radius: 30px;
   background-color: var(--white);
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
-.dialog p {
-  font-size: 21px;
-  font-weight: 500;
-  margin: 0;
+.task-details-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.task-details-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  font-weight: 400;
+  padding: 4px 16px;
+  border-radius: 8px;
+  color: var(--white);
+  text-shadow: 1px 1px 2px var(--black);
+}
+
+.task-details-headline {
+  font-size: 46px;
+  font-weight: 700;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.task-details-description {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 32px;
+  width: 100%;
+  word-wrap: break-word;
 }
