@@ -2,7 +2,6 @@ import React from "react";
 import "./add-task.css";
 import { Task } from "../../../interfaces/task.interface";
 import LargeButton from "../../shared/components/buttons/large-btn";
-import { addNewTask } from "../../../services/firebase.service";
 import Subtask from "./subtasks";
 import Assigned from "./assigned";
 import { User } from "../../../interfaces/user.interface";

@@ -27,7 +27,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
 
-// Login-Funktion
+// Log-in function
 export const login = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -41,7 +41,7 @@ export const login = async (email: string, password: string) => {
   }
 };
 
-// User Abrufen
+// Get user by uid
 export const getUserByUid = async (uid: string): Promise<User | null> => {
   try {
     const usersRef = collection(firestore, "users");
@@ -71,7 +71,7 @@ export const getUserByUid = async (uid: string): Promise<User | null> => {
   }
 };
 
-// Auth-Status überwachen
+// Monitor Auth status
 export const observeAuthState = (callback: (user: User | null) => void) => {
   return onAuthStateChanged(auth, async (user) => {
     if (user) {

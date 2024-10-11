@@ -1,6 +1,6 @@
 import React from "react";
 import "./main-content.css";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Help from "../shared/components/legal/help";
 import Summary from "./summary";
 import AddTask from "./add-task/add-task";
@@ -15,9 +15,10 @@ import {
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
 import Overlay from "../shared/components/overlay";
-import { login, observeAuthState } from "../../services/auth.service";
 
-interface MainContentProps {}
+interface MainContentProps {
+  currentUser: User;
+}
 
 interface MainContentState {
   tasks: Task[];
@@ -26,13 +27,9 @@ interface MainContentState {
   showOverlay: boolean;
   overlayMsg: string;
   overlayTimeout: number;
-  loadingAuth: boolean;
-  isAuthenticated: boolean;
-  currentUser: User | null;
 }
 
 class MainContent extends React.Component<MainContentProps, MainContentState> {
-  unsubscribeFromAuth: (() => void) | null = null;
   state: MainContentState = {
     tasks: [],
     users: [],
@@ -40,45 +37,11 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     showOverlay: false,
     overlayMsg: "",
     overlayTimeout: 0,
-    loadingAuth: true,
-    isAuthenticated: false,
-    currentUser: null,
   };
 
   async componentDidMount() {
     this.loadTasks();
     this.loadUsers();
-
-    try {
-      // Testbenutzer einloggen
-      await login("guest@guestaccount.com", "guest@guestaccount.com");
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
-
-    // Auth-Status überwachen
-    this.unsubscribeFromAuth = observeAuthState((user) => {
-      if (user) {
-        this.setState({
-          isAuthenticated: true,
-          loadingAuth: false,
-          currentUser: user,
-        });
-      } else {
-        this.setState({
-          isAuthenticated: false,
-          loadingAuth: false,
-          currentUser: null,
-        });
-      }
-    });
-  }
-
-  // Unsubscribe from the auth state listener when the component unmounts
-  componentWillUnmount() {
-    if (this.unsubscribeFromAuth) {
-      this.unsubscribeFromAuth();
-    }
   }
 
   // Loads tasks and saves them in the state.
@@ -143,27 +106,10 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
   };
 
   render() {
-    const {
-      tasks,
-      users,
-      loading,
-      showOverlay,
-      overlayMsg,
-      isAuthenticated,
-      loadingAuth,
-      currentUser,
-    } = this.state;
+    const { tasks, users, loading, showOverlay, overlayMsg } = this.state;
+    const { currentUser } = this.props;
 
-    // Wait until Auth-Status is loaded
-    if (loadingAuth) {
-      return;
-    }
-
-    // If the user is not authenticated, redirect to the login page
-    if (!isAuthenticated) {
-      return <Navigate to="/login" />;
-    }
-    if (isAuthenticated && currentUser) {
+    if (currentUser) {
       return (
         <main>
           <Routes>

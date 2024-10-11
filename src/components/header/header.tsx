@@ -3,13 +3,18 @@ import "./header.css";
 import SmallBtn from "../shared/components/buttons/small-btn";
 import MemberCircle from "../shared/components/member-circle/member-circle";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { User } from "../../interfaces/user.interface";
 
-interface HeaderProps extends WithTranslation {}
+interface HeaderProps extends WithTranslation {
+  currentUser: User;
+}
 
 interface HeaderState {}
 
 class Header extends React.Component<HeaderProps, HeaderState> {
-  state = {};
+  state = {
+    currentUser: null,
+  };
 
   changeLanguage = () => {
     const { i18n } = this.props;
@@ -18,7 +23,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, currentUser } = this.props;
 
     return (
       <header>
@@ -31,7 +36,7 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           <p className="header-title">{t("header.title")}</p>
           <SmallBtn image="help.svg" to="/help" />
           <SmallBtn image="language.svg" onClick={this.changeLanguage} />
-          <MemberCircle memberInitials="G" />
+          <MemberCircle memberInitials={currentUser.initials} />
         </div>
       </header>
     );
