@@ -29,14 +29,21 @@ interface AddTaskState {
   isSubmitting: boolean;
 }
 
+// Constants for validation inside the component
+const TITLE_MIN_LENGTH = 8;
+const TITLE_MAX_LENGTH = 40;
+const DESCRIPTION_MIN_LENGTH = 24;
+const DESCRIPTION_MAX_LENGTH = 180;
+
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   constructor(props: AddTaskProps) {
     super(props);
+    const today = new Date().toISOString().split("T")[0];
     this.state = {
       taskData: {
         title: "",
         description: "",
-        date: "",
+        date: today,
         priority: "medium",
         category: "",
         subtasksTitle: [],
@@ -84,8 +91,12 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   // Method to update the value of the date
   handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const today = new Date();
+
     const selectedDate = new Date(value);
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
     const isDateInPast = selectedDate < today;
 
     this.setState((prevState) => ({
@@ -102,8 +113,11 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   // Method to handle the blur event of the date
   handleDateBlur = () => {
     const { date } = this.state.taskData;
-    const today = new Date();
+
     const selectedDate = new Date(date);
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
 
     const isDateInPast = selectedDate < today;
 
@@ -152,11 +166,12 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   // FORM
   // Method to reset the form
   resetForm = () => {
+    const today = new Date().toISOString().split("T")[0];
     this.setState({
       taskData: {
         title: "",
         description: "",
-        date: "",
+        date: today,
         priority: "medium",
         category: "",
         subtasksTitle: [],
@@ -188,8 +203,12 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   validateFields = () => {
     const { taskData } = this.state;
 
-    const isTitleValid = taskData.title.length >= 8;
-    const isDescriptionValid = taskData.description.length >= 24;
+    const isTitleValid =
+      taskData.title.length >= TITLE_MIN_LENGTH &&
+      taskData.title.length <= TITLE_MAX_LENGTH;
+    const isDescriptionValid =
+      taskData.description.length >= DESCRIPTION_MIN_LENGTH &&
+      taskData.description.length <= DESCRIPTION_MAX_LENGTH;
     const isDateValid = taskData.date !== "";
     const isCategoryValid = taskData.category !== "";
 
@@ -210,7 +229,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
     event.preventDefault();
 
     if (this.isFormValid() && !this.state.isSubmitting) {
-      this.setState({ isSubmitting: true }); // Setze isSubmitting auf true
+      this.setState({ isSubmitting: true });
 
       try {
         const { taskData } = this.state;
@@ -222,7 +241,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       } catch (error) {
         console.error("Error adding task:", error);
       } finally {
-        this.setState({ isSubmitting: false }); // Setze isSubmitting zurück
+        this.setState({ isSubmitting: false });
       }
     }
   };
@@ -235,7 +254,6 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateTouched,
       dateInPast,
       categoryTouched,
-      currentUser,
     } = this.state;
 
     const {
@@ -246,6 +264,8 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateError,
       categoryError,
     } = this.validateFields();
+
+    const today = new Date().toISOString().split("T")[0];
 
     return (
       <form className="add-task" onSubmit={this.handleFormSubmit}>
@@ -260,6 +280,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 type="text"
                 id="title"
                 name="title"
+                maxLength={TITLE_MAX_LENGTH}
                 placeholder={taskData.title ? taskData.title : "Enter title..."}
                 value={taskData.title}
                 autoComplete="off"
@@ -276,7 +297,14 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   (isTitleEmpty ? (
                     <p>Title is required</p>
                   ) : (
-                    !isTitleValid && <p>Minimum 8 letters required</p>
+                    (!isTitleValid &&
+                      taskData.title.length < TITLE_MIN_LENGTH && (
+                        <p>Minimum {TITLE_MIN_LENGTH} letters required</p>
+                      )) ||
+                    (!isTitleValid &&
+                      taskData.title.length > TITLE_MAX_LENGTH && (
+                        <p>Maximum {TITLE_MAX_LENGTH} letters allowed</p>
+                      ))
                   ))}
               </div>
             </div>
@@ -288,6 +316,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
               <textarea
                 id="description"
                 rows={5}
+                maxLength={DESCRIPTION_MAX_LENGTH}
                 name="description"
                 value={taskData.description}
                 onChange={(event) =>
@@ -306,9 +335,16 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 {descriptionTouched &&
                   (isDescriptionEmpty ? (
                     <p>Description is required</p>
-                  ) : !isDescriptionValid ? (
-                    <p>Minimum 24 letters required</p>
-                  ) : null)}
+                  ) : (
+                    (!isDescriptionValid &&
+                      taskData.description.length < DESCRIPTION_MIN_LENGTH && (
+                        <p>Minimum {DESCRIPTION_MIN_LENGTH} letters required</p>
+                      )) ||
+                    (!isDescriptionValid &&
+                      taskData.description.length > DESCRIPTION_MAX_LENGTH && (
+                        <p>Maximum {DESCRIPTION_MAX_LENGTH} letters allowed</p>
+                      ))
+                  ))}
               </div>
             </div>
             <div className="add-task-assigned">
@@ -336,6 +372,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 id="date"
                 name="date"
                 value={taskData.date}
+                min={today}
                 onChange={this.handleDateChange}
                 onBlur={this.handleDateBlur}
                 autoComplete="off"

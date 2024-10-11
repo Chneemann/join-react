@@ -108,6 +108,8 @@ class Assigned extends Component<AssignedProps, AssignedState> {
       <div className="assigned">
         <input
           type="text"
+          id="assigned"
+          name="assigned"
           placeholder="Search..."
           value={searchQuery}
           onChange={this.handleSearchChange}

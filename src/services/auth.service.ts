@@ -30,15 +30,23 @@ export const firestore = getFirestore(app);
 // Log-in function
 export const login = async (email: string, password: string) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("Error logging in:", error);
     throw error;
   }
+};
+
+// Monitor Auth status
+export const observeAuthState = (callback: (user: User | null) => void) => {
+  return onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userData = await getUserByUid(user.uid);
+      callback(userData);
+    } else {
+      callback(null);
+    }
+  });
 };
 
 // Get user by uid
@@ -69,16 +77,4 @@ export const getUserByUid = async (uid: string): Promise<User | null> => {
   } catch (error) {
     throw error;
   }
-};
-
-// Monitor Auth status
-export const observeAuthState = (callback: (user: User | null) => void) => {
-  return onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const userData = await getUserByUid(user.uid);
-      callback(userData);
-    } else {
-      callback(null);
-    }
-  });
 };
