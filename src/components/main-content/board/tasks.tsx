@@ -3,6 +3,7 @@ import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
 import "./tasks.css";
 import { useDrag } from "react-dnd";
+import TaskDetails from "./task-details";
 
 interface TasksProps {
   status: string;
@@ -16,6 +17,7 @@ interface TasksState {
   dialogId: string;
   dialogX: number;
   dialogY: number;
+  selectedTask: Task | null;
 }
 
 class Tasks extends Component<TasksProps, TasksState> {
@@ -25,6 +27,7 @@ class Tasks extends Component<TasksProps, TasksState> {
       dialogId: "",
       dialogX: 0,
       dialogY: 0,
+      selectedTask: null,
     };
   }
 
@@ -43,9 +46,17 @@ class Tasks extends Component<TasksProps, TasksState> {
     this.setState({ dialogId: "" });
   };
 
+  handleTaskClick = (task: Task) => {
+    this.setState({ selectedTask: task });
+  };
+
+  closeTaskDetails = () => {
+    this.setState({ selectedTask: null });
+  };
+
   render() {
     const { status, tasks, users } = this.props;
-    const { dialogId, dialogX, dialogY } = this.state;
+    const { dialogId, dialogX, dialogY, selectedTask } = this.state;
     const user = users.find((u) => u.id === dialogId);
 
     return (
@@ -60,6 +71,7 @@ class Tasks extends Component<TasksProps, TasksState> {
               updateTaskStatus={this.props.updateTaskStatus}
               handleDialogMouseMove={this.handleDialogMouseMove}
               handleDialogMouseLeave={this.handleDialogMouseLeave}
+              onTaskClick={this.handleTaskClick}
             />
           ))
         ) : (
@@ -85,6 +97,9 @@ class Tasks extends Component<TasksProps, TasksState> {
             </p>
           </div>
         )}
+        {selectedTask && (
+          <TaskDetails task={selectedTask} onClose={this.closeTaskDetails} />
+        )}
       </div>
     );
   }
@@ -106,6 +121,7 @@ const DraggableTask = ({
   handleDialogMouseLeave,
   updateTaskStatus,
   statusDisplayNames,
+  onTaskClick,
 }: any) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "TASK",
@@ -150,7 +166,11 @@ const DraggableTask = ({
   };
 
   return (
-    <div ref={drag} className={`task ${isDragging ? "dragging" : ""}`}>
+    <div
+      ref={drag}
+      className={`task ${isDragging ? "dragging" : ""}`}
+      onClick={() => onTaskClick(task)}
+    >
       <div className="task-header">
         <div
           className="task-category"
@@ -161,7 +181,13 @@ const DraggableTask = ({
         >
           {task.category}
         </div>
-        <div className="menu-btn" onClick={() => toggleTaskMenu(task.id)}>
+        <div
+          className="menu-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleTaskMenu(task.id);
+          }}
+        >
           <img
             className="menu-img"
             src="./../../../../assets/img/board/menu.svg"
@@ -248,7 +274,7 @@ const TaskMenu = ({
   const statusOptions = Object.keys(statusDisplayNames);
 
   return (
-    <div className="task-menu">
+    <div className="task-menu" onClick={(e) => e.stopPropagation()}>
       {statusOptions.map(
         (status) =>
           task.status !== status && (
