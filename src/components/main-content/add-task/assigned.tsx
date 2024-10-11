@@ -178,7 +178,13 @@ class Assigned extends Component<AssignedProps, AssignedState> {
             }}
           >
             <p>
-              {hoveredUser.firstName}, {hoveredUser.lastName}
+              {hoveredUser.firstName}
+              {hoveredUser.firstName && hoveredUser.lastName ? (
+                <>
+                  ,<br />
+                  {hoveredUser.lastName}
+                </>
+              ) : null}
             </p>
           </div>
         )}
