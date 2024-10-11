@@ -71,13 +71,18 @@ class Tasks extends Component<TasksProps, TasksState> {
             style={{
               left: `${dialogX}px`,
               top: `${dialogY}px`,
-              position: "absolute",
             }}
           >
             <p>
-              {user.firstName} {dialogId === users[0].id && <span>(du)</span>}
+              {user.firstName}
+              {user.firstName && user.lastName ? (
+                <>
+                  ,<br />
+                  {user.lastName}
+                </>
+              ) : null}
+              {dialogId === users[0].id && <span> (du)</span>}
             </p>
-            <p>{user.lastName}</p>
           </div>
         )}
       </div>
