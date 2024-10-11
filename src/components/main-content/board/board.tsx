@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import "./board.css";
 import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
@@ -58,12 +58,12 @@ class Board extends Component<BoardProps, BoardState> {
       <DndProvider backend={HTML5Backend}>
         <div className="board">
           <div className="board-header">
-            <div className="board-title">{t("board.board")}</div>
             <div className="board-search">
               <div className="board-search-inner">
                 <input
                   ref={(input) => (this.searchInput = input)}
                   id="search-task"
+                  name="search-task"
                   type="text"
                   placeholder={t("board.searchText")}
                   value={searchValue}

@@ -7,17 +7,10 @@
 
 /* Header */
 
-.board-title {
-  font-size: 61px;
-  font-weight: 700;
-  padding-right: 24px;
-}
-
 .board-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
-  max-width: 1178px;
 }
 
 .board-search {
@@ -40,7 +33,7 @@
 
 .board-line {
   position: absolute;
-  top: 8px;
+  top: 12px;
   right: 30px;
   height: 18px;
   width: 1px;
@@ -50,7 +43,7 @@
 
 .board-icon-clear {
   position: absolute;
-  top: 7px;
+  top: 10px;
   right: 10px;
   cursor: pointer;
   filter: invert(41%) sepia(8%) saturate(762%) hue-rotate(176deg)
@@ -65,7 +58,7 @@
 
 .board-icon-search {
   position: absolute;
-  top: 4px;
+  top: 8px;
   right: 8px;
   filter: invert(41%) sepia(8%) saturate(762%) hue-rotate(176deg)
     brightness(94%) contrast(86%);
@@ -87,9 +80,9 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 32px;
+  height: 38px;
   width: fit-content;
-  padding: 8px 8px 8px 16px;
+  padding: 8px 16px;
   border-radius: 10px;
   border: 0;
   background-color: var(--light-blue);
@@ -116,7 +109,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 48px;
+  margin-top: 24px;
 }
 
 .board-headline {
@@ -164,27 +157,39 @@
 /*------------- RESPONSIVE -------------*/
 
 @media screen and (max-width: 900px) {
-  .board-search-inner input {
-    width: 220px;
-  }
-
-  .board-title {
-    font-size: 50px;
-  }
-
   .board-status {
     justify-content: center;
   }
 }
 
 @media screen and (max-width: 750px) {
-  .board-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .board-column {
+    width: 100%;
   }
 
-  .board-title {
-    margin-bottom: 24px;
+  .board-details {
+    display: flex;
+    width: calc(100vw - 85px);
+    overflow-x: auto;
+    padding: 0 5px;
+  }
+
+  .board-column {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .board-search-inner input {
+    width: 256px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .board {
+    padding: 24px;
+    margin-bottom: 76px;
   }
 
   .board-search {
@@ -200,10 +205,7 @@
   }
 
   .board-btn {
-    position: absolute;
-    top: -75px;
-    right: 0px;
-    width: 40px;
+    width: 45px;
     height: 40px;
     padding: 3px;
   }
@@ -211,22 +213,10 @@
   .board-btn span {
     display: none;
   }
-
-  .board-column {
-    width: 100%;
-  }
-
-  .board-details {
-    display: flex;
-    width: calc(100vw - 85px);
-    overflow-x: auto;
-    padding: 0 5px;
-  }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 400px) {
   .board {
-    padding: 24px;
-    margin-bottom: 76px;
+    padding: 12px;
   }
 }
