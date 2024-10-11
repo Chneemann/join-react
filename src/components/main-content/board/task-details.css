@@ -19,11 +19,16 @@
 
 .task-details-dialog {
   width: 525px;
-  height: 700px;
   padding: 48px 40px;
   border-radius: 30px;
   background-color: var(--white);
   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.task-details-content {
+  height: calc(700px - 114px);
+  padding-right: 12px;
+  overflow-y: auto;
 }
 
 .task-details-header {
@@ -96,7 +101,7 @@
   margin: 0;
 }
 
-.priority-bg {
+.task-details-priority-bg {
   margin-left: 12px;
   background-size: 24px;
   background-repeat: no-repeat;
@@ -105,14 +110,82 @@
   height: 32px;
 }
 
-.priority-urgent {
+.task-details-priority-urgent {
   background-image: url(./../../../../public/assets/img/urgent.svg);
 }
 
-.priority-medium {
+.task-details-priority-medium {
   background-image: url(./../../../../public/assets/img/medium.svg);
 }
 
-.priority-low {
+.task-details-priority-low {
   background-image: url(./../../../../public/assets/img/low.svg);
+}
+
+/* Assigned & Creator */
+
+.task-details-assigned,
+.task-details-creator {
+  margin-top: 32px;
+  overflow-y: auto;
+}
+
+.task-details-assigned p,
+.task-details-creator p {
+  color: var(--very-dark-gray);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 12px;
+  margin: 0;
+}
+
+.task-details-users {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+
+.task-details-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  border: 2px solid var(--white);
+}
+
+.task-details-initials {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--white);
+  text-shadow: 1px 1px 2px var(--black);
+}
+
+.task-details-details {
+  margin-left: 24px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.task-details-name {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.task-details-name p {
+  color: var(--black);
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.task-details-last-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

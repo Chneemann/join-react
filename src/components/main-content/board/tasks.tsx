@@ -98,7 +98,11 @@ class Tasks extends Component<TasksProps, TasksState> {
           </div>
         )}
         {selectedTask && (
-          <TaskDetails task={selectedTask} onClose={this.closeTaskDetails} />
+          <TaskDetails
+            task={selectedTask}
+            users={users}
+            onClose={this.closeTaskDetails}
+          />
         )}
       </div>
     );

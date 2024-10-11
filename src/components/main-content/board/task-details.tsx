@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import "./task-details.css";
 import { Task } from "../../../interfaces/task.interface";
 import SmallBtn from "../../shared/components/buttons/small-btn";
+import { User } from "../../../interfaces/user.interface";
 
 interface TaskDetailsProps {
   task: Task | null;
+  users: User[];
   onClose: () => void;
 }
 
@@ -40,7 +42,8 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   };
 
   render() {
-    const { task, onClose } = this.props;
+    const { task, users, onClose } = this.props;
+    const creatorDetails = users.find((user) => user.id === task?.creator);
 
     if (!task) return null;
 
@@ -59,17 +62,66 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
             </div>
             <SmallBtn image="close.svg" onClick={onClose} />
           </div>
-          <div className="task-details-headline">{task.title}</div>
-          <div className="task-details-description">{task.description}</div>
-          <div className="task-details-date">
-            <p>Date:</p>
-            {this.timeConverter(task.date)}
-          </div>
+          <div className="task-details-content">
+            <div className="task-details-headline">{task.title}</div>
+            <div className="task-details-description">{task.description}</div>
+            <div className="task-details-date">
+              <p>Date:</p>
+              {this.timeConverter(task.date)}
+            </div>
+            <div className="task-details-priority">
+              <p>Priority:</p>
+              {this.capitalizeFirstLetter(task.priority)}
+              <div
+                className={`task-details-priority-bg task-details-priority-${task.priority}`}
+              ></div>
+            </div>
 
-          <div className="task-details-priority">
-            <p>Priority:</p>
-            {this.capitalizeFirstLetter(task.priority)}
-            <div className={`priority-bg priority-${task.priority}`}></div>
+            {creatorDetails && (
+              <div className="task-details-creator">
+                <p>Creator:</p>
+                <div className="task-details-users">
+                  <div
+                    className="task-details-circle"
+                    style={{ backgroundColor: creatorDetails.color }}
+                  >
+                    <div className="task-details-initials">
+                      {creatorDetails.initials}
+                    </div>
+                  </div>
+                  <div className="task-details-details">
+                    <p>
+                      {creatorDetails.firstName} {creatorDetails.lastName}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="task-details-assigned">
+              <p>Assigned to:</p>
+              {task.assigned.map((userId: string) => {
+                const userDetails = users.find((user) => user.id === userId);
+                if (!userDetails) return null;
+                return (
+                  <div className="task-details-users" key={userId}>
+                    <div
+                      className="task-details-circle"
+                      style={{ backgroundColor: userDetails.color }}
+                    >
+                      <div className="task-details-initials">
+                        {userDetails.initials}
+                      </div>
+                    </div>
+                    <div className="task-details-details">
+                      <p>
+                        {userDetails.firstName} {userDetails.lastName}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
