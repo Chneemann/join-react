@@ -9,6 +9,7 @@ import { User } from "../../../interfaces/user.interface";
 
 interface AddTaskProps {
   users: User[];
+  currentUser: User;
   addTask: (task: Task) => Promise<void>;
   showOverlay: (message: string, timeout?: number) => void;
 }
@@ -25,6 +26,7 @@ interface AddTaskState {
   categoryTouched: boolean;
   categoryError: string;
   assigned: string[];
+  currentUser: User;
 }
 
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
@@ -40,7 +42,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         subtasksTitle: [],
         subtasksDone: [],
         assigned: [],
-        creator: "",
+        creator: this.props.currentUser.id || "",
         status: "todo",
       },
       titleTouched: false,
@@ -53,6 +55,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       categoryTouched: false,
       categoryError: "",
       assigned: [],
+      currentUser: this.props.currentUser,
     };
   }
 
@@ -158,7 +161,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         subtasksTitle: [],
         subtasksDone: [],
         assigned: [],
-        creator: "",
+        creator: this.props.currentUser.id || "",
         status: "todo",
       },
       titleTouched: false,
@@ -227,6 +230,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       dateTouched,
       dateInPast,
       categoryTouched,
+      currentUser,
     } = this.state;
 
     const {

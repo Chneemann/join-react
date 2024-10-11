@@ -89,14 +89,14 @@
 }
 
 /* Content Containers */
-.content-container-upper,
-.content-container-lower {
+.summary-content-container-upper,
+.summary-content-container-lower {
   display: flex;
   justify-content: space-between;
   gap: 32px;
 }
 
-.content-container-upper {
+.summary-content-container-upper {
   padding-bottom: 32px;
 }
 

@@ -9,22 +9,22 @@
 
   /* Content */
 
-  .content-container-upper {
+  .summary-content-container-upper {
     flex-direction: column;
     align-items: center;
   }
 
-  .content-container-lower {
+  .summary-content-container-lower {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
   }
 
-  .content-container-lower .task-in-board,
-  .content-container-lower .task-other,
-  .content-container-lower .task-todo,
-  .content-container-lower .task-done {
+  .summary-content-container-lower .task-in-board,
+  .summary-content-container-lower .task-other,
+  .summary-content-container-lower .task-todo,
+  .summary-content-container-lower .task-done {
     width: 100%;
     height: 200px;
     box-sizing: border-box;
@@ -72,8 +72,8 @@
 }
 
 @media screen and (max-width: 800px) {
-  .content-container-upper,
-  .content-container-lower {
+  .summary-content-container-upper,
+  .summary-content-container-lower {
     width: 500px;
   }
 

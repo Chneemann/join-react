@@ -8,11 +8,9 @@ import {
   getFirestore,
   collection,
   getDocs,
-  doc,
-  updateDoc,
-  addDoc,
+  where,
+  query,
 } from "firebase/firestore";
-import { Task } from "../interfaces/task.interface";
 import { User } from "../interfaces/user.interface";
 
 const firebaseConfig = {
@@ -37,13 +35,50 @@ export const login = async (email: string, password: string) => {
       email,
       password
     );
-    return userCredential.user;
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
+  }
+};
+
+// User Abrufen
+export const getUserByUid = async (uid: string): Promise<User | null> => {
+  try {
+    const usersRef = collection(firestore, "users");
+    const q = query(usersRef, where("uId", "==", uid));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      const userData = querySnapshot.docs[0].data() as User;
+      return {
+        id: querySnapshot.docs[0].id,
+        uId: userData.uId,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        initials: userData.initials,
+        color: userData.color,
+        status: userData.status,
+        lastLogin: userData.lastLogin,
+      };
+    } else {
+      return null;
+    }
   } catch (error) {
     throw error;
   }
 };
 
-// Optional: Auth-Status überwachen
-export const observeAuthState = (callback: (user: any) => void) => {
-  return onAuthStateChanged(auth, callback);
+// Auth-Status überwachen
+export const observeAuthState = (callback: (user: User | null) => void) => {
+  return onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userData = await getUserByUid(user.uid);
+      callback(userData);
+    } else {
+      callback(null);
+    }
+  });
 };

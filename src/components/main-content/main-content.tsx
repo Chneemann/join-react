@@ -15,8 +15,7 @@ import {
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
 import Overlay from "../shared/components/overlay";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, login, observeAuthState } from "../../services/auth.service";
+import { login, observeAuthState } from "../../services/auth.service";
 
 interface MainContentProps {}
 
@@ -29,6 +28,7 @@ interface MainContentState {
   overlayTimeout: number;
   loadingAuth: boolean;
   isAuthenticated: boolean;
+  currentUser: User | null;
 }
 
 class MainContent extends React.Component<MainContentProps, MainContentState> {
@@ -42,6 +42,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     overlayTimeout: 0,
     loadingAuth: true,
     isAuthenticated: false,
+    currentUser: null,
   };
 
   async componentDidMount() {
@@ -58,11 +59,17 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     // Auth-Status überwachen
     this.unsubscribeFromAuth = observeAuthState((user) => {
       if (user) {
-        console.log("User ID:", user.uid);
-        this.setState({ isAuthenticated: true, loadingAuth: false });
+        this.setState({
+          isAuthenticated: true,
+          loadingAuth: false,
+          currentUser: user,
+        });
       } else {
-        console.log("No user is signed in.");
-        this.setState({ isAuthenticated: false, loadingAuth: false });
+        this.setState({
+          isAuthenticated: false,
+          loadingAuth: false,
+          currentUser: null,
+        });
       }
     });
   }
@@ -144,6 +151,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
       overlayMsg,
       isAuthenticated,
       loadingAuth,
+      currentUser,
     } = this.state;
 
     // Wait until Auth-Status is loaded
@@ -155,40 +163,48 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     if (!isAuthenticated) {
       return <Navigate to="/login" />;
     }
-
-    return (
-      <main>
-        <Routes>
-          <Route path="/help" element={<Help />} />
-          <Route
-            path="/summary"
-            element={<Summary tasks={tasks} loading={loading} />}
-          />
-          <Route
-            path="/add-task"
-            element={
-              <AddTask
-                addTask={this.addNewTask}
-                users={users}
-                showOverlay={this.showOverlay}
-              />
-            }
-          />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route
-            path="/board"
-            element={
-              <Board
-                tasks={tasks}
-                users={users}
-                updateTaskStatus={this.updateTaskStatus}
-              />
-            }
-          />
-        </Routes>
-        {showOverlay && <Overlay msg={overlayMsg} />}
-      </main>
-    );
+    if (isAuthenticated && currentUser) {
+      return (
+        <main>
+          <Routes>
+            <Route path="/help" element={<Help />} />
+            <Route
+              path="/summary"
+              element={
+                <Summary
+                  tasks={tasks}
+                  loading={loading}
+                  currentUser={currentUser}
+                />
+              }
+            />
+            <Route
+              path="/add-task"
+              element={
+                <AddTask
+                  addTask={this.addNewTask}
+                  users={users}
+                  showOverlay={this.showOverlay}
+                  currentUser={currentUser}
+                />
+              }
+            />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route
+              path="/board"
+              element={
+                <Board
+                  tasks={tasks}
+                  users={users}
+                  updateTaskStatus={this.updateTaskStatus}
+                />
+              }
+            />
+          </Routes>
+          {showOverlay && <Overlay msg={overlayMsg} />}
+        </main>
+      );
+    }
   }
 }
 

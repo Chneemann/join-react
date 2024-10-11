@@ -4,9 +4,11 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import "./summary.css";
 import "./summary-mobile.css";
+import { User } from "../../interfaces/user.interface";
 
 interface SummaryProps extends WithTranslation {
   tasks: Task[];
+  currentUser: User;
   loading: boolean;
 }
 
@@ -20,12 +22,12 @@ interface SummaryState {
   };
   formattedDueDate: string;
   isMobile: boolean;
+  currentUser: User;
 }
 
 class Summary extends Component<SummaryProps, SummaryState> {
   constructor(props: SummaryProps) {
     super(props);
-
     this.state = {
       taskCounts: {
         todo: 0,
@@ -36,6 +38,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
       },
       formattedDueDate: "No Deadline",
       isMobile: window.innerWidth <= 1200,
+      currentUser: props.currentUser,
     };
     this.handleResize = this.handleResize.bind(this);
   }
@@ -124,15 +127,15 @@ class Summary extends Component<SummaryProps, SummaryState> {
 
   render() {
     const { t, loading } = this.props;
-    const { taskCounts, formattedDueDate, isMobile } = this.state;
+    const { taskCounts, formattedDueDate, isMobile, currentUser } = this.state;
 
     return (
       <div className="summary">
         <div className="summary-headline">
-          {t("summary.goodMorning")} <span>Guest</span>
+          {t("summary.goodMorning")} <span>{currentUser.firstName}</span>
         </div>
-        <div className="content">
-          <div className="content-container-upper">
+        <div className="summary-content">
+          <div className="summary-content-container-upper">
             <NavLink to="/board" className="urgent-task">
               <div className="urgent-task-container">
                 <div className="urgent-task-info">
@@ -228,7 +231,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
               </NavLink>
             )}
           </div>
-          <div className="content-container-lower">
+          <div className="summary-content-container-lower">
             {isMobile ? (
               <NavLink to="/board" className="task-in-board">
                 <div className="task-in-board-container">
