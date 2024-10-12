@@ -12,6 +12,7 @@ interface BoardProps extends WithTranslation {
   users: User[];
   currentUser: User;
   updateTaskStatus: (taskId: string, newStatus: string) => void;
+  showOverlay: (message: string, timeout?: number) => void;
 }
 
 interface BoardState {
@@ -112,6 +113,7 @@ class Board extends Component<BoardProps, BoardState> {
                   currentUser={this.props.currentUser}
                   updateTaskStatus={updateTaskStatus}
                   statusDisplayNames={statusDisplayNames}
+                  showOverlay={this.props.showOverlay}
                 />
               ))}
             </div>
@@ -131,6 +133,7 @@ const DroppableColumn = ({
   updateTaskStatus,
   statusDisplayNames,
   currentUser,
+  showOverlay,
 }: any) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "TASK",
@@ -155,6 +158,7 @@ const DroppableColumn = ({
         currentUser={currentUser}
         statusDisplayNames={statusDisplayNames}
         updateTaskStatus={updateTaskStatus}
+        showOverlay={showOverlay}
       />
     </div>
   );

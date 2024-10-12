@@ -7,6 +7,7 @@ import {
   doc,
   updateDoc,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { Task } from "../interfaces/task.interface";
 import { User } from "../interfaces/user.interface";
@@ -117,6 +118,21 @@ export const addNewTask = async (newTask: Task): Promise<string> => {
     return docRef.id;
   } catch (error) {
     console.error("Error adding task:", error);
+    throw error;
+  }
+};
+
+/**
+ * Deletes a task from the 'tasks' collection in Firestore by its ID.
+ * @param {string} taskId - The id of the task to delete.
+ * @throws Throws any error encountered while deleting the task.
+ */
+export const deleteTask = async (taskId: string) => {
+  try {
+    const taskRef = doc(firestore, "tasks", taskId);
+    await deleteDoc(taskRef);
+  } catch (error) {
+    console.error("Error deleting task:", error);
     throw error;
   }
 };

@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import "./task-details.css";
 import { Task } from "../../../interfaces/task.interface";
-import SmallBtn from "../../shared/components/buttons/small-btn";
 import { User } from "../../../interfaces/user.interface";
+import { deleteTask } from "../../../services/firebase.service";
+import SmallBtn from "../../shared/components/buttons/small-btn";
 
 interface TaskDetailsProps {
   task: Task | null;
   users: User[];
   currentUser: User;
   onClose: () => void;
+  showOverlay: (message: string, timeout?: number) => void;
 }
 
 interface TaskDetailsState {}
@@ -40,6 +42,19 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
       day: "numeric",
       year: "numeric",
     });
+  };
+
+  // Handle the deletion of a task
+  handleDeleteTask = async (taskId: string) => {
+    try {
+      await deleteTask(taskId);
+      this.props.showOverlay("Task deleted!", 2000);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      window.location.reload();
+      this.props.onClose();
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
   render() {
@@ -126,9 +141,16 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
               })}
             </div>
           </div>
-          {isTaskCreator ? (
+          {isTaskCreator && task.id ? (
             <div className="task-details-btns">
-              <div className="task-details-btn task-details-btn-delete">
+              <div
+                className="task-details-btn task-details-btn-delete"
+                onClick={() => {
+                  if (task?.id) {
+                    this.handleDeleteTask(task.id);
+                  }
+                }}
+              >
                 <img
                   src="./../../../../../assets/img/contact/delete.svg"
                   alt="delete"

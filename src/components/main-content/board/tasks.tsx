@@ -12,6 +12,7 @@ interface TasksProps {
   currentUser: User;
   statusDisplayNames: { [key: string]: string };
   updateTaskStatus: (taskId: string, newStatus: string) => void;
+  showOverlay: (message: string, timeout?: number) => void;
 }
 
 interface TasksState {
@@ -104,6 +105,7 @@ class Tasks extends Component<TasksProps, TasksState> {
             users={users}
             currentUser={currentUser}
             onClose={this.closeTaskDetails}
+            showOverlay={this.props.showOverlay}
           />
         )}
       </div>

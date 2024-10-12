@@ -95,7 +95,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
   };
 
   // Shows an overlay with a message for a specific time.
-  showOverlay = (message: string, timeout?: number) => {
+  showOverlayMsg = (message: string, timeout?: number) => {
     const overlayTimeout = timeout || this.state.overlayTimeout;
 
     this.setState({ showOverlay: true, overlayMsg: message });
@@ -130,7 +130,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                 <AddTask
                   addTask={this.addNewTask}
                   users={users}
-                  showOverlay={this.showOverlay}
+                  showOverlay={this.showOverlayMsg}
                   currentUser={currentUser}
                 />
               }
@@ -144,6 +144,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                   users={users}
                   currentUser={currentUser}
                   updateTaskStatus={this.updateTaskStatus}
+                  showOverlay={this.showOverlayMsg}
                 />
               }
             />
