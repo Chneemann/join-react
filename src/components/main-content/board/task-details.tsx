@@ -7,6 +7,7 @@ import { User } from "../../../interfaces/user.interface";
 interface TaskDetailsProps {
   task: Task | null;
   users: User[];
+  currentUser: User;
   onClose: () => void;
 }
 
@@ -42,10 +43,12 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   };
 
   render() {
-    const { task, users, onClose } = this.props;
-    const creatorDetails = users.find((user) => user.id === task?.creator);
+    const { task, users, currentUser, onClose } = this.props;
 
     if (!task) return null;
+
+    const creatorDetails = users.find((user) => user.id === task.creator);
+    const isTaskCreator = task.creator === currentUser.id;
 
     return (
       <div className="task-details" onClick={this.handleClickOutside}>
@@ -123,6 +126,29 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
               })}
             </div>
           </div>
+          {isTaskCreator ? (
+            <div className="task-details-btns">
+              <div className="task-details-btn task-details-btn-delete">
+                <img
+                  src="./../../../../../assets/img/contact/delete.svg"
+                  alt="delete"
+                />
+                <p>Delete Task</p>
+              </div>
+              <span>|</span>
+              <div className="task-details-btn task-details-btn-edit">
+                <img
+                  src="./../../../../../assets/img/contact/edit.svg"
+                  alt="edit"
+                />
+                <p>Edit Task</p>
+              </div>
+            </div>
+          ) : (
+            <div className="task-details-notice">
+              <p>Notice: Only the creator can edit or delete the task.</p>
+            </div>
+          )}
         </div>
       </div>
     );

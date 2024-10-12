@@ -142,6 +142,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                 <Board
                   tasks={tasks}
                   users={users}
+                  currentUser={currentUser}
                   updateTaskStatus={this.updateTaskStatus}
                 />
               }

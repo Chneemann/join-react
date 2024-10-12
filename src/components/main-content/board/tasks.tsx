@@ -9,6 +9,7 @@ interface TasksProps {
   status: string;
   tasks: Task[];
   users: User[];
+  currentUser: User;
   statusDisplayNames: { [key: string]: string };
   updateTaskStatus: (taskId: string, newStatus: string) => void;
 }
@@ -55,7 +56,7 @@ class Tasks extends Component<TasksProps, TasksState> {
   };
 
   render() {
-    const { status, tasks, users } = this.props;
+    const { status, tasks, users, currentUser } = this.props;
     const { dialogId, dialogX, dialogY, selectedTask } = this.state;
     const user = users.find((u) => u.id === dialogId);
 
@@ -101,6 +102,7 @@ class Tasks extends Component<TasksProps, TasksState> {
           <TaskDetails
             task={selectedTask}
             users={users}
+            currentUser={currentUser}
             onClose={this.closeTaskDetails}
           />
         )}

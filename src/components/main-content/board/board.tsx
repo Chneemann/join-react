@@ -10,6 +10,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 interface BoardProps extends WithTranslation {
   tasks: Task[];
   users: User[];
+  currentUser: User;
   updateTaskStatus: (taskId: string, newStatus: string) => void;
 }
 
@@ -108,6 +109,7 @@ class Board extends Component<BoardProps, BoardState> {
                   status={status}
                   tasks={filteredTasks.filter((task) => task.status === status)}
                   users={users}
+                  currentUser={this.props.currentUser}
                   updateTaskStatus={updateTaskStatus}
                   statusDisplayNames={statusDisplayNames}
                 />
@@ -128,6 +130,7 @@ const DroppableColumn = ({
   users,
   updateTaskStatus,
   statusDisplayNames,
+  currentUser,
 }: any) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "TASK",
@@ -149,6 +152,7 @@ const DroppableColumn = ({
         tasks={tasks}
         users={users}
         status={status}
+        currentUser={currentUser}
         statusDisplayNames={statusDisplayNames}
         updateTaskStatus={updateTaskStatus}
       />

@@ -50,7 +50,7 @@
 }
 
 .task-details-headline {
-  font-size: 46px;
+  font-size: 32px;
   font-weight: 700;
   width: 100%;
   word-wrap: break-word;
@@ -188,4 +188,56 @@
 .task-details-last-name {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Btns */
+
+.task-details-btns {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.task-details-btns img {
+  width: 20px;
+  height: 20px;
+  padding-right: 12px;
+  filter: brightness(0) saturate(100%) invert(47%) sepia(49%) saturate(3484%)
+    hue-rotate(203deg) brightness(103%) contrast(103%);
+}
+
+.task-details-btns p {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.task-details-btns span {
+  padding: 0 12px;
+}
+
+.task-details-btns .task-details-btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.task-details-btns .task-details-btn:hover {
+  filter: brightness(0) saturate(100%) invert(23%) sepia(87%) saturate(4028%)
+    hue-rotate(215deg) brightness(100%) contrast(108%);
+}
+
+.task-details-btns .task-details-btn:last-child {
+  padding-right: 24px;
+}
+
+/* Notice */
+
+.task-details-notice p {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 12px 0 0 0;
+  text-align: center;
 }
