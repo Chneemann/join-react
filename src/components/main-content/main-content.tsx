@@ -23,7 +23,7 @@ interface MainContentProps {
 interface MainContentState {
   tasks: Task[];
   users: User[];
-  loading: boolean;
+  loadingData: boolean;
   showOverlay: boolean;
   overlayMsg: string;
   overlayTimeout: number;
@@ -33,7 +33,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
   state: MainContentState = {
     tasks: [],
     users: [],
-    loading: true,
+    loadingData: true,
     showOverlay: false,
     overlayMsg: "",
     overlayTimeout: 0,
@@ -52,7 +52,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     } catch (error) {
       console.error("Error loading tasks:", error);
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loadingData: false });
     }
   };
 
@@ -64,7 +64,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     } catch (error) {
       console.error("Error loading users:", error);
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loadingData: false });
     }
   };
 
@@ -123,8 +123,12 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
   };
 
   render() {
-    const { tasks, users, loading, showOverlay, overlayMsg } = this.state;
+    const { tasks, users, loadingData, showOverlay, overlayMsg } = this.state;
     const { currentUser } = this.props;
+
+    if (loadingData) {
+      return;
+    }
 
     if (currentUser) {
       return (
@@ -133,13 +137,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
             <Route path="/help" element={<Help />} />
             <Route
               path="/summary"
-              element={
-                <Summary
-                  tasks={tasks}
-                  loading={loading}
-                  currentUser={currentUser}
-                />
-              }
+              element={<Summary tasks={tasks} currentUser={currentUser} />}
             />
             <Route
               path="/add-task"

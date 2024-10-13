@@ -9,7 +9,6 @@ import { User } from "../../interfaces/user.interface";
 interface SummaryProps extends WithTranslation {
   tasks: Task[];
   currentUser: User;
-  loading: boolean;
 }
 
 interface SummaryState {
@@ -130,7 +129,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
   }
 
   render() {
-    const { t, loading } = this.props;
+    const { t } = this.props;
     const { taskCounts, formattedDueDate, isMobile, currentUser } = this.state;
 
     return (
@@ -149,34 +148,13 @@ class Summary extends Component<SummaryProps, SummaryState> {
                       src="./../assets/img/summary/urgent.svg"
                       alt="Urgent task icon"
                     />
-                    <span>
-                      {loading ? (
-                        <img
-                          className="sync-img"
-                          src="./../assets/img/sync.svg"
-                          alt=""
-                        />
-                      ) : (
-                        taskCounts.urgent.length
-                      )}
-                    </span>
+                    <span>{taskCounts.urgent.length}</span>
                   </div>
                   <p>{t("summary.tasksUrgent")}</p>
                 </div>
                 <div className="urgent-task-divider"></div>
                 <div className="urgent-task-deadline">
-                  <span>
-                    {loading ? (
-                      <span className="loading-dots">
-                        Loading
-                        <span className="dot"></span>
-                        <span className="dot"></span>
-                        <span className="dot"></span>
-                      </span>
-                    ) : (
-                      formattedDueDate
-                    )}
-                  </span>
+                  <span>{formattedDueDate}</span>
                   <p>{t("summary.upcomingDeadline")}</p>
                 </div>
               </div>
@@ -191,17 +169,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                         src="./../assets/img/summary/board.svg"
                         alt="Board task icon"
                       />
-                      <span>
-                        {loading ? (
-                          <img
-                            className="sync-img"
-                            src="./../assets/img/sync.svg"
-                            alt=""
-                          />
-                        ) : (
-                          this.props.tasks.length
-                        )}
-                      </span>
+                      <span>{this.props.tasks.length}</span>
                     </div>
                     <p>{t("summary.tasksInBoard")}</p>
                   </div>
@@ -217,17 +185,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                         src="./../assets/img/summary/todo.svg"
                         alt="Todo task icon"
                       />
-                      <span>
-                        {loading ? (
-                          <img
-                            className="sync-img"
-                            src="./../assets/img/sync.svg"
-                            alt=""
-                          />
-                        ) : (
-                          taskCounts.todo
-                        )}
-                      </span>
+                      <span>{taskCounts.todo}</span>
                     </div>
                     <p>{t("summary.tasksTodo")}</p>
                   </div>
@@ -246,17 +204,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                         src="./../assets/img/summary/board.svg"
                         alt="Board task icon"
                       />
-                      <span>
-                        {loading ? (
-                          <img
-                            className="sync-img"
-                            src="./../assets/img/sync.svg"
-                            alt=""
-                          />
-                        ) : (
-                          this.props.tasks.length
-                        )}
-                      </span>
+                      <span>{this.props.tasks.length}</span>
                     </div>
                     <p>{t("summary.tasksInBoard")}</p>
                   </div>
@@ -272,17 +220,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                         src="./../assets/img/summary/todo.svg"
                         alt="Todo task icon"
                       />
-                      <span>
-                        {loading ? (
-                          <img
-                            className="sync-img"
-                            src="./../assets/img/sync.svg"
-                            alt=""
-                          />
-                        ) : (
-                          taskCounts.todo
-                        )}
-                      </span>
+                      <span>{taskCounts.todo}</span>
                     </div>
                     <p>{t("summary.tasksTodo")}</p>
                   </div>
@@ -298,17 +236,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                       src="./../assets/img/summary/in-progress.svg"
                       alt="In progress task icon"
                     />
-                    <span>
-                      {loading ? (
-                        <img
-                          className="sync-img"
-                          src="./../assets/img/sync.svg"
-                          alt=""
-                        />
-                      ) : (
-                        taskCounts.inProgress
-                      )}
-                    </span>
+                    <span>{taskCounts.inProgress}</span>
                   </div>
                   <p>{t("summary.tasksInProgress")}</p>
                 </div>
@@ -323,17 +251,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                       src="./../assets/img/summary/await-feedback.svg"
                       alt="Await feedback task icon"
                     />
-                    <span>
-                      {loading ? (
-                        <img
-                          className="sync-img"
-                          src="./../assets/img/sync.svg"
-                          alt=""
-                        />
-                      ) : (
-                        taskCounts.awaitFeedback
-                      )}
-                    </span>
+                    <span>{taskCounts.awaitFeedback}</span>
                   </div>
                   <p>{t("summary.awaitFeedback")}</p>
                 </div>
@@ -348,17 +266,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
                       src="./../assets/img/summary/done.svg"
                       alt="Done task icon"
                     />
-                    <span>
-                      {loading ? (
-                        <img
-                          className="sync-img"
-                          src="./../assets/img/sync.svg"
-                          alt=""
-                        />
-                      ) : (
-                        taskCounts.done
-                      )}
-                    </span>
+                    <span>{taskCounts.done}</span>
                   </div>
                   <p>{t("summary.tasksDone")}</p>
                 </div>
