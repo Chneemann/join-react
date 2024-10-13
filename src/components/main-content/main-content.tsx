@@ -127,7 +127,12 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     const { currentUser } = this.props;
 
     if (loadingData) {
-      return;
+      return (
+        <div className="loading-container">
+          <div className="loader"></div>
+          <p className="loading-text">Loading data...</p>
+        </div>
+      );
     }
 
     if (currentUser) {
