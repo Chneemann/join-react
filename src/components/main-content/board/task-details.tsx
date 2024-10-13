@@ -52,7 +52,7 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   handleDeleteTask = async (taskId: string) => {
     try {
       await deleteTask(taskId);
-      this.props.showOverlayMsg("Task added successfully", 1500, {
+      this.props.showOverlayMsg("Task deleted successfully", 1500, {
         reload: true,
       });
     } catch (error) {

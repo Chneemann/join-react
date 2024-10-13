@@ -103,7 +103,7 @@ class Tasks extends Component<TasksProps, TasksState> {
                   {user.lastName}
                 </>
               ) : null}
-              {dialogId === users[0].id && <span> (du)</span>}
+              {dialogId === currentUser.id && <span> (you)</span>}
             </p>
           </div>
         )}
