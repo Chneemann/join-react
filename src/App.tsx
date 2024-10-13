@@ -6,15 +6,16 @@ import MainContent from "./components/main-content/main-content";
 import "./App.css";
 import "./i18n";
 import { User } from "./interfaces/user.interface";
-import { login, observeAuthState } from "./services/auth.service";
+import { observeAuthState } from "./services/auth.service";
 
 interface AppState {
   currentUser: User | null;
   loadingAuth: boolean;
   isAuthenticated: boolean;
 }
+
 class App extends Component<{}, AppState> {
-  unsubscribeFromAuth: (() => void) | undefined; // Typ für die Abmeldefunktion
+  unsubscribeFromAuth: (() => void) | undefined;
 
   state: AppState = {
     currentUser: null,
@@ -22,14 +23,11 @@ class App extends Component<{}, AppState> {
     isAuthenticated: false,
   };
 
+  /**
+   * Sets up an authentication state listener on mount.
+   * Updates `isAuthenticated`, `currentUser`, and `loadingAuth` based on the user's status.
+   */
   async componentDidMount() {
-    // Testbenutzer einloggen
-    // try {
-    //   await login("guest@guestaccount.com", "guest@guestaccount.com");
-    // } catch (error) {
-    //   console.error("Login failed:", error);
-    // }
-
     // Monitor Auth-Status
     this.unsubscribeFromAuth = observeAuthState((user) => {
       if (user) {
@@ -58,20 +56,16 @@ class App extends Component<{}, AppState> {
   render() {
     const { currentUser, isAuthenticated, loadingAuth } = this.state;
 
-    // Wait until Auth-Status is loaded
-    if (loadingAuth) {
-      return;
-    }
+    return (
+      <Router>
+        {/* Loading indicator when authentication is loaded */}
+        {loadingAuth && <div>Loading...</div>}
 
-    // If the user is not authenticated, redirect to the login page
-    if (!isAuthenticated) {
-      return <Navigate to="/login" />;
-    }
+        {/* Redirect to login page if not authenticated */}
+        {!loadingAuth && !isAuthenticated && <Navigate to="/login" replace />}
 
-    // If the user is authenticated, render the main content
-    if (currentUser) {
-      return (
-        <Router>
+        {/* Authenticated user */}
+        {!loadingAuth && currentUser && (
           <React.Fragment>
             <Header currentUser={currentUser} />
             <div className="container">
@@ -79,9 +73,9 @@ class App extends Component<{}, AppState> {
               <MainContent currentUser={currentUser} />
             </div>
           </React.Fragment>
-        </Router>
-      );
-    }
+        )}
+      </Router>
+    );
   }
 }
 
