@@ -14,7 +14,7 @@ import {
 } from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
-import Overlay from "../shared/components/overlay";
+import OverlayMsg from "../shared/components/overlay-msg";
 
 interface MainContentProps {
   currentUser: User;
@@ -94,15 +94,32 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
-  // Shows an overlay with a message for a specific time.
-  showOverlayMsg = (message: string, timeout?: number) => {
+  // Method for displaying the overlay message
+  showOverlayMsg = (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => {
     const overlayTimeout = timeout || this.state.overlayTimeout;
 
     this.setState({ showOverlay: true, overlayMsg: message });
 
     setTimeout(() => {
       this.setState({ showOverlay: false, overlayMsg: "" });
+
+      if (action) {
+        this.performAction(action);
+      }
     }, overlayTimeout);
+  };
+
+  // Auxiliary method for executing the overlay message action
+  performAction = (action: { reload?: boolean; href?: string }) => {
+    if (action.reload) {
+      window.location.reload();
+    } else if (action.href) {
+      window.location.href = action.href;
+    }
   };
 
   render() {
@@ -130,7 +147,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                 <AddTask
                   addTask={this.addNewTask}
                   users={users}
-                  showOverlay={this.showOverlayMsg}
+                  showOverlayMsg={this.showOverlayMsg}
                   currentUser={currentUser}
                 />
               }
@@ -144,12 +161,12 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                   users={users}
                   currentUser={currentUser}
                   updateTaskStatus={this.updateTaskStatus}
-                  showOverlay={this.showOverlayMsg}
+                  showOverlayMsg={this.showOverlayMsg}
                 />
               }
             />
           </Routes>
-          {showOverlay && <Overlay msg={overlayMsg} />}
+          {showOverlay && <OverlayMsg msg={overlayMsg} />}
         </main>
       );
     }

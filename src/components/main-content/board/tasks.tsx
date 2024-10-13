@@ -12,7 +12,11 @@ interface TasksProps {
   currentUser: User;
   statusDisplayNames: { [key: string]: string };
   updateTaskStatus: (taskId: string, newStatus: string) => void;
-  showOverlay: (message: string, timeout?: number) => void;
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
 }
 
 interface TasksState {
@@ -33,6 +37,7 @@ class Tasks extends Component<TasksProps, TasksState> {
     };
   }
 
+  // When a user is hovered, set the dialogId to that user
   handleDialogMouseMove = (
     userId: string,
     event: MouseEvent<HTMLSpanElement>
@@ -44,14 +49,17 @@ class Tasks extends Component<TasksProps, TasksState> {
     });
   };
 
+  // Set the dialogId to an empty string when the mouse leaves the dialog
   handleDialogMouseLeave = () => {
     this.setState({ dialogId: "" });
   };
 
+  // When a task is clicked, set the selectedTask to that task
   handleTaskClick = (task: Task) => {
     this.setState({ selectedTask: task });
   };
 
+  // When a task is closed, set the selectedTask to null
   closeTaskDetails = () => {
     this.setState({ selectedTask: null });
   };
@@ -105,7 +113,7 @@ class Tasks extends Component<TasksProps, TasksState> {
             users={users}
             currentUser={currentUser}
             onClose={this.closeTaskDetails}
-            showOverlay={this.props.showOverlay}
+            showOverlayMsg={this.props.showOverlayMsg}
           />
         )}
       </div>

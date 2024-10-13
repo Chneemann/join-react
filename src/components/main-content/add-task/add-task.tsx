@@ -10,7 +10,11 @@ interface AddTaskProps {
   users: User[];
   currentUser: User;
   addTask: (task: Task) => Promise<void>;
-  showOverlay: (message: string, timeout?: number) => void;
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
 }
 
 interface AddTaskState {
@@ -234,11 +238,14 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       try {
         const { taskData } = this.state;
         await this.props.addTask(taskData);
-        this.props.showOverlay("Task added successfully!", 5000);
+        this.props.showOverlayMsg("Task added successfully", 1500, {
+          href: "/board",
+        });
         this.resetForm();
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        window.location.href = "/board";
       } catch (error) {
+        this.props.showOverlayMsg("Error adding task", 1500, {
+          reload: false,
+        });
         console.error("Error adding task:", error);
       } finally {
         this.setState({ isSubmitting: false });

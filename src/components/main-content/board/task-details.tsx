@@ -10,7 +10,11 @@ interface TaskDetailsProps {
   users: User[];
   currentUser: User;
   onClose: () => void;
-  showOverlay: (message: string, timeout?: number) => void;
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
 }
 
 interface TaskDetailsState {}
@@ -48,11 +52,13 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   handleDeleteTask = async (taskId: string) => {
     try {
       await deleteTask(taskId);
-      this.props.showOverlay("Task deleted!", 2000);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      window.location.reload();
-      this.props.onClose();
+      this.props.showOverlayMsg("Task added successfully", 1500, {
+        reload: true,
+      });
     } catch (error) {
+      this.props.showOverlayMsg("Error deleting task", 1500, {
+        reload: true,
+      });
       console.error("Error deleting task:", error);
     }
   };

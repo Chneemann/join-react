@@ -1,21 +1,22 @@
 import React from "react";
-import "./overlay.css";
+import "./overlay-msg.css";
 
-interface OverlayProps {
+interface OverlayMsgProps {
   msg: string;
 }
 
-interface OverlayState {
+interface OverlayMsgState {
   msg: string;
 }
 
-class Overlay extends React.Component<OverlayProps, OverlayState> {
-  constructor(props: OverlayProps) {
+class OverlayMsg extends React.Component<OverlayMsgProps, OverlayMsgState> {
+  constructor(props: OverlayMsgProps) {
     super(props);
     this.state = {
       msg: this.props.msg,
     };
   }
+
   render() {
     const { msg } = this.state;
 
@@ -29,4 +30,4 @@ class Overlay extends React.Component<OverlayProps, OverlayState> {
   }
 }
 
-export default Overlay;
+export default OverlayMsg;
