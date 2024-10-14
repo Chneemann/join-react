@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./contacts.css";
-import { User } from "../../interfaces/user.interface";
+import { User } from "../../../interfaces/user.interface";
+import ContactDetails from "./contact-detail";
 
 interface ContactsProps {
   users: User[];
@@ -112,7 +113,9 @@ class Contacts extends Component<ContactsProps, ContactsState> {
           </div>
         </div>
         <div className="contacts-contact-detail">
-          {selectedUser ? "Contact Details " : null}
+          {selectedUser ? (
+            <ContactDetails selectedUserId={selectedUser} users={users} />
+          ) : null}
         </div>
       </div>
     );
