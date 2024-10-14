@@ -4,11 +4,12 @@ import { User } from "../../interfaces/user.interface";
 
 interface ContactsProps {
   users: User[];
+  currentUser: User;
 }
 
 interface ContactsState {
   showAllUsers: boolean;
-  currentUserId: string | undefined;
+  selectedUser: string | undefined;
 }
 
 class Contacts extends Component<ContactsProps, ContactsState> {
@@ -16,7 +17,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     super(props);
     this.state = {
       showAllUsers: true,
-      currentUserId: undefined,
+      selectedUser: undefined,
     };
   }
 
@@ -25,11 +26,11 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   showUserId = (userId: string) => {
-    this.setState({ currentUserId: userId });
+    this.setState({ selectedUser: userId });
   };
 
   closeContactEmitter = () => {
-    this.setState({ currentUserId: undefined });
+    this.setState({ selectedUser: undefined });
   };
 
   sortFirstLetter = (): string[] => {
@@ -44,14 +45,14 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   render() {
-    const { showAllUsers, currentUserId } = this.state;
-    const { users } = this.props;
+    const { showAllUsers, selectedUser } = this.state;
+    const { users, currentUser } = this.props;
 
     return (
       <div className="contacts">
         <div
           className={`contacts-contact-list ${
-            !showAllUsers && currentUserId ? "d-none" : ""
+            !showAllUsers && currentUser.id ? "d-none" : ""
           }`}
         >
           <button
@@ -76,7 +77,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
                   <div
                     key={user.id}
                     className={`contacts-contact ${
-                      currentUserId === user.id ? "contacts-contact-active" : ""
+                      selectedUser === user.id ? "contacts-contact-active" : ""
                     }`}
                     onClick={() => user.id && this.showUserId(user.id)}
                   >
@@ -100,10 +101,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
                         <p className="contacts-last-name">
                           {user.lastName ? `,\u00A0${user.lastName}` : null}
                         </p>
-                        {/* TODO: Show current user */}
-                        {user.id === "currentUserIdFromService" && (
-                          <p>&nbsp;(You)</p>
-                        )}
+                        {user.id === currentUser.id && <p>&nbsp;(You)</p>}
                       </div>
                       <div className="contacts-email">{user.email}</div>
                     </div>
@@ -114,7 +112,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
           </div>
         </div>
         <div className="contacts-contact-detail">
-          {showAllUsers || currentUserId ? "Contact Details" : null}
+          {selectedUser ? "Contact Details " : null}
         </div>
       </div>
     );

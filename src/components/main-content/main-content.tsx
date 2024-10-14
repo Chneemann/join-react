@@ -155,7 +155,10 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                 />
               }
             />
-            <Route path="/contacts" element={<Contacts users={users} />} />
+            <Route
+              path="/contacts"
+              element={<Contacts users={users} currentUser={currentUser} />}
+            />
             <Route
               path="/board"
               element={
