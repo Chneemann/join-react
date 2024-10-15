@@ -1,1 +1,262 @@
 @import "./../../../styles/colors.css";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+}
+.btn-back img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) saturate(100%) invert(56%) sepia(64%) saturate(570%)
+    hue-rotate(154deg) brightness(92%) contrast(92%);
+}
+.btn-back:hover {
+  background-color: var(--light-blue);
+  border-radius: 100%;
+  scale: 1.1;
+}
+.btn-back:hover img {
+  scale: 1.1;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7485%)
+    hue-rotate(325deg) brightness(100%) contrast(104%);
+}
+
+.headline {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 73px;
+}
+.headline .title {
+  font-size: 61px;
+  font-weight: 700;
+  padding-right: 24px;
+}
+.headline .metrics-txt {
+  font-size: 27px;
+  font-weight: 400;
+  padding-left: 24px;
+}
+.headline .blue-bar {
+  height: 80%;
+  width: 3px;
+  background-color: var(--light-blue);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  margin-top: 48px;
+  max-width: 100%;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 120px;
+  min-width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  border: 4px solid var(--white);
+}
+.circle .initials {
+  font-size: 47px;
+  font-weight: 500;
+  color: var(--white);
+  text-shadow: 1px 1px 2px var(--black);
+}
+.circle img {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  bottom: 0;
+  right: 0;
+}
+
+.word-wrap {
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  font-size: 47px;
+  font-weight: 600;
+  padding-left: 32px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  padding: 12px 0 0 32px;
+}
+.btns img {
+  width: 20px;
+  height: 20px;
+  padding-right: 12px;
+}
+.btns p {
+  font-size: 16px;
+  font-weight: 400;
+  padding-right: 24px;
+}
+.btns .btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.btns .btn:hover {
+  filter: invert(60%) sepia(58%) saturate(1629%) hue-rotate(165deg);
+}
+
+.contact {
+  margin-top: 48px;
+}
+.contact .headline {
+  font-size: 20px;
+  font-weight: 400;
+}
+.contact .info {
+  margin-top: 16px;
+}
+.contact .info p {
+  font-size: 16px;
+  font-weight: 700;
+  padding: 24px 0 12px 0;
+  margin: 0;
+}
+.contact .info span {
+  font-size: 16px;
+  font-weight: 400;
+}
+.contact .info a {
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--light-blue);
+  cursor: pointer;
+}
+.contact .info a:hover {
+  text-decoration: underline;
+}
+
+.btn-mobile {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  height: 56px;
+  width: 56px;
+  border-radius: 100%;
+  border: 0;
+  background-color: var(--dark-blue);
+  z-index: 1;
+  cursor: pointer;
+}
+.btn-mobile img {
+  padding: 0;
+  width: 7px;
+  height: 32px;
+}
+.btn-mobile:hover {
+  background-color: var(--light-blue);
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation */
+.animation-coming-in {
+  animation: coming-in 250ms ease-in-out;
+  opacity: 1;
+}
+
+@keyframes coming-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100vw);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1300px) {
+  .headline .title {
+    font-size: 50px;
+  }
+  .headline .metrics-txt {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 1235px) {
+  .headline {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 0;
+    height: 100%;
+  }
+  .headline .metrics-txt {
+    padding-left: 0;
+  }
+  .headline .blue-bar {
+    position: absolute;
+    bottom: -15px;
+    height: 3px;
+    width: 100px;
+  }
+  .name {
+    display: block;
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .btns {
+    display: none;
+  }
+  .btn-mobile {
+    display: flex;
+  }
+  .name {
+    font-size: 36px;
+    font-weight: 600;
+    padding-left: 18px;
+  }
+  .circle {
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    border: 2px solid var(--white);
+  }
+  .circle .initials {
+    font-size: 27px;
+    font-weight: 400;
+  }
+  .headline .title {
+    font-size: 47px;
+    font-weight: 700;
+  }
+  .headline .metrics-txt {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}

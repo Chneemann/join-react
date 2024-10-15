@@ -10,7 +10,7 @@ interface ContactsProps {
 
 interface ContactsState {
   showAllUsers: boolean;
-  selectedUser: string | undefined;
+  selectedUser: string | null;
 }
 
 class Contacts extends Component<ContactsProps, ContactsState> {
@@ -18,7 +18,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     super(props);
     this.state = {
       showAllUsers: true,
-      selectedUser: undefined,
+      selectedUser: null,
     };
   }
 
@@ -30,10 +30,6 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     this.setState({ selectedUser: userId });
   };
 
-  closeContactEmitter = () => {
-    this.setState({ selectedUser: undefined });
-  };
-
   sortFirstLetter = (): string[] => {
     const letters = new Set(
       this.props.users.map((user) => user.firstName.charAt(0).toUpperCase())
@@ -43,6 +39,27 @@ class Contacts extends Component<ContactsProps, ContactsState> {
 
   sortUsersByFirstLetter = (letter: string): User[] => {
     return this.props.users.filter((user) => user.firstName.startsWith(letter));
+  };
+
+  // ContactDetails component
+  // Logic for closing the user details area
+  handleCloseUserDetails = () => {
+    this.setState({ selectedUser: null });
+  };
+
+  // Logic for opening the edit dialog
+  handleOpenEditDialog = () => {
+    // TODO
+  };
+
+  // Logic for deleting a contact
+  handleDeleteContact = () => {
+    // TODO
+  };
+
+  // Logic for toggling the navigation on mobile devices
+  handleToggleNav = () => {
+    // TODO
   };
 
   render() {
@@ -114,7 +131,15 @@ class Contacts extends Component<ContactsProps, ContactsState> {
         </div>
         <div className="contacts-contact-detail">
           {selectedUser ? (
-            <ContactDetails selectedUserId={selectedUser} users={users} />
+            <ContactDetails
+              users={users}
+              currentUser={currentUser}
+              selectedUserId={selectedUser}
+              closeUserDetails={this.handleCloseUserDetails}
+              openEditDialog={this.handleOpenEditDialog}
+              deleteContact={this.handleDeleteContact}
+              toggleNav={this.handleToggleNav}
+            />
           ) : null}
         </div>
       </div>
