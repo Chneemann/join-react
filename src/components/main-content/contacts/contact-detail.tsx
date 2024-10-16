@@ -37,14 +37,19 @@ class ContactDetails extends Component<ContactDetailsProps> {
 
     return (
       <div className="contact-details">
-        <div className="header">
-          <div className="headline">
-            <div className="title">Contacts</div>
-            <div className="blue-bar"></div>
-            <div className="metrics-txt">Better with a team</div>
+        <div className="contact-details-header">
+          <div className="contact-details-headline">
+            <div className="contact-details-title">Contacts</div>
+            <div className="contact-details-blue-bar"></div>
+            <div className="contact-details-metrics-txt">
+              Better with a team
+            </div>
           </div>
           {selectedUser && (
-            <div className="btn-back" onClick={closeUserDetails}>
+            <div
+              className="contact-details-return-button"
+              onClick={closeUserDetails}
+            >
               <img src="./../../../../assets/img/arrow-left.svg" alt="back" />
             </div>
           )}
@@ -54,12 +59,15 @@ class ContactDetails extends Component<ContactDetailsProps> {
           this.checkUserData(selectedUser).map((user) => (
             <div
               key={user.id}
-              className={`contact-details ${
-                selectedUser ? "animation-coming-in" : ""
+              className={`contact-details-content ${
+                selectedUser ? "contact-details-animation-coming-in" : ""
               }`}
             >
-              <div className="content">
-                <div className="circle" style={{ backgroundColor: user.color }}>
+              <div className="contact-details-user-content">
+                <div
+                  className="contact-details-circle"
+                  style={{ backgroundColor: user.color }}
+                >
                   <img
                     src={
                       user.status
@@ -68,17 +76,16 @@ class ContactDetails extends Component<ContactDetailsProps> {
                     }
                     alt=""
                   />
-                  <div className="initials">{user.initials}</div>
-                </div>
-                <div className="word-wrap">
-                  <div className="name">
-                    {user.firstName} {user.lastName}{" "}
-                    {user.id === currentUser.id && "(You)"}
+                  <div className="contact-details-initials">
+                    {user.initials}
                   </div>
-
+                </div>
+                <div className="contact-details-name word-wrap">
+                  {user.firstName} {user.lastName}{" "}
+                  {user.id === currentUser.id && "(You)"}
                   {(user.uId === "" || user.id === selectedUser) && (
-                    <div className="btns">
-                      <div className="btn btn-edit">
+                    <div className="contact-details-edit-options">
+                      <div className="contact-details-button">
                         <img
                           src="./../../../../assets/img/contact/edit.svg"
                           alt="edit"
@@ -86,7 +93,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
                         <p onClick={openEditDialog}>Edit</p>
                       </div>
                       {user.id !== currentUser.id && (
-                        <div className="btn btn-delete">
+                        <div className="contact-details-button">
                           <img
                             src="./../../../../assets/img/contact/delete.svg"
                             alt="delete"
@@ -96,7 +103,10 @@ class ContactDetails extends Component<ContactDetailsProps> {
                       )}
                     </div>
                   )}
-                  <div className="btn-mobile" onClick={toggleNav}>
+                  <div
+                    className="contact-details-button-mobile"
+                    onClick={toggleNav}
+                  >
                     <img
                       src="./../../../assets/img/contact/points.svg"
                       alt="menu"
@@ -105,9 +115,11 @@ class ContactDetails extends Component<ContactDetailsProps> {
                 </div>
               </div>
 
-              <div className="contact word-wrap">
-                <div className="headline">Contact Info</div>
-                <div className="info">
+              <div className="contact-details-contact word-wrap">
+                <div className="contact-details-contact-title">
+                  Contact Information
+                </div>
+                <div className="contact-details-info">
                   <p>Email:</p>
                   <a href={`mailto:${user.email}`}>{user.email}</a>
 

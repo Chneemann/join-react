@@ -217,11 +217,12 @@
     position: fixed;
     bottom: 100px;
     right: 24px;
-    justify-content: space-between;
+    justify-content: center;
     height: 56px;
     width: 56px;
-    border-radius: 100%;
+    border-radius: 25%;
     z-index: 1;
+    padding: 0;
     cursor: pointer;
   }
 
