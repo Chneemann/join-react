@@ -5,7 +5,7 @@ import { User } from "../../../interfaces/user.interface";
 interface ContactDetailsProps {
   users: User[];
   currentUser: User;
-  selectedUserId: string;
+  selectedUser: string | null;
   closeUserDetails: () => void;
   openEditDialog: () => void;
   deleteContact: () => void;
@@ -28,7 +28,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
   render() {
     const {
       currentUser,
-      selectedUserId,
+      selectedUser,
       closeUserDetails,
       openEditDialog,
       deleteContact,
@@ -43,23 +43,19 @@ class ContactDetails extends Component<ContactDetailsProps> {
             <div className="blue-bar"></div>
             <div className="metrics-txt">Better with a team</div>
           </div>
-          <div className="btn-back">
-            {selectedUserId && (
-              <img
-                onClick={closeUserDetails}
-                src="./../../../../assets/img/arrow-left.svg"
-                alt="back"
-              />
-            )}
-          </div>
+          {selectedUser && (
+            <div className="btn-back" onClick={closeUserDetails}>
+              <img src="./../../../../assets/img/arrow-left.svg" alt="back" />
+            </div>
+          )}
         </div>
 
-        {selectedUserId &&
-          this.checkUserData(selectedUserId).map((user) => (
+        {selectedUser &&
+          this.checkUserData(selectedUser).map((user) => (
             <div
               key={user.id}
               className={`contact-details ${
-                selectedUserId ? "animation-coming-in" : ""
+                selectedUser ? "animation-coming-in" : ""
               }`}
             >
               <div className="content">
@@ -80,7 +76,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
                     {user.id === currentUser.id && "(You)"}
                   </div>
 
-                  {(user.uId === "" || user.id === selectedUserId) && (
+                  {(user.uId === "" || user.id === selectedUser) && (
                     <div className="btns">
                       <div className="btn btn-edit">
                         <img

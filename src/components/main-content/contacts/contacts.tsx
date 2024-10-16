@@ -88,7 +88,11 @@ class Contacts extends Component<ContactsProps, ContactsState> {
       <div className="contacts">
         <div
           className={`contacts-contact-list ${
-            !showContactList && selectedUser ? "d-none" : ""
+            !showContactList && selectedUser
+              ? "d-none"
+              : !showContactList
+              ? "max-width"
+              : ""
           }`}
         >
           <button
@@ -147,18 +151,20 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             ))}
           </div>
         </div>
-        <div className="contacts-contact-detail">
-          {selectedUser ? (
-            <ContactDetails
-              users={users}
-              currentUser={currentUser}
-              selectedUserId={selectedUser}
-              closeUserDetails={this.handleCloseUserDetails}
-              openEditDialog={this.handleOpenEditDialog}
-              deleteContact={this.handleDeleteContact}
-              toggleNav={this.handleToggleNav}
-            />
-          ) : null}
+        <div
+          className={`contacts-contact-detail ${
+            !showContactList && !selectedUser ? "d-none" : ""
+          }`}
+        >
+          <ContactDetails
+            users={users}
+            currentUser={currentUser}
+            selectedUser={selectedUser}
+            closeUserDetails={this.handleCloseUserDetails}
+            openEditDialog={this.handleOpenEditDialog}
+            deleteContact={this.handleDeleteContact}
+            toggleNav={this.handleToggleNav}
+          />
         </div>
       </div>
     );

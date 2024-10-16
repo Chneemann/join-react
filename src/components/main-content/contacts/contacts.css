@@ -166,8 +166,12 @@
   display: none;
 }
 
+.max-width {
+  width: 100% !important;
+}
+
 /*------------- RESPONSIVE -------------*/
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1050px) {
   .contacts-contact-list {
     right: 0;
     width: auto;
@@ -187,7 +191,7 @@
   }
 }
 
-@media screen and (max-width: 910px) {
+@media screen and (max-width: 600px) {
   .contacts-contact-list {
     top: 80px;
     left: 0;
@@ -212,7 +216,7 @@
   .contacts-btn {
     position: fixed;
     bottom: 100px;
-    right: 20px;
+    right: 24px;
     justify-content: space-between;
     height: 56px;
     width: 56px;
@@ -229,6 +233,10 @@
 }
 
 @media screen and (max-width: 450px) {
+  .contacts-contact-list {
+    min-width: 0;
+  }
+
   .contacts-contact-detail {
     padding: 16px;
   }
@@ -238,7 +246,7 @@
   }
 
   .contacts-contact {
-    padding: 16px;
+    padding: 16px 8px;
   }
 
   .contacts-first-letter {
