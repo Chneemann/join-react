@@ -122,31 +122,34 @@ class Assigned extends Component<AssignedProps, AssignedState> {
             {this.filteredUsers().map((user) => (
               <div
                 key={user.id}
-                className={`content ${
-                  assigned.includes(user.id!) ? "selected" : ""
+                className={`assigned-content ${
+                  assigned.includes(user.id!) ? "assigned-selected" : ""
                 }`}
                 onClick={() => this.addAssignedToTask(user.id!)}
               >
-                <div className="circle" style={{ backgroundColor: user.color }}>
-                  <div className="initials">{user.initials}</div>
+                <div
+                  className="assigned-circle"
+                  style={{ backgroundColor: user.color }}
+                >
+                  <div className="assigned-initials">{user.initials}</div>
                 </div>
-                <div className="details">
-                  <div className="name">
+                <div className="assigned-details">
+                  <div className="assigned-first-name">
                     <p>{user.firstName}</p>
                     <span>,&nbsp;</span>
-                    <p className="last-name">{user.lastName}</p>
+                    <p className="assigned-last-name">{user.lastName}</p>
                   </div>
                 </div>
-                <div className="checkbox">
+                <div className="assigned-checkbox">
                   {assigned.includes(user.id!) ? (
                     <img
-                      className="checkbox-img"
+                      className="assigned-checkbox-img"
                       src="./../../../../assets/img/add-task/checkbox-checked.svg"
                       alt="Checked"
                     />
                   ) : (
                     <img
-                      className="checkbox-img"
+                      className="assigned-checkbox-img"
                       src="./../../../../assets/img/add-task/checkbox-empty.svg"
                       alt="Empty"
                     />
@@ -160,7 +163,7 @@ class Assigned extends Component<AssignedProps, AssignedState> {
           {this.assignedUsers().map((user) => (
             <div key={user.id}>
               <div
-                className="circle"
+                className="assigned-circle"
                 style={{ backgroundColor: user.color }}
                 onMouseEnter={(event) => this.handleMouseEnter(user.id!, event)}
                 onMouseLeave={this.handleMouseLeave}

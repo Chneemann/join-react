@@ -21,17 +21,18 @@
   overflow-y: auto;
 }
 
-.content {
+.assigned-content {
   display: flex;
   align-items: center;
   padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
 }
-.content:hover {
+.assigned-content:hover {
   background-color: var(--light-gray);
 }
 
-.circle {
+.assigned-circle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,14 +43,14 @@
   border: 2px solid var(--white);
 }
 
-.circle .initials {
+.assigned-circle .assigned-initials {
   font-size: 12px;
   font-weight: 400;
   color: var(--white);
   text-shadow: 1px 1px 2px var(--black);
 }
 
-.details {
+.assigned-details {
   margin-left: 24px;
   width: 80%;
   overflow: hidden;
@@ -57,7 +58,7 @@
   display: inline-block;
 }
 
-.name {
+.assigned-first-name {
   display: flex;
   align-items: center;
   max-width: 100%;
@@ -67,12 +68,12 @@
   font-weight: 400;
 }
 
-.last-name {
+.assigned-last-name {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.checkbox img {
+.assigned-checkbox img {
   width: 18px;
   height: 18px;
 }
@@ -99,4 +100,18 @@
 .assigned-dialog p {
   font-size: 18px;
   font-weight: 400;
+}
+
+.assigned-selected {
+  background-color: var(--light-blue);
+  color: var(--white);
+}
+
+.assigned-selected img {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%)
+    hue-rotate(346deg) brightness(99%) contrast(103%);
+}
+
+.assigned-selected:hover {
+  background-color: var(--blue);
 }
