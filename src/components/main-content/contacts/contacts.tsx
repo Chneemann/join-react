@@ -9,7 +9,7 @@ interface ContactsProps {
 }
 
 interface ContactsState {
-  showAllUsers: boolean;
+  showContactList: boolean;
   selectedUser: string | null;
 }
 
@@ -17,7 +17,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   constructor(props: ContactsProps) {
     super(props);
     this.state = {
-      showAllUsers: true,
+      showContactList: true,
       selectedUser: null,
     };
   }
@@ -39,6 +39,24 @@ class Contacts extends Component<ContactsProps, ContactsState> {
 
   sortUsersByFirstLetter = (letter: string): User[] => {
     return this.props.users.filter((user) => user.firstName.startsWith(letter));
+  };
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  // Logic for resizing the contact list
+  handleResize = () => {
+    if (window.innerWidth <= 1050) {
+      this.setState({ showContactList: false });
+    } else {
+      this.setState({ showContactList: true });
+    }
   };
 
   // ContactDetails component
@@ -63,14 +81,14 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   render() {
-    const { showAllUsers, selectedUser } = this.state;
+    const { showContactList, selectedUser } = this.state;
     const { users, currentUser } = this.props;
 
     return (
       <div className="contacts">
         <div
           className={`contacts-contact-list ${
-            !showAllUsers && currentUser.id ? "d-none" : ""
+            !showContactList && selectedUser ? "d-none" : ""
           }`}
         >
           <button
