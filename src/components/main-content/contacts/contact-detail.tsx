@@ -39,9 +39,9 @@ class ContactDetails extends Component<ContactDetailsProps> {
       <div className="contact-details">
         <div className="header">
           <div className="headline">
-            <div className="title">Contacts Headline</div>
+            <div className="title">Contacts</div>
             <div className="blue-bar"></div>
-            <div className="metrics-txt">Contacts Headline Description</div>
+            <div className="metrics-txt">Better with a team</div>
           </div>
           <div className="btn-back">
             {selectedUserId && (

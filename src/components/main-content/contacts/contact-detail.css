@@ -197,7 +197,7 @@
   }
 }
 
-/* Responsive Styles */
+/*------------- RESPONSIVE -------------*/
 @media screen and (max-width: 1300px) {
   .headline .title {
     font-size: 50px;
