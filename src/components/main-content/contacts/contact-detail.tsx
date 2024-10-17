@@ -5,7 +5,7 @@ import { User } from "../../../interfaces/user.interface";
 interface ContactDetailsProps {
   users: User[];
   currentUser: User;
-  selectedUser: string | null;
+  selectedUserId: string | null;
   closeUserDetails: () => void;
   openEditDialog: () => void;
   deleteContact: () => void;
@@ -28,7 +28,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
   render() {
     const {
       currentUser,
-      selectedUser,
+      selectedUserId,
       closeUserDetails,
       openEditDialog,
       deleteContact,
@@ -45,7 +45,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
               Better with a team
             </div>
           </div>
-          {selectedUser && (
+          {selectedUserId && (
             <div
               className="contact-details-return-button"
               onClick={closeUserDetails}
@@ -55,12 +55,12 @@ class ContactDetails extends Component<ContactDetailsProps> {
           )}
         </div>
 
-        {selectedUser &&
-          this.checkUserData(selectedUser).map((user) => (
+        {selectedUserId &&
+          this.checkUserData(selectedUserId).map((user) => (
             <div
               key={user.id}
               className={`contact-details-content ${
-                selectedUser ? "contact-details-animation-coming-in" : ""
+                selectedUserId ? "contact-details-animation-coming-in" : ""
               }`}
             >
               <div className="contact-details-user-content">
@@ -83,7 +83,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
                 <div className="contact-details-name word-wrap">
                   {user.firstName} {user.lastName}{" "}
                   {user.id === currentUser.id && "(You)"}
-                  {(user.uId === "" || user.id === selectedUser) && (
+                  {(user.uId === "" || user.id === currentUser.id) && (
                     <div className="contact-details-edit-options">
                       <div className="contact-details-button">
                         <img

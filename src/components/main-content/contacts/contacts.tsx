@@ -10,7 +10,7 @@ interface ContactsProps {
 
 interface ContactsState {
   showContactList: boolean;
-  selectedUser: string | null;
+  selectedUserId: string | null;
 }
 
 class Contacts extends Component<ContactsProps, ContactsState> {
@@ -18,7 +18,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     super(props);
     this.state = {
       showContactList: true,
-      selectedUser: null,
+      selectedUserId: null,
     };
   }
 
@@ -27,7 +27,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   showUserId = (userId: string) => {
-    this.setState({ selectedUser: userId });
+    this.setState({ selectedUserId: userId });
   };
 
   sortFirstLetter = (): string[] => {
@@ -62,7 +62,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   // ContactDetails component
   // Logic for closing the user details area
   handleCloseUserDetails = () => {
-    this.setState({ selectedUser: null });
+    this.setState({ selectedUserId: null });
   };
 
   // Logic for opening the edit dialog
@@ -81,14 +81,14 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   render() {
-    const { showContactList, selectedUser } = this.state;
+    const { showContactList, selectedUserId } = this.state;
     const { users, currentUser } = this.props;
 
     return (
       <div className="contacts">
         <div
           className={`contacts-contact-list ${
-            !showContactList && selectedUser
+            !showContactList && selectedUserId
               ? "d-none"
               : !showContactList
               ? "max-width"
@@ -117,7 +117,9 @@ class Contacts extends Component<ContactsProps, ContactsState> {
                   <div
                     key={user.id}
                     className={`contacts-contact ${
-                      selectedUser === user.id ? "contacts-contact-active" : ""
+                      selectedUserId === user.id
+                        ? "contacts-contact-active"
+                        : ""
                     }`}
                     onClick={() => user.id && this.showUserId(user.id)}
                   >
@@ -153,13 +155,13 @@ class Contacts extends Component<ContactsProps, ContactsState> {
         </div>
         <div
           className={`contacts-contact-detail ${
-            !showContactList && !selectedUser ? "d-none" : ""
+            !showContactList && !selectedUserId ? "d-none" : ""
           }`}
         >
           <ContactDetails
             users={users}
             currentUser={currentUser}
-            selectedUser={selectedUser}
+            selectedUserId={selectedUserId}
             closeUserDetails={this.handleCloseUserDetails}
             openEditDialog={this.handleOpenEditDialog}
             deleteContact={this.handleDeleteContact}
