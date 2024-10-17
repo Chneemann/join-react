@@ -192,6 +192,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .contacts-content {
+    margin-bottom: 76px;
+  }
+
   .contacts-contact-list {
     top: 80px;
     left: 0;
@@ -234,6 +238,11 @@
 }
 
 @media screen and (max-width: 450px) {
+  .contacts-content {
+    padding: 16px;
+    width: calc(100% - 32px);
+  }
+
   .contacts-contact-list {
     min-width: 0;
   }
@@ -247,6 +256,7 @@
   }
 
   .contacts-contact {
+    width: calc(100% - 16px);
     padding: 16px 8px;
   }
 
