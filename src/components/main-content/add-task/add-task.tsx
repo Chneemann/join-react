@@ -9,6 +9,7 @@ import { User } from "../../../interfaces/user.interface";
 interface AddTaskProps {
   users: User[];
   currentUser: User;
+  taskStatus: string;
   addTask: (task: Task) => Promise<void>;
   showOverlayMsg: (
     message: string,
@@ -54,7 +55,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         subtasksDone: [],
         assigned: [],
         creator: this.props.currentUser.id || "",
-        status: "todo",
+        status: this.props.taskStatus,
       },
       titleTouched: false,
       titleError: "",

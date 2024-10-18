@@ -59,7 +59,7 @@ class App extends Component<{}, AppState> {
     return (
       <Router>
         {/* Loading indicator when authentication is loaded */}
-        {loadingAuth && <div>Loading...</div>}
+        {loadingAuth}
 
         {/* Redirect to login page if not authenticated */}
         {!loadingAuth && !isAuthenticated && <Navigate to="/login" replace />}

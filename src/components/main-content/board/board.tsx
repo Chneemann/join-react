@@ -8,6 +8,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { withTranslation, WithTranslation } from "react-i18next";
 import AddTask from "../add-task/add-task";
 import SmallBtn from "../../shared/components/buttons/small-btn";
+import { log } from "console";
 
 interface BoardProps extends WithTranslation {
   tasks: Task[];
@@ -25,6 +26,7 @@ interface BoardProps extends WithTranslation {
 interface BoardState {
   searchValue: string;
   showAddTaskOverlay: boolean;
+  taskStatus: string;
 }
 
 class Board extends Component<BoardProps, BoardState> {
@@ -35,6 +37,7 @@ class Board extends Component<BoardProps, BoardState> {
     this.state = {
       searchValue: "",
       showAddTaskOverlay: false,
+      taskStatus: "todo",
     };
   }
 
@@ -44,14 +47,15 @@ class Board extends Component<BoardProps, BoardState> {
   };
 
   // Toggles the add task overlay
-  handleToggleTaskOverlay = () => {
+  handleToggleTaskOverlay = (taskStatus: string) => {
     this.setState((prevState) => ({
       showAddTaskOverlay: !prevState.showAddTaskOverlay,
+      taskStatus: taskStatus,
     }));
   };
 
   render() {
-    const { searchValue, showAddTaskOverlay } = this.state;
+    const { searchValue, showAddTaskOverlay, taskStatus } = this.state;
     const { t, tasks, users, updateTaskStatus } = this.props;
 
     // Definition of the status display names
@@ -111,7 +115,7 @@ class Board extends Component<BoardProps, BoardState> {
               <button
                 className="board-btn"
                 type="submit"
-                onClick={this.handleToggleTaskOverlay}
+                onClick={() => this.handleToggleTaskOverlay("todo")}
               >
                 <div className="board-btn-inside">
                   <span>{t("board.searchBtn")}</span>
@@ -135,6 +139,7 @@ class Board extends Component<BoardProps, BoardState> {
                   updateTaskStatus={updateTaskStatus}
                   statusDisplayNames={statusDisplayNames}
                   showOverlayMsg={this.props.showOverlayMsg}
+                  handleToggleTaskOverlay={this.handleToggleTaskOverlay}
                 />
               ))}
             </div>
@@ -144,7 +149,7 @@ class Board extends Component<BoardProps, BoardState> {
         {showAddTaskOverlay && (
           <div
             className="add-task-overlay"
-            onClick={this.handleToggleTaskOverlay}
+            onClick={() => this.handleToggleTaskOverlay("")}
           >
             <div
               className="add-task-overlay-content"
@@ -152,13 +157,14 @@ class Board extends Component<BoardProps, BoardState> {
             >
               <div
                 className="add-task-overlay-close"
-                onClick={this.handleToggleTaskOverlay}
+                onClick={() => this.handleToggleTaskOverlay("")}
               >
                 <SmallBtn image="close.svg" />
               </div>
 
               <AddTask
                 users={users}
+                taskStatus={taskStatus}
                 addTask={this.props.addTask}
                 showOverlayMsg={this.props.showOverlayMsg}
                 currentUser={this.props.currentUser}
@@ -180,6 +186,7 @@ const DroppableColumn = ({
   statusDisplayNames,
   currentUser,
   showOverlayMsg,
+  handleToggleTaskOverlay,
 }: any) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "TASK",
@@ -195,7 +202,11 @@ const DroppableColumn = ({
     <div ref={drop} className={`board-column ${isOver ? "hovered" : ""}`}>
       <div className="board-headline">
         <span>{statusDisplayNames[status]}</span>
-        <img src="./../../../assets/img/board/plus.svg" alt="add" />
+        <img
+          src="./../../../assets/img/board/plus.svg"
+          alt="add"
+          onClick={() => handleToggleTaskOverlay(status)}
+        />
       </div>
       <Tasks
         tasks={tasks}
