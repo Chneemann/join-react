@@ -4,8 +4,9 @@ import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
 import { deleteTask } from "../../../services/firebase.service";
 import SmallBtn from "../../shared/components/buttons/small-btn";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface TaskDetailsProps {
+interface TaskDetailsProps extends WithTranslation {
   task: Task | null;
   users: User[];
   currentUser: User;
@@ -50,21 +51,22 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
 
   // Handle the deletion of a task
   handleDeleteTask = async (taskId: string) => {
+    const { t } = this.props;
     try {
       await deleteTask(taskId);
-      this.props.showOverlayMsg("Task deleted successfully", 1500, {
+      this.props.showOverlayMsg(t("board.deleteSuccess"), 1500, {
         reload: true,
       });
     } catch (error) {
-      this.props.showOverlayMsg("Error deleting task", 1500, {
+      this.props.showOverlayMsg(t("board.deleteError"), 1500, {
         reload: true,
       });
-      console.error("Error deleting task:", error);
+      console.error(t("board.deleteError"), error);
     }
   };
 
   render() {
-    const { task, users, currentUser, onClose } = this.props;
+    const { t, task, users, currentUser, onClose } = this.props;
 
     if (!task) return null;
 
@@ -90,20 +92,21 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
             <div className="task-details-headline">{task.title}</div>
             <div className="task-details-description">{task.description}</div>
             <div className="task-details-date">
-              <p>Date:</p>
+              <p>{t("board.date")}</p>
               {this.timeConverter(task.date)}
             </div>
             <div className="task-details-priority">
-              <p>Priority:</p>
-              {this.capitalizeFirstLetter(task.priority)}
+              <p>{t("board.priority")}:</p>
+              {this.capitalizeFirstLetter(
+                t(`board.priorityLevels.${task.priority}`)
+              )}
               <div
                 className={`task-details-priority-bg task-details-priority-${task.priority}`}
               ></div>
             </div>
-
             {creatorDetails && (
               <div className="task-details-creator">
-                <p>Creator:</p>
+                <p>{t("board.creator")}</p>
                 <div className="task-details-users">
                   <div
                     className="task-details-circle"
@@ -121,31 +124,32 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
                 </div>
               </div>
             )}
-
-            <div className="task-details-assigned">
-              <p>Assigned to:</p>
-              {task.assigned.map((userId: string) => {
-                const userDetails = users.find((user) => user.id === userId);
-                if (!userDetails) return null;
-                return (
-                  <div className="task-details-users" key={userId}>
-                    <div
-                      className="task-details-circle"
-                      style={{ backgroundColor: userDetails.color }}
-                    >
-                      <div className="task-details-initials">
-                        {userDetails.initials}
+            {task.assigned.length > 0 && (
+              <div className="task-details-assigned">
+                <p>{t("board.assignedTo")}</p>
+                {task.assigned.map((userId: string) => {
+                  const userDetails = users.find((user) => user.id === userId);
+                  if (!userDetails) return null;
+                  return (
+                    <div className="task-details-users" key={userId}>
+                      <div
+                        className="task-details-circle"
+                        style={{ backgroundColor: userDetails.color }}
+                      >
+                        <div className="task-details-initials">
+                          {userDetails.initials}
+                        </div>
+                      </div>
+                      <div className="task-details-details">
+                        <p>
+                          {userDetails.firstName} {userDetails.lastName}
+                        </p>
                       </div>
                     </div>
-                    <div className="task-details-details">
-                      <p>
-                        {userDetails.firstName} {userDetails.lastName}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           {isTaskCreator && task.id ? (
             <div className="task-details-btns">
@@ -161,7 +165,7 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
                   src="./../../../../../assets/img/contact/delete.svg"
                   alt="delete"
                 />
-                <p>Delete Task</p>
+                <p>{t("board.deleteTask")}</p>
               </div>
               <span>|</span>
               <div className="task-details-btn task-details-btn-edit">
@@ -169,12 +173,12 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
                   src="./../../../../../assets/img/contact/edit.svg"
                   alt="edit"
                 />
-                <p>Edit Task</p>
+                <p>{t("board.editTask")}</p>
               </div>
             </div>
           ) : (
             <div className="task-details-notice">
-              <p>Notice: Only the creator can edit or delete the task.</p>
+              <p>{t("board.editNotice")}</p>
             </div>
           )}
         </div>
@@ -183,4 +187,4 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   }
 }
 
-export default TaskDetails;
+export default withTranslation()(TaskDetails);

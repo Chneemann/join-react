@@ -4,8 +4,9 @@ import { User } from "../../../interfaces/user.interface";
 import "./tasks.css";
 import { useDrag } from "react-dnd";
 import TaskDetails from "./task-details";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface TasksProps {
+interface TasksProps extends WithTranslation {
   status: string;
   tasks: Task[];
   users: User[];
@@ -65,7 +66,7 @@ class Tasks extends Component<TasksProps, TasksState> {
   };
 
   render() {
-    const { status, tasks, users, currentUser } = this.props;
+    const { t, status, tasks, users, currentUser } = this.props;
     const { dialogId, dialogX, dialogY, selectedTask } = this.state;
     const user = users.find((u) => u.id === dialogId);
 
@@ -85,7 +86,7 @@ class Tasks extends Component<TasksProps, TasksState> {
             />
           ))
         ) : (
-          <div className="no-tasks">No Tasks</div>
+          <div className="no-tasks">{t("board.noTasks")}</div>
         )}
         {dialogId && user && (
           <div
@@ -103,7 +104,7 @@ class Tasks extends Component<TasksProps, TasksState> {
                   {user.lastName}
                 </>
               ) : null}
-              {dialogId === currentUser.id && <span> (you)</span>}
+              {dialogId === currentUser.id && <span> ({t("board.you")})</span>}
             </p>
           </div>
         )}
@@ -307,4 +308,4 @@ const TaskMenu = ({
   );
 };
 
-export default Tasks;
+export default withTranslation()(Tasks);

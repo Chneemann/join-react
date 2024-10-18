@@ -431,7 +431,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("urgent")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>{t("add-task.urgent")}</span>
+                    <span>{t("add-task.priorityLevels.high")}</span>
                     <img src="/assets/img/urgent.svg" alt="Urgent" />
                   </div>
                 </button>
@@ -449,7 +449,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("medium")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>{t("add-task.medium")}</span>
+                    <span>{t("add-task.priorityLevels.medium")}</span>
                     <img src="/assets/img/medium.svg" alt="Medium" />
                   </div>
                 </button>
@@ -467,7 +467,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("low")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>{t("add-task.low")}</span>
+                    <span>{t("add-task.priorityLevels.low")}</span>
                     <img src="/assets/img/low.svg" alt="Low" />
                   </div>
                 </button>

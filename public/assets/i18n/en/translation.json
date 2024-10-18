@@ -18,9 +18,11 @@
     "search": "Search...",
     "date": "Date",
     "priority": "Priority",
-    "urgent": "Urgent",
-    "medium": "Medium",
-    "low": "Low",
+    "priorityLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
     "category": "Category",
     "subtask": "Subtask",
     "clear": "Clear",
@@ -57,8 +59,26 @@
     "inprogress": "In Progress",
     "awaitfeedback": "Await Feedback",
     "done": "Done",
+    "you": "you",
+    "noTasks": "No tasks",
     "searchText": "Find Task",
-    "searchBtn": "Add Task"
+    "searchBtn": "Add Task",
+    "date": "Date",
+    "priority": "Priority",
+    "priorityLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "creator": "Creator",
+    "assignedTo": "Assigned to",
+    "delete": "Delete",
+    "edit": "Edit",
+    "deleteTask": "Delete Task",
+    "editTask": "Edit Task",
+    "editNotice": "Notice: Only the creator can edit or delete the task.",
+    "deleteSuccess": "Task deleted successfully",
+    "deleteError": "Error deleting task"
   },
   "summary": {
     "goodMorning": "Good morning,",
