@@ -168,6 +168,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                   currentUser={currentUser}
                   updateTaskStatus={this.updateTaskStatus}
                   showOverlayMsg={this.showOverlayMsg}
+                  addTask={this.addNewTask}
                 />
               }
             />

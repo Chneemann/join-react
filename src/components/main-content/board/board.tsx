@@ -6,12 +6,15 @@ import Tasks from "./tasks";
 import { DndProvider, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { withTranslation, WithTranslation } from "react-i18next";
+import AddTask from "../add-task/add-task";
+import SmallBtn from "../../shared/components/buttons/small-btn";
 
 interface BoardProps extends WithTranslation {
   tasks: Task[];
   users: User[];
   currentUser: User;
   updateTaskStatus: (taskId: string, newStatus: string) => void;
+  addTask: (task: Task) => Promise<void>;
   showOverlayMsg: (
     message: string,
     timeout: number,
@@ -21,6 +24,7 @@ interface BoardProps extends WithTranslation {
 
 interface BoardState {
   searchValue: string;
+  showAddTaskOverlay: boolean;
 }
 
 class Board extends Component<BoardProps, BoardState> {
@@ -30,15 +34,24 @@ class Board extends Component<BoardProps, BoardState> {
     super(props);
     this.state = {
       searchValue: "",
+      showAddTaskOverlay: false,
     };
   }
 
+  // Sets the search value and clears the input
   clearInput = () => {
     this.setState({ searchValue: "" });
   };
 
+  // Toggles the add task overlay
+  handleToggleTaskOverlay = () => {
+    this.setState((prevState) => ({
+      showAddTaskOverlay: !prevState.showAddTaskOverlay,
+    }));
+  };
+
   render() {
-    const { searchValue } = this.state;
+    const { searchValue, showAddTaskOverlay } = this.state;
     const { t, tasks, users, updateTaskStatus } = this.props;
 
     // Definition of the status display names
@@ -95,7 +108,11 @@ class Board extends Component<BoardProps, BoardState> {
                 </span>
                 <span className="board-line"></span>
               </div>
-              <button className="board-btn" type="submit">
+              <button
+                className="board-btn"
+                type="submit"
+                onClick={this.handleToggleTaskOverlay}
+              >
                 <div className="board-btn-inside">
                   <span>{t("board.searchBtn")}</span>
                   <img
@@ -124,6 +141,31 @@ class Board extends Component<BoardProps, BoardState> {
             <div id="board-content-tasks"></div>
           </div>
         </div>
+        {showAddTaskOverlay && (
+          <div
+            className="add-task-overlay"
+            onClick={this.handleToggleTaskOverlay}
+          >
+            <div
+              className="add-task-overlay-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div
+                className="add-task-overlay-close"
+                onClick={this.handleToggleTaskOverlay}
+              >
+                <SmallBtn image="close.svg" />
+              </div>
+
+              <AddTask
+                users={users}
+                addTask={this.props.addTask}
+                showOverlayMsg={this.props.showOverlayMsg}
+                currentUser={this.props.currentUser}
+              />
+            </div>
+          </div>
+        )}
       </DndProvider>
     );
   }
