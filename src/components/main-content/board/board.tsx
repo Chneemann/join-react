@@ -178,7 +178,22 @@ class Board extends Component<BoardProps, BoardState> {
 }
 
 // Droppable Column Component
-const DroppableColumn = ({
+interface DroppableColumnProps {
+  status: string;
+  tasks: Task[];
+  users: User[];
+  updateTaskStatus: (taskId: string, newStatus: string) => void;
+  statusDisplayNames: { [key: string]: string };
+  currentUser: User;
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
+  handleToggleTaskOverlay: (taskStatus: string) => void;
+}
+
+const DroppableColumn: React.FC<DroppableColumnProps> = ({
   status,
   tasks,
   users,
