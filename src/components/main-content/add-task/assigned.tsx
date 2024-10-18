@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./assigned.css";
 import { User } from "../../../interfaces/user.interface";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface AssignedProps {
+interface AssignedProps extends WithTranslation {
   users: User[];
   assigned: string[];
   onAssignedChange: (assigned: string[]) => void;
@@ -97,7 +98,7 @@ class Assigned extends Component<AssignedProps, AssignedState> {
   };
 
   render() {
-    const { assigned } = this.props;
+    const { t, assigned } = this.props;
     const { isListVisible, searchQuery, hoveredUserId, dialogX, dialogY } =
       this.state;
     const hoveredUser = this.props.users.find(
@@ -110,7 +111,7 @@ class Assigned extends Component<AssignedProps, AssignedState> {
           type="text"
           id="assigned"
           name="assigned"
-          placeholder="Search..."
+          placeholder={t("add-task.search")}
           value={searchQuery}
           onChange={this.handleSearchChange}
           onFocus={this.handleInputFocus}
@@ -198,4 +199,4 @@ class Assigned extends Component<AssignedProps, AssignedState> {
   }
 }
 
-export default Assigned;
+export default withTranslation()(Assigned);

@@ -5,8 +5,9 @@ import LargeButton from "../../shared/components/buttons/large-btn";
 import Subtask from "./subtasks";
 import Assigned from "./assigned";
 import { User } from "../../../interfaces/user.interface";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface AddTaskProps {
+interface AddTaskProps extends WithTranslation {
   users: User[];
   currentUser: User;
   taskStatus: string;
@@ -255,6 +256,8 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   };
 
   render() {
+    const { t } = this.props;
+
     const {
       taskData,
       titleTouched,
@@ -281,7 +284,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
           <div className="add-task-left">
             <div className="add-task-title">
               <p>
-                Title
+                {t("add-task.title")}
                 <span className="red-dot">*</span>
               </p>
               <input
@@ -289,7 +292,9 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 id="title"
                 name="title"
                 maxLength={TITLE_MAX_LENGTH}
-                placeholder={taskData.title ? taskData.title : "Enter title..."}
+                placeholder={
+                  taskData.title ? taskData.title : t("add-task.enterTitle")
+                }
                 value={taskData.title}
                 autoComplete="off"
                 required
@@ -303,22 +308,30 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
               <div className="error-msg">
                 {titleTouched &&
                   (isTitleEmpty ? (
-                    <p>Title is required</p>
+                    <p>{t("add-task.requiredField")}</p>
                   ) : (
                     (!isTitleValid &&
                       taskData.title.length < TITLE_MIN_LENGTH && (
-                        <p>Minimum {TITLE_MIN_LENGTH} letters required</p>
+                        <p>
+                          {t("add-task.minLettersRequired", {
+                            count: TITLE_MIN_LENGTH,
+                          })}
+                        </p>
                       )) ||
                     (!isTitleValid &&
                       taskData.title.length > TITLE_MAX_LENGTH && (
-                        <p>Maximum {TITLE_MAX_LENGTH} letters allowed</p>
+                        <p>
+                          {t("add-task.maxLettersAllowed", {
+                            count: TITLE_MAX_LENGTH,
+                          })}
+                        </p>
                       ))
                   ))}
               </div>
             </div>
             <div className="add-task-description">
               <p>
-                Description
+                {t("add-task.description")}
                 <span className="red-dot">*</span>
               </p>
               <textarea
@@ -335,28 +348,36 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                     descriptionTouched: true,
                   });
                 }}
-                placeholder="Enter a description..."
+                placeholder={t("add-task.enterDescription")}
                 autoComplete="off"
                 required
               ></textarea>
               <div className="error-msg">
                 {descriptionTouched &&
                   (isDescriptionEmpty ? (
-                    <p>Description is required</p>
+                    <p>{t("add-task.requiredField")}</p>
                   ) : (
                     (!isDescriptionValid &&
                       taskData.description.length < DESCRIPTION_MIN_LENGTH && (
-                        <p>Minimum {DESCRIPTION_MIN_LENGTH} letters required</p>
+                        <p>
+                          {t("add-task.minLettersRequired", {
+                            count: DESCRIPTION_MIN_LENGTH,
+                          })}
+                        </p>
                       )) ||
                     (!isDescriptionValid &&
                       taskData.description.length > DESCRIPTION_MAX_LENGTH && (
-                        <p>Maximum {DESCRIPTION_MAX_LENGTH} letters allowed</p>
+                        <p>
+                          {t("add-task.maxLettersAllowed", {
+                            count: DESCRIPTION_MAX_LENGTH,
+                          })}
+                        </p>
                       ))
                   ))}
               </div>
             </div>
             <div className="add-task-assigned">
-              <p>Assigned to</p>
+              <p>{t("add-task.assignedTo")}</p>
               <Assigned
                 users={this.props.users}
                 assigned={this.state.taskData.assigned}
@@ -372,7 +393,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
           <div className="add-task-right">
             <div className="add-task-date">
               <p>
-                Date
+                {t("add-task.date")}
                 <span className="red-dot">*</span>
               </p>
               <input
@@ -389,12 +410,12 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
               <div className="error-msg">
                 {dateTouched && dateError && <p>{dateError}</p>}
                 {dateTouched && !dateError && dateInPast && (
-                  <p>Date cannot be in the past</p>
+                  <p>{t("add-task.dateInPast")}</p>
                 )}
               </div>
             </div>
             <div className="add-task-priority">
-              <p>Priority</p>
+              <p>{t("add-task.priority")}</p>
               <div className="add-task-priority-btns">
                 <button
                   type="button"
@@ -410,7 +431,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("urgent")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>Urgent</span>
+                    <span>{t("add-task.urgent")}</span>
                     <img src="/assets/img/urgent.svg" alt="Urgent" />
                   </div>
                 </button>
@@ -428,7 +449,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("medium")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>Medium</span>
+                    <span>{t("add-task.medium")}</span>
                     <img src="/assets/img/medium.svg" alt="Medium" />
                   </div>
                 </button>
@@ -446,7 +467,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("low")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>Low</span>
+                    <span>{t("add-task.low")}</span>
                     <img src="/assets/img/low.svg" alt="Low" />
                   </div>
                 </button>
@@ -454,7 +475,8 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
             </div>
             <div className="add-task-category">
               <p>
-                Category<span className="red-dot">*</span>
+                {t("add-task.category")}
+                <span className="red-dot">*</span>
               </p>
               <select
                 id="category"
@@ -471,7 +493,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 required
               >
                 <option value="" disabled>
-                  Select Category
+                  {t("add-task.selectCategory")}
                 </option>
                 <option value="User Story">User Story</option>
                 <option value="Technical Task">Technical Task</option>
@@ -483,9 +505,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
               />
               <div className="error-msg">
                 {categoryTouched && categoryError && (
-                  <p>
-                    <p>Category is required</p>
-                  </p>
+                  <p>{t("add-task.requiredField")}</p>
                 )}
               </div>
             </div>
@@ -494,7 +514,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         </div>
         <div className="add-task-footer">
           <LargeButton
-            value="Clear"
+            value={t("add-task.clear")}
             type="button"
             imgPath="clear"
             isWhite={true}
@@ -502,7 +522,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
             disabled={this.state.isSubmitting}
           />
           <LargeButton
-            value="Add Task"
+            value={t("add-task.addTask")}
             type="submit"
             imgPath="add"
             disabled={!this.isFormValid() || this.state.isSubmitting}
@@ -513,4 +533,4 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   }
 }
 
-export default AddTask;
+export default withTranslation()(AddTask);

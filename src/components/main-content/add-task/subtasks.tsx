@@ -1,7 +1,8 @@
 import React from "react";
 import "./subtasks.css";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface SubtaskProps {
+interface SubtaskProps extends WithTranslation {
   onSubtasksChange: (subtasksTitle: string[], subtasksDone: boolean[]) => void;
 }
 
@@ -65,16 +66,17 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
   };
 
   render() {
+    const { t } = this.props;
     const { subtasksTitle, subtaskValue } = this.state;
 
     return (
       <div className="subtask">
-        <p>Subtask</p>
+        <p>{t("add-task.subtask")}</p>
         <input
           type="text"
           id="subtask"
           name="subtask"
-          placeholder="Enter subtask..."
+          placeholder={t("add-task.enterSubtask")}
           value={subtaskValue}
           onChange={this.updateSubtaskValue}
           autoComplete="off"
@@ -122,4 +124,4 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
   }
 }
 
-export default Subtask;
+export default withTranslation()(Subtask);
