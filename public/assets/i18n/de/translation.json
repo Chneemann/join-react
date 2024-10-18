@@ -34,6 +34,23 @@
     "selectCategory": "Kategorie auswählen",
     "dateInPast": "Das Datum kann nicht in der Vergangenheit liegen"
   },
+  "contacts": {
+    "newContact": "Neuer Kontakt",
+    "contacts": "Kontakte",
+    "title": "Kontakte",
+    "teamSlogan": "Besser im Team",
+    "back": "Zurück",
+    "you": "du",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "menu": "Menü",
+    "contactInformation": "Kontaktinformationen",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "noPhone": "Kein Telefon verfügbar",
+    "lastOnline": "Zuletzt online",
+    "online": "Online"
+  },
   "board": {
     "board": "Tafel",
     "todo": "Zu Erledigen",

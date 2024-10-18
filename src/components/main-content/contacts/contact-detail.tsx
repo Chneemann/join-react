@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./contact-detail.css";
 import { User } from "../../../interfaces/user.interface";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface ContactDetailsProps {
+interface ContactDetailsProps extends WithTranslation {
   users: User[];
   currentUser: User;
   selectedUserId: string | null;
@@ -27,6 +28,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
 
   render() {
     const {
+      t,
       currentUser,
       selectedUserId,
       closeUserDetails,
@@ -39,10 +41,10 @@ class ContactDetails extends Component<ContactDetailsProps> {
       <div className="contact-details">
         <div className="contact-details-header">
           <div className="contact-details-headline">
-            <div className="contact-details-title">Contacts</div>
+            <div className="contact-details-title">{t("contacts.title")}</div>
             <div className="contact-details-blue-bar"></div>
             <div className="contact-details-metrics-txt">
-              Better with a team
+              {t("contacts.teamSlogan")}
             </div>
           </div>
           {selectedUserId && (
@@ -50,7 +52,10 @@ class ContactDetails extends Component<ContactDetailsProps> {
               className="contact-details-return-button"
               onClick={closeUserDetails}
             >
-              <img src="./../../../../assets/img/arrow-left.svg" alt="back" />
+              <img
+                src="./../../../../assets/img/arrow-left.svg"
+                alt={t("contacts.back")}
+              />
             </div>
           )}
         </div>
@@ -82,23 +87,23 @@ class ContactDetails extends Component<ContactDetailsProps> {
                 </div>
                 <div className="contact-details-name word-wrap">
                   {user.firstName} {user.lastName}{" "}
-                  {user.id === currentUser.id && "(You)"}
+                  {user.id === currentUser.id && `(${t("contacts.you")})`}
                   {(user.uId === "" || user.id === currentUser.id) && (
                     <div className="contact-details-edit-options">
                       <div className="contact-details-button">
                         <img
                           src="./../../../../assets/img/contact/edit.svg"
-                          alt="edit"
+                          alt={t("contacts.edit")}
                         />
-                        <p onClick={openEditDialog}>Edit</p>
+                        <p onClick={openEditDialog}>{t("contacts.edit")}</p>
                       </div>
                       {user.id !== currentUser.id && (
                         <div className="contact-details-button">
                           <img
                             src="./../../../../assets/img/contact/delete.svg"
-                            alt="delete"
+                            alt={t("contacts.delete")}
                           />
-                          <p onClick={deleteContact}>Delete</p>
+                          <p onClick={deleteContact}>{t("contacts.delete")}</p>
                         </div>
                       )}
                     </div>
@@ -109,7 +114,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
                   >
                     <img
                       src="./../../../assets/img/contact/points.svg"
-                      alt="menu"
+                      alt={t("contacts.menu")}
                     />
                   </div>
                 </div>
@@ -117,24 +122,24 @@ class ContactDetails extends Component<ContactDetailsProps> {
 
               <div className="contact-details-contact word-wrap">
                 <div className="contact-details-contact-title">
-                  Contact Information
+                  {t("contacts.contactInformation")}
                 </div>
                 <div className="contact-details-info">
-                  <p>Email:</p>
+                  <p>{t("contacts.email")}</p>
                   <a href={`mailto:${user.email}`}>{user.email}</a>
 
-                  <p>Phone:</p>
+                  <p>{t("contacts.phone")}</p>
                   {user.phone === "" ? (
-                    <span>No phone available</span>
+                    <span>{t("contacts.noPhone")}</span>
                   ) : (
                     <a href={`tel:${user.phone}`}>{user.phone}</a>
                   )}
 
                   {user.id !== "" && (
                     <>
-                      <p>Last Online:</p>
+                      <p>{t("contacts.lastOnline")}</p>
                       {user.status ? (
-                        <span>Online</span>
+                        <span>{t("contacts.online")}</span>
                       ) : (
                         <span>{this.convertTimestamp(user.lastLogin)}</span>
                       )}
@@ -149,4 +154,4 @@ class ContactDetails extends Component<ContactDetailsProps> {
   }
 }
 
-export default ContactDetails;
+export default withTranslation()(ContactDetails);

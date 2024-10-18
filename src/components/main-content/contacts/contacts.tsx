@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import "./contacts.css";
 import { User } from "../../../interfaces/user.interface";
 import ContactDetails from "./contact-detail";
+import { withTranslation, WithTranslation } from "react-i18next";
 
-interface ContactsProps {
+interface ContactsProps extends WithTranslation {
   users: User[];
   currentUser: User;
 }
@@ -82,7 +83,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
 
   render() {
     const { showContactList, selectedUserId } = this.state;
-    const { users, currentUser } = this.props;
+    const { t, users, currentUser } = this.props;
 
     return (
       <div className="contacts">
@@ -101,7 +102,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             onClick={this.openNewContactDialog}
           >
             <div className="contacts-btn-inside">
-              <span>New Contact</span>
+              <span>{t("contacts.newContact")}</span> {/* Übersetzung hier */}
               <img src="./../../../assets/img/contact/add.svg" alt="add" />
             </div>
             <div className="contacts-btn-inside-mobile">
@@ -143,7 +144,9 @@ class Contacts extends Component<ContactsProps, ContactsState> {
                         <p className="contacts-last-name">
                           {user.lastName ? `,\u00A0${user.lastName}` : null}
                         </p>
-                        {user.id === currentUser.id && <p>&nbsp;(You)</p>}
+                        {user.id === currentUser.id && (
+                          <p>&nbsp;({t("contacts.you")})</p>
+                        )}
                       </div>
                       <div className="contacts-email">{user.email}</div>
                     </div>
@@ -173,4 +176,4 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   }
 }
 
-export default Contacts;
+export default withTranslation()(Contacts);
