@@ -148,6 +148,10 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
             */}
             <Route path="/logout" element={<Logout />} />
             <Route
+              path="/"
+              element={<Summary tasks={tasks} currentUser={currentUser} />}
+            />
+            <Route
               path="/summary"
               element={<Summary tasks={tasks} currentUser={currentUser} />}
             />

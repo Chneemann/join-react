@@ -1,6 +1,6 @@
 @import "./../../styles/colors.css";
 
-header {
+.header {
   height: 96px;
   width: 100%;
   display: flex;
@@ -26,6 +26,21 @@ header {
 .header-title {
   font-size: 19px;
   color: var(--white);
+}
+
+/* Auth header */
+
+.header-auth {
+  background-color: var(--white);
+}
+
+.header-logo-auth {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  width: 122px;
+  height: 100px;
 }
 
 /* Media queries */

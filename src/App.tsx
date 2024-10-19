@@ -7,6 +7,7 @@ import "./App.css";
 import "./i18n";
 import { User } from "./interfaces/user.interface";
 import { observeAuthState } from "./services/auth.service";
+import Auth from "./components/auth/auth";
 
 interface AppState {
   currentUser: User | null;
@@ -62,7 +63,16 @@ class App extends Component<{}, AppState> {
         {loadingAuth}
 
         {/* Redirect to login page if not authenticated */}
-        {!loadingAuth && !isAuthenticated && <Navigate to="/login" replace />}
+        {!loadingAuth && !isAuthenticated && (
+          <React.Fragment>
+            <div className="container-auth">
+              <Header currentUser={null} />
+              <div className="container-auth-center">
+                <Auth currentUser={null} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
 
         {/* Authenticated user */}
         {!loadingAuth && currentUser && (

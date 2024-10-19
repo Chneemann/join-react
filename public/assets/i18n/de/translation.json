@@ -2,6 +2,21 @@
   "header": {
     "title": "Kanban Projektmanagement-Tool"
   },
+  "login": {
+    "login": "Einloggen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "forgotPassword": "Passwort vergessen?",
+    "google": "Einloggen mit Google",
+    "guest": "Gastzugang",
+    "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",
+    "errorMail1": "Diese E-Mail Adresse existiert nicht!",
+    "errorMail2": "Dies ist kein gültiges E-Mail-Format!",
+    "errorPassword0": "Sie müssen ein Passwort eingeben!",
+    "errorPassword1": "Das Passwort passt nicht zur E-Mail-Adresse!",
+    "loginDialog0": "Einloggen",
+    "loginDialog1": "Bitte warten..."
+  },
   "navbar": {
     "summary": "Übersicht",
     "addTask": "Neue Aufgabe",

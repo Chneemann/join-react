@@ -28,7 +28,7 @@ class Help extends React.Component<HelpProps, HelpState> {
 
     return (
       <div className="help">
-        <div className="header">
+        <div className="help-header">
           <h1>{this.highlightJoin(t("help.header"))}</h1>
         </div>
         <p>{this.highlightJoin(t("help.welcome"))}</p>

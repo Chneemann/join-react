@@ -15,17 +15,16 @@ class Logout extends React.Component {
     try {
       await logout();
       this.setState({ isLoggedOut: true });
+      window.location.href = "/";
     } catch (error) {
       console.error("Logout failed: ", error);
     }
   };
 
   render() {
-    if (this.state.isLoggedOut) {
-      return <Navigate to="/login" />;
+    if (!this.state.isLoggedOut) {
+      return <div>Logging out...</div>;
     }
-
-    return <Navigate to="/summary" />;
   }
 }
 
