@@ -156,19 +156,24 @@ class Board extends Component<BoardProps, BoardState> {
               onClick={(e) => e.stopPropagation()}
             >
               <div
-                className="add-task-overlay-close"
-                onClick={() => this.handleToggleTaskOverlay("")}
+                className="add-task-overlay-content-inner"
+                onClick={(e) => e.stopPropagation()}
               >
-                <SmallBtn image="close.svg" />
-              </div>
+                <div
+                  className="add-task-overlay-close"
+                  onClick={() => this.handleToggleTaskOverlay("")}
+                >
+                  <SmallBtn image="close.svg" />
+                </div>
 
-              <AddTask
-                users={users}
-                taskStatus={taskStatus}
-                addTask={this.props.addTask}
-                showOverlayMsg={this.props.showOverlayMsg}
-                currentUser={this.props.currentUser}
-              />
+                <AddTask
+                  users={users}
+                  taskStatus={taskStatus}
+                  addTask={this.props.addTask}
+                  showOverlayMsg={this.props.showOverlayMsg}
+                  currentUser={this.props.currentUser}
+                />
+              </div>
             </div>
           </div>
         )}

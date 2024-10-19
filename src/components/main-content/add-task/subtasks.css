@@ -48,7 +48,7 @@
 
 /* Subtask list */
 .subtask-list {
-  max-height: 110px;
+  max-height: 80px;
   overflow-x: auto;
   margin-top: 12px;
 }
