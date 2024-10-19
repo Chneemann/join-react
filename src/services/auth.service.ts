@@ -37,6 +37,16 @@ export const login = async (email: string, password: string) => {
   }
 };
 
+// Log-out function
+export const logout = async () => {
+  try {
+    await auth.signOut();
+  } catch (error) {
+    console.error("Error logging out:", error);
+    throw error;
+  }
+};
+
 // Monitor Auth status
 export const observeAuthState = (callback: (user: User | null) => void) => {
   return onAuthStateChanged(auth, async (user) => {
