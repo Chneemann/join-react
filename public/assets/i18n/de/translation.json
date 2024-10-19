@@ -9,10 +9,9 @@
     "forgotPassword": "Passwort vergessen?",
     "google": "Einloggen mit Google",
     "guest": "Gastzugang",
-    "errorMail0": "Sie müssen eine E-Mail Adresse eingeben!",
-    "errorMail1": "Diese E-Mail Adresse existiert nicht!",
-    "errorMail2": "Dies ist kein gültiges E-Mail-Format!",
-    "errorPassword0": "Sie müssen ein Passwort eingeben!",
+    "errorMail0": "Dies ist kein gültiges E-Mail-Format",
+    "errorMail1": "Diese E-Mail Adresse existiert nicht",
+    "errorPassword0": "Das Passwort ist nicht lang genug (min. 8 Zeichen)!",
     "errorPassword1": "Das Passwort passt nicht zur E-Mail-Adresse!",
     "loginDialog0": "Einloggen",
     "loginDialog1": "Bitte warten..."

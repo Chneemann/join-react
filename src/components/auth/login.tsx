@@ -2,13 +2,19 @@ import React from "react";
 import "./login.css";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { login } from "../../services/auth.service";
+import LargeButton from "../shared/components/buttons/large-btn";
+import { FirebaseError } from "firebase/app";
 
 interface LoginProps extends WithTranslation {}
 
 interface LoginState {
   email: string;
   password: string;
-  error: string | null;
+  errorMail: string | null;
+  errorPassword: string | null;
+  isSubmitting: boolean;
+  isEmailValid: boolean;
+  isPasswordValid: boolean;
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -17,32 +23,76 @@ class Login extends React.Component<LoginProps, LoginState> {
     this.state = {
       email: "",
       password: "",
-      error: null,
+      errorMail: null,
+      errorPassword: null,
+      isSubmitting: false,
+      isEmailValid: true,
+      isPasswordValid: true,
     };
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    this.setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+
+    // Update state based on input change
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        [name]: value,
+      }),
+      () => {
+        // Perform validation after state update
+        if (name === "email") {
+          this.setState({ isEmailValid: this.validateEmail(value) });
+        } else if (name === "password") {
+          this.setState({ isPasswordValid: this.validatePassword(value) });
+        }
+      }
+    );
+  };
+
+  validateEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
+  validatePassword = (password: string) => {
+    return password.length > 8;
   };
 
   handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
     }
+
     const { t } = this.props;
-    const { email, password } = this.state;
+    const { email, password, isEmailValid, isPasswordValid } = this.state;
+
+    this.setState({ errorMail: null, errorPassword: null, isSubmitting: true });
+
+    if (!isEmailValid || !isPasswordValid) {
+      this.setState({ isSubmitting: false });
+      return;
+    }
 
     try {
       await login(email, password);
       window.location.href = "/summary";
     } catch (error) {
-      this.setState({
-        error: t("login.errorMail1"),
-      });
+      if (error instanceof FirebaseError) {
+        let errorMail = null;
+        let errorPassword = null;
+
+        if (error.code === "auth/invalid-email") {
+          errorMail = t("login.errorMail1");
+        } else if (error.code === "auth/invalid-credential") {
+          errorPassword = t("login.errorPassword1");
+        }
+
+        this.setState({ errorMail, errorPassword });
+      } else {
+        this.setState({ errorMail: t("login.errorMail0") });
+      }
+      this.setState({ isSubmitting: false });
     }
   };
 
@@ -60,12 +110,21 @@ class Login extends React.Component<LoginProps, LoginState> {
 
   render() {
     const { t } = this.props;
-    const { email, password, error } = this.state;
+    const {
+      email,
+      password,
+      errorMail,
+      errorPassword,
+      isSubmitting,
+      isEmailValid,
+      isPasswordValid,
+    } = this.state;
 
     return (
       <div className="login">
-        <div className="login-container">
-          <form onSubmit={this.handleSubmit}>
+        <div className="login-title">{t("login.login")}</div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="input-fields">
             <input
               type="text"
               name="email"
@@ -73,6 +132,10 @@ class Login extends React.Component<LoginProps, LoginState> {
               value={email}
               onChange={this.handleChange}
             />
+            <div className="error-msg">
+              {!isEmailValid && <p>{t("login.errorMail0")}</p>}
+              {errorMail && <p>{errorMail}</p>}
+            </div>
             <input
               type="password"
               name="password"
@@ -80,13 +143,28 @@ class Login extends React.Component<LoginProps, LoginState> {
               value={password}
               onChange={this.handleChange}
             />
-            <button type="submit">{t("login.login")}</button>
-            <button type="button" onClick={this.handleGuestLogin}>
-              {t("login.guest")}
-            </button>
-          </form>
-          {error && <p className="error-message">{error}</p>}
-        </div>
+            <div className="error-msg">
+              {!isPasswordValid && <p>{t("login.errorPassword0")}</p>}
+              {errorPassword && <p>{errorPassword}</p>}
+            </div>
+          </div>
+          <div className="login-buttons">
+            <LargeButton
+              type="submit"
+              disabled={
+                isSubmitting || !email || !password || password.length <= 8
+              }
+              value={t("login.login")}
+            />
+            <LargeButton
+              type="button"
+              isWhite={true}
+              disabled={isSubmitting}
+              value={t("login.guest")}
+              onClick={this.handleGuestLogin}
+            />
+          </div>
+        </form>
       </div>
     );
   }

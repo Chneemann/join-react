@@ -1,5 +1,48 @@
 @import "./../../styles/colors.css";
 
 .login {
-  width: 500px;
+  width: 482px;
+  height: fit-content;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  gap: 24px;
+}
+
+/* Error message */
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 6px;
+}
+
+.error-msg p {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--red);
 }
