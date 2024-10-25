@@ -4,6 +4,10 @@
     "notAUser": "Kein Join Nutzer?",
     "signup": "Registrieren"
   },
+  "footer": {
+    "privacyPolicy": "Datenschutzerklärung",
+    "legalNotice": "Rechtliche Hinweise"
+  },
   "login": {
     "login": "Einloggen",
     "email": "E-Mail",

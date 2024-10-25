@@ -8,6 +8,7 @@ import "./i18n";
 import { User } from "./interfaces/user.interface";
 import { observeAuthState } from "./services/auth.service";
 import Auth from "./components/auth/auth";
+import Footer from "./components/footer/footer";
 
 interface AppState {
   currentUser: User | null;
@@ -70,6 +71,7 @@ class App extends Component<{}, AppState> {
               <div className="container-auth-center">
                 <Auth currentUser={null} />
               </div>
+              <Footer />
             </div>
           </React.Fragment>
         )}

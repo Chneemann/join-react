@@ -1,0 +1,47 @@
+@import "./../../styles/colors.css";
+
+footer {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-bottom: 36px;
+}
+footer a {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--very-dark-gray);
+  padding: 8px;
+  cursor: pointer;
+  width: fit-content;
+  height: 19px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: var(--light-blue);
+  }
+}
+
+/* Media queries */
+@media (max-height: 820px) {
+  .footer {
+    margin-bottom: 24x;
+  }
+}
+
+@media (max-height: 680px) {
+  .footer {
+    margin-bottom: 12px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .footer {
+    a {
+      font-size: 14px;
+    }
+  }
+}
