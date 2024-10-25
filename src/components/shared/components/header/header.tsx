@@ -1,10 +1,10 @@
 import React from "react";
 import "./header.css";
-import SmallBtn from "../shared/components/buttons/small-btn";
-import MemberCircle from "../shared/components/member-circle/member-circle";
+import SmallBtn from "../buttons/small-btn";
+import MemberCircle from "../member-circle/member-circle";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { User } from "../../interfaces/user.interface";
-import LargeButton from "../shared/components/buttons/large-btn";
+import { User } from "../../../../interfaces/user.interface";
+import LargeButton from "../buttons/large-btn";
 
 interface HeaderProps extends WithTranslation {
   currentUser: User | null;

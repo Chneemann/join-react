@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Navigate, BrowserRouter as Router } from "react-router-dom";
-import Header from "./components/header/header";
+import Header from "./components/shared/components/header/header";
 import Navbar from "./components/navbar/navbar";
 import MainContent from "./components/main-content/main-content";
 import "./App.css";
@@ -8,7 +8,7 @@ import "./i18n";
 import { User } from "./interfaces/user.interface";
 import { observeAuthState } from "./services/auth.service";
 import Auth from "./components/auth/auth";
-import Footer from "./components/footer/footer";
+import Footer from "./components/shared/components/footer/footer";
 
 interface AppState {
   currentUser: User | null;
