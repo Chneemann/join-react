@@ -123,6 +123,9 @@ class Login extends React.Component<LoginProps, LoginState> {
     return (
       <div className="login">
         <div className="login-title">{t("login.login")}</div>
+        <div className="login-line">
+          <img src="./../../../assets/img/auth/line.svg" alt="" />
+        </div>
         <form onSubmit={this.handleSubmit}>
           <div className="input-fields">
             <input
@@ -132,7 +135,12 @@ class Login extends React.Component<LoginProps, LoginState> {
               value={email}
               onChange={this.handleChange}
             />
-            <div className="error-msg">
+            <img
+              className="icon-mail"
+              src="./../../../assets/img/auth/mail.svg"
+              alt=""
+            />
+            <div className="login-error-msg">
               {!isEmailValid && <p>{t("login.errorMail0")}</p>}
               {errorMail && <p>{errorMail}</p>}
             </div>
@@ -143,10 +151,29 @@ class Login extends React.Component<LoginProps, LoginState> {
               value={password}
               onChange={this.handleChange}
             />
-            <div className="error-msg">
+            <img
+              className="icon-password"
+              src="./../../../assets/img/auth/lock.svg"
+              alt=""
+            />
+            <div className="login-error-msg">
               {!isPasswordValid && <p>{t("login.errorPassword0")}</p>}
               {errorPassword && <p>{errorPassword}</p>}
             </div>
+            <div className="forgot-pw">
+              <a href="#TODO">Forgotten password?</a>
+            </div>
+          </div>
+          <div className="login-button-google">
+            <LargeButton
+              type="button"
+              imgPath="google"
+              imgPosition="left"
+              isWhite={true}
+              disabled={isSubmitting}
+              value={t("login.google")}
+              onClick={this.handleGuestLogin}
+            />
           </div>
           <div className="login-buttons">
             <LargeButton

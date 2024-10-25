@@ -3,6 +3,7 @@
 .board {
   margin: 0;
   padding: 32px;
+  max-width: 1224px;
 }
 
 /* Header */
@@ -101,7 +102,7 @@
 /* Content Header */
 
 .board-content {
-  max-width: 1210px;
+  max-width: fit-content;
 }
 
 .board-status {
@@ -175,9 +176,9 @@
 .add-task-overlay-content {
   position: relative;
   height: fit-content;
-  max-height: 90%;
   width: fit-content;
-  max-width: 80%;
+  max-height: 90%;
+  max-width: 90%;
   padding: 24px;
   border-radius: 24px;
   background-color: var(--white);
@@ -198,6 +199,12 @@
 }
 
 /*------------- RESPONSIVE -------------*/
+
+@media screen and (max-width: 950px) {
+  .add-task-overlay-content {
+    height: 100%;
+  }
+}
 
 @media screen and (max-width: 900px) {
   .board-status {
@@ -223,13 +230,13 @@
   }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 710px) {
   .board-search-inner input {
     width: 256px;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
   .board {
     padding: 24px;
   }
