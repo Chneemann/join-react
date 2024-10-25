@@ -131,6 +131,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             <input
               type="text"
               name="email"
+              autoComplete="email"
               placeholder={t("login.email")}
               value={email}
               onChange={this.handleChange}
@@ -147,6 +148,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             <input
               type="password"
               name="password"
+              autoComplete="current-password"
               placeholder={t("login.password")}
               value={password}
               onChange={this.handleChange}

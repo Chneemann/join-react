@@ -1,6 +1,8 @@
 {
   "header": {
-    "title": "Kanban Project Management Tool"
+    "title": "Kanban Project Management Tool",
+    "notAUser": "Not a Join user?",
+    "signup": "Sign up"
   },
   "login": {
     "login": "Log in",

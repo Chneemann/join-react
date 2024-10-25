@@ -17,7 +17,6 @@
   color: var(--white);
   font-size: 21px;
   font-weight: 400;
-  margin: 0 4px 0 0;
 }
 
 .large-btn:not(:disabled):hover {

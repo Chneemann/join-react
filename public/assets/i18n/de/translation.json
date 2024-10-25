@@ -1,6 +1,8 @@
 {
   "header": {
-    "title": "Kanban Projektmanagement-Tool"
+    "title": "Kanban Projektmanagement-Tool",
+    "notAUser": "Kein Join Nutzer?",
+    "signup": "Registrieren"
   },
   "login": {
     "login": "Einloggen",

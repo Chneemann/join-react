@@ -4,6 +4,7 @@ import SmallBtn from "../shared/components/buttons/small-btn";
 import MemberCircle from "../shared/components/member-circle/member-circle";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { User } from "../../interfaces/user.interface";
+import LargeButton from "../shared/components/buttons/large-btn";
 
 interface HeaderProps extends WithTranslation {
   currentUser: User | null;
@@ -43,12 +44,17 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           </div>
         ) : (
           <div className="header-auth">
-            {" "}
             <img
               className="header-logo-auth"
               src="./assets/img/logo-small-blue.svg"
               alt=""
             />
+            <div className="header-register">
+              <div className="header-register-question">
+                {t("header.notAUser")}
+              </div>
+              <LargeButton type="button" value={t("header.signup")} />
+            </div>
           </div>
         )}
       </header>

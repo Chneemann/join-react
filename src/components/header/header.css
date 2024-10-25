@@ -36,11 +36,25 @@
 
 .header-logo-auth {
   position: fixed;
-  top: 24px;
-  left: 24px;
-  right: 24px;
-  width: 122px;
+  left: 57px;
+  top: 60px;
   height: 100px;
+  width: 122px;
+}
+
+.header-register {
+  position: fixed;
+  top: 67px;
+  right: 100px;
+  display: inline-flex;
+  align-items: center;
+}
+.header-register-question {
+  display: flex;
+  align-items: center;
+  padding-right: 32px;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 /* Media queries */
