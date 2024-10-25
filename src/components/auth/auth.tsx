@@ -3,6 +3,7 @@ import "./login.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./login";
 import { User } from "../../interfaces/user.interface";
+import Register from "./register";
 
 interface AuthProps {
   currentUser: User | null;
@@ -17,10 +18,10 @@ class Auth extends React.Component<AuthProps, AuthState> {
     if (!currentUser) {
       return (
         <>
-          <Navigate to="/"></Navigate>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </>
       );

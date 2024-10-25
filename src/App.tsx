@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Navigate, BrowserRouter as Router } from "react-router-dom";
-import Header from "./components/shared/components/header/header";
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
 import MainContent from "./components/main-content/main-content";
 import "./App.css";
@@ -9,6 +8,7 @@ import { User } from "./interfaces/user.interface";
 import { observeAuthState } from "./services/auth.service";
 import Auth from "./components/auth/auth";
 import Footer from "./components/shared/components/footer/footer";
+import HeaderWrapper from "./components/shared/components/header/header-wrapper";
 
 interface AppState {
   currentUser: User | null;
@@ -67,7 +67,7 @@ class App extends Component<{}, AppState> {
         {!loadingAuth && !isAuthenticated && (
           <React.Fragment>
             <div className="container-auth">
-              <Header currentUser={null} />
+              <HeaderWrapper currentUser={null} />
               <div className="container-auth-center">
                 <Auth currentUser={null} />
               </div>
@@ -79,7 +79,7 @@ class App extends Component<{}, AppState> {
         {/* Authenticated user */}
         {!loadingAuth && currentUser && (
           <React.Fragment>
-            <Header currentUser={currentUser} />
+            <HeaderWrapper currentUser={currentUser} />
             <div className="container">
               <Navbar />
               <MainContent currentUser={currentUser} />

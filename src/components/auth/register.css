@@ -1,0 +1,6 @@
+@import "./../../styles/colors.css";
+
+.register {
+  width: 482px;
+  height: fit-content;
+}
