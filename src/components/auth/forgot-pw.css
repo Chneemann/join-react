@@ -1,0 +1,6 @@
+@import "./../../styles/colors.css";
+
+.forgot-pw {
+  width: 482px;
+  height: fit-content;
+}

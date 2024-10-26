@@ -196,8 +196,8 @@ class Login extends React.Component<LoginProps, LoginState> {
               {!isPasswordValid && <p>{t("login.errorPassword0")}</p>}
               {errorPassword && <p>{errorPassword}</p>}
             </div>
-            <div className="forgot-pw">
-              <a href="#TODO">Forgotten password?</a>
+            <div className="login-forgot-pw">
+              <a href="/forgot-pw">Forgotten password?</a>
             </div>
           </div>
           <div className="login-button-google">
