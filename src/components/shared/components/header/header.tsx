@@ -1,4 +1,3 @@
-// Header.tsx
 import React from "react";
 import "./header.css";
 import SmallBtn from "../buttons/small-btn";
@@ -10,25 +9,23 @@ import LargeButton from "../buttons/large-btn";
 interface HeaderProps extends WithTranslation {
   currentUser: User | null;
   navigate: (path: string) => void;
+  location: { pathname: string };
 }
-class Header extends React.Component<HeaderProps> {
-  state = {
-    currentUser: null,
-  };
 
+class Header extends React.Component<HeaderProps> {
   changeLanguage = () => {
     const { i18n } = this.props;
     const newLang = i18n.language === "en" ? "de" : "en";
     i18n.changeLanguage(newLang);
   };
 
-  // Method for navigating to the registration page
   handleRegisterClick = () => {
     this.props.navigate("/register");
   };
 
   render() {
-    const { t, currentUser } = this.props;
+    const { t, currentUser, location } = this.props;
+    const isLoginRoute = location.pathname === "/login";
 
     return (
       <header>
@@ -53,16 +50,18 @@ class Header extends React.Component<HeaderProps> {
               src="./assets/img/logo-small-blue.svg"
               alt=""
             />
-            <div className="header-register">
-              <div className="header-register-question">
-                {t("header.notAUser")}
+            {isLoginRoute && (
+              <div className="header-register">
+                <div className="header-register-question">
+                  {t("header.notAUser")}
+                </div>
+                <LargeButton
+                  type="button"
+                  value={t("header.signup")}
+                  onClick={this.handleRegisterClick}
+                />
               </div>
-              <LargeButton
-                type="button"
-                value={t("header.signup")}
-                onClick={this.handleRegisterClick} // Setze den onClick-Handler
-              />
-            </div>
+            )}
           </div>
         )}
       </header>
