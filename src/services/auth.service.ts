@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -70,6 +71,50 @@ export const googleLogin = async () => {
     }
   } catch (error) {
     console.error("Google login error:", error);
+  }
+};
+
+// Register function
+export const register = async (registerData: {
+  name: string;
+  firstName: string;
+  lastName: string;
+  mail: string;
+  password: string;
+}) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      getAuth(),
+      registerData.mail,
+      registerData.password
+    );
+    const user = userCredential.user;
+
+    const userDataToSave: User = {
+      uId: user.uid,
+      email: user.email || "",
+      firstName: registerData.firstName
+        ? registerData.firstName.charAt(0).toUpperCase() +
+          registerData.firstName.slice(1)
+        : "",
+      lastName: registerData.lastName
+        ? registerData.lastName.charAt(0).toUpperCase() +
+          registerData.lastName.slice(1)
+        : "",
+      status: true,
+      phone: "",
+      initials: registerData.name
+        ? registerData.firstName.slice(0, 1).toUpperCase() +
+          registerData.lastName.slice(0, 1).toUpperCase()
+        : "",
+      color: ColorUtil.generateRandomColor(),
+      lastLogin: new Date().getTime(),
+    };
+
+    // User in Firestore erstellen
+    await createUserInFirestore(userDataToSave);
+  } catch (error) {
+    throw error;
   }
 };
 

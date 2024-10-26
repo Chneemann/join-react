@@ -3,6 +3,8 @@ import "./register.css";
 import { withTranslation, WithTranslation } from "react-i18next";
 import LargeButton from "../shared/components/buttons/large-btn";
 import SmallBtn from "../shared/components/buttons/small-btn";
+import { register } from "../../services/auth.service";
+import { log } from "console";
 
 interface RegisterProps extends WithTranslation {}
 
@@ -23,6 +25,7 @@ interface RegisterState {
   isPasswordValid: boolean;
   isPasswordConfirmValid: boolean;
   isSubmitting: boolean;
+  registrationError: string | null;
 }
 
 class Register extends React.Component<RegisterProps, RegisterState> {
@@ -45,6 +48,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
       isPasswordValid: true,
       isPasswordConfirmValid: true,
       isSubmitting: false,
+      registrationError: null,
     };
   }
 
@@ -146,7 +150,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
   };
 
   // Handle form submission
-  handleSubmit = (e: React.FormEvent) => {
+  handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const {
@@ -155,6 +159,9 @@ class Register extends React.Component<RegisterProps, RegisterState> {
       isPasswordValid,
       isPasswordConfirmValid,
       checkboxState,
+      name,
+      email,
+      password,
     } = this.state;
 
     if (
@@ -164,7 +171,27 @@ class Register extends React.Component<RegisterProps, RegisterState> {
       isPasswordConfirmValid &&
       checkboxState
     ) {
-      // TODO: Implement registration logic here
+      this.setState({ isSubmitting: true, registrationError: null });
+
+      try {
+        await register({
+          name,
+          firstName: name.split(" ")[0],
+          lastName: name.split(" ").slice(1).join(" "),
+          mail: email,
+          password,
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          if (error.message.includes("auth/email-already-in-use")) {
+            this.setState({
+              errorEmail: "The email address is already in use.",
+            });
+          }
+        }
+      } finally {
+        this.setState({ isSubmitting: false });
+      }
     }
   };
 
@@ -219,6 +246,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             <input
               type="text"
               name="name"
+              autoComplete="name"
               placeholder={t("register.name")}
               maxLength={20}
               value={name}
@@ -238,6 +266,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             <input
               type="email"
               name="email"
+              autoComplete="email"
               placeholder={t("register.email")}
               value={email}
               onChange={this.handleChange}
@@ -256,6 +285,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             <input
               type="password"
               name="password"
+              autoComplete="new-password"
               placeholder={t("register.password")}
               value={password}
               onChange={this.handleChange}
@@ -269,6 +299,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             <input
               type="password"
               name="passwordConfirm"
+              autoComplete="new-password"
               placeholder={t("register.passwordConfirm")}
               value={passwordConfirm}
               onChange={this.handleChange}
@@ -282,12 +313,13 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             <div className="register-privacy-policy">
               <input
                 type="checkbox"
+                id="checkboxState"
                 name="checkboxState"
                 checked={checkboxState}
                 onChange={this.handleChange}
                 required
               />
-              <label>
+              <label htmlFor="checkboxState">
                 {t("register.privacyPolicy0")}
                 <a href="/login/privacy-policy">
                   {t("register.privacyPolicy1")}

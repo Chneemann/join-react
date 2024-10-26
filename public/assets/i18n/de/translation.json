@@ -34,9 +34,6 @@
     "errorNamePattern": "Bitte nur Buchstaben und Leerzeichen verwenden!",
     "errorNameLength": "Der Name ist zu kurz, min. 3 Zeichen",
     "errorMailPattern": "Dies ist kein gültiges E-Mail-Format",
-    "errorMail1": "Dies ist kein gültiges E-Mail-Format!",
-    "errorMail2": "Diese E-Mail existiert bereits!",
-    "errorMail3": "Diese E-Mail existiert nicht!",
     "errorPassword": "Sie müssen ein Passwort eingeben",
     "errorPasswordTooShort": "Das Passwort muss aus mindestens 8 Zeichen bestehen",
     "errorPasswordMatch": "Die Passwörter stimmen nicht überein"

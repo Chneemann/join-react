@@ -34,9 +34,6 @@
     "errorNamePattern": "Please use only letters and spaces",
     "errorNameLength": "The name is too short, min. 3 characters",
     "errorMailPattern": "This is not a valid email format",
-    "errorMail1": "This is not a valid email format!",
-    "errorMail2": "This email already exists!",
-    "errorMail3": "This email does not exist!",
     "errorPassword": "You must enter a password",
     "errorPasswordTooShort": "The password must consist of at least 8 characters",
     "errorPasswordMatch": "The passwords don't match"
