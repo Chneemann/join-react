@@ -1,7 +1,8 @@
 import React from "react";
+import "./register.css";
 import { withTranslation, WithTranslation } from "react-i18next";
 import LargeButton from "../shared/components/buttons/large-btn";
-import "./register.css";
+import SmallBtn from "../shared/components/buttons/small-btn";
 
 interface RegisterProps extends WithTranslation {}
 
@@ -201,9 +202,16 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     return (
       <div className="register">
         <form id="form" onSubmit={this.handleSubmit} noValidate>
-          <div className="login-title">{t("register.signup")}</div>
-          <div className="login-line">
-            <img src="./../../../assets/img/auth/line.svg" alt="" />
+          {/* Header */}
+          <div className="register-header">
+            <div className="register-headline">
+              <SmallBtn image="back.svg" to="/login"></SmallBtn>
+              <div className="register-title">{t("register.signup")}</div>
+              <div className="register-spacer"></div>
+            </div>
+            <div className="register-line">
+              <img src="./../../../assets/img/auth/line.svg" alt="" />
+            </div>
           </div>
 
           <div className="input-fields">

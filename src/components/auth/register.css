@@ -5,6 +5,21 @@
   height: fit-content;
 }
 
+.register-header {
+  width: 100%;
+}
+
+.register-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.register-spacer {
+  padding-left: 24px;
+}
+
 form {
   display: flex;
   justify-content: center;
