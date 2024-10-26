@@ -26,6 +26,7 @@ interface RegisterState {
   isPasswordConfirmValid: boolean;
   isSubmitting: boolean;
   registrationError: string | null;
+  showPassword: boolean;
 }
 
 class Register extends React.Component<RegisterProps, RegisterState> {
@@ -49,6 +50,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
       isPasswordConfirmValid: true,
       isSubmitting: false,
       registrationError: null,
+      showPassword: false,
     };
   }
 
@@ -195,6 +197,10 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     }
   };
 
+  handleShowPassword = () => {
+    this.setState({ showPassword: !this.state.showPassword });
+  };
+
   /**
    * Renders the registration form with its input fields, validation error messages and submit button.
    *
@@ -224,6 +230,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
       errorPassword,
       errorPasswordConfirm,
       isSubmitting,
+      showPassword,
     } = this.state;
 
     return (
@@ -253,13 +260,11 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               onChange={this.handleChange}
               required
             />
-            {!name && (
-              <img
-                className="custom-img"
-                src="./../../../assets/img/login/user.svg"
-                alt=""
-              />
-            )}
+            <img
+              className="register-icon-user"
+              src="./../../../assets/img/auth/user.svg"
+              alt="user"
+            />
             <div className="error-msg">{errorName && <p>{errorName}</p>}</div>
 
             {/* Email Field */}
@@ -272,18 +277,16 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               onChange={this.handleChange}
               required
             />
-            {!email && (
-              <img
-                className="custom-img"
-                src="./../../../assets/img/login/mail.svg"
-                alt=""
-              />
-            )}
+            <img
+              className="register-icon-mail"
+              src="./../../../assets/img/auth/mail.svg"
+              alt="mail"
+            />
             <div className="error-msg">{errorEmail && <p>{errorEmail}</p>}</div>
 
             {/* Password Field */}
             <input
-              type="password"
+              type={this.state.showPassword ? "text" : "password"}
               name="password"
               autoComplete="new-password"
               placeholder={t("register.password")}
@@ -291,13 +294,36 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               onChange={this.handleChange}
               required
             />
+            {password ? (
+              !showPassword ? (
+                <img
+                  className="register-icon-eye"
+                  src="./../../../assets/img/auth/close-eye.svg"
+                  alt="close-eye"
+                  onClick={this.handleShowPassword}
+                />
+              ) : (
+                <img
+                  className="register-icon-eye"
+                  src="./../../../assets/img/auth/open-eye.svg"
+                  alt="open-eye"
+                  onClick={this.handleShowPassword}
+                />
+              )
+            ) : (
+              <img
+                className="register-icon-password"
+                src="./../../../assets/img/auth/lock.svg"
+                alt="lock"
+              />
+            )}
             <div className="error-msg">
               {errorPassword && <p>{errorPassword}</p>}
             </div>
 
             {/* Confirm Password Field */}
             <input
-              type="password"
+              type={this.state.showPassword ? "text" : "password"}
               name="passwordConfirm"
               autoComplete="new-password"
               placeholder={t("register.passwordConfirm")}
@@ -305,6 +331,29 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               onChange={this.handleChange}
               required
             />
+            {password ? (
+              !showPassword ? (
+                <img
+                  className="register-icon-eye-confirm"
+                  src="./../../../assets/img/auth/close-eye.svg"
+                  alt="close-eye"
+                  onClick={this.handleShowPassword}
+                />
+              ) : (
+                <img
+                  className="register-icon-eye-confirm"
+                  src="./../../../assets/img/auth/open-eye.svg"
+                  alt="open-eye"
+                  onClick={this.handleShowPassword}
+                />
+              )
+            ) : (
+              <img
+                className="register-icon-password-confirm"
+                src="./../../../assets/img/auth/lock.svg"
+                alt="lock"
+              />
+            )}
             <div className="error-msg">
               {errorPasswordConfirm && <p>{errorPasswordConfirm}</p>}
             </div>

@@ -84,20 +84,34 @@ form {
 
 /* Icons */
 
-.icon-mail {
+.login-icon-mail {
   width: 24px;
-  height: 24px;
+  height: auto;
   position: absolute;
   top: 8px;
   right: 0;
 }
 
-.icon-password {
-  width: 24px;
-  height: 24px;
+.login-icon-password {
+  width: 20px;
+  height: auto;
   position: absolute;
-  top: 96px;
-  right: 0;
+  top: 92px;
+  right: 2px;
+}
+
+.login-icon-eye {
+  width: 28px;
+  height: auto;
+  position: absolute;
+  top: 92px;
+  right: -2px;
+  cursor: pointer;
+}
+
+.login-icon-eye:hover {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(51%) saturate(2924%)
+    hue-rotate(202deg) brightness(102%) contrast(101%);
 }
 
 /* Error message */

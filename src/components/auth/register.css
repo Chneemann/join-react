@@ -75,9 +75,9 @@ form {
 
 /* Icons */
 
-.register-icon-name {
+.register-icon-user {
   width: 24px;
-  height: 24px;
+  height: auto;
   position: absolute;
   top: 8px;
   right: 0;
@@ -85,26 +85,50 @@ form {
 
 .register-icon-mail {
   width: 24px;
-  height: 24px;
+  height: auto;
   position: absolute;
-  top: 90px;
+  top: 92px;
   right: 0;
 }
 
 .register-icon-password {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: auto;
   position: absolute;
-  top: 173px;
-  right: 0;
+  top: 169px;
+  right: 2px;
 }
 
 .register-icon-password-confirm {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: auto;
   position: absolute;
-  top: 255px;
-  right: 0;
+  top: 253px;
+  right: 2px;
+}
+
+.register-icon-eye {
+  width: 28px;
+  height: auto;
+  position: absolute;
+  top: 169px;
+  right: -2px;
+  cursor: pointer;
+}
+
+.register-icon-eye-confirm {
+  width: 28px;
+  height: auto;
+  position: absolute;
+  top: 253px;
+  right: -2px;
+  cursor: pointer;
+}
+
+.register-icon-eye:hover,
+.register-icon-eye-confirm:hover {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(51%) saturate(2924%)
+    hue-rotate(202deg) brightness(102%) contrast(101%);
 }
 
 /* Checkbox */

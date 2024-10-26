@@ -15,6 +15,7 @@ interface LoginState {
   isSubmitting: boolean;
   isEmailValid: boolean;
   isPasswordValid: boolean;
+  showPassword: boolean;
 }
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -28,6 +29,7 @@ class Login extends React.Component<LoginProps, LoginState> {
       isSubmitting: false,
       isEmailValid: true,
       isPasswordValid: true,
+      showPassword: false,
     };
   }
 
@@ -117,6 +119,10 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
   };
 
+  handleShowPassword = () => {
+    this.setState({ showPassword: !this.state.showPassword });
+  };
+
   render() {
     const { t } = this.props;
     const {
@@ -127,6 +133,7 @@ class Login extends React.Component<LoginProps, LoginState> {
       isSubmitting,
       isEmailValid,
       isPasswordValid,
+      showPassword,
     } = this.state;
 
     return (
@@ -146,27 +153,45 @@ class Login extends React.Component<LoginProps, LoginState> {
               onChange={this.handleChange}
             />
             <img
-              className="icon-mail"
+              className="login-icon-mail"
               src="./../../../assets/img/auth/mail.svg"
-              alt=""
+              alt="mail"
             />
             <div className="login-error-msg">
               {!isEmailValid && <p>{t("login.errorMail0")}</p>}
               {errorMail && <p>{errorMail}</p>}
             </div>
             <input
-              type="password"
+              type={this.state.showPassword ? "text" : "password"}
               name="password"
               autoComplete="current-password"
               placeholder={t("login.password")}
               value={password}
               onChange={this.handleChange}
             />
-            <img
-              className="icon-password"
-              src="./../../../assets/img/auth/lock.svg"
-              alt=""
-            />
+            {password ? (
+              !showPassword ? (
+                <img
+                  className="login-icon-eye"
+                  src="./../../../assets/img/auth/close-eye.svg"
+                  alt="close-eye"
+                  onClick={this.handleShowPassword}
+                />
+              ) : (
+                <img
+                  className="login-icon-eye"
+                  src="./../../../assets/img/auth/open-eye.svg"
+                  alt="open-eye"
+                  onClick={this.handleShowPassword}
+                />
+              )
+            ) : (
+              <img
+                className="login-icon-password"
+                src="./../../../assets/img/auth/lock.svg"
+                alt="lock"
+              />
+            )}
             <div className="login-error-msg">
               {!isPasswordValid && <p>{t("login.errorPassword0")}</p>}
               {errorPassword && <p>{errorPassword}</p>}
