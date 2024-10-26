@@ -22,6 +22,25 @@
     "loginDialog0": "Einloggen",
     "loginDialog1": "Bitte warten..."
   },
+  "register": {
+    "signup": "Registrieren",
+    "name": "Name",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordConfirm": "Passwort bestätigen",
+    "privacyPolicy0": "Ich akzeptiere die ",
+    "privacyPolicy1": "Datenschutzerklärung",
+    "privacyPolicyError": "Sie müssen die Datenschutzbestimmungen akzeptieren!",
+    "errorNamePattern": "Bitte nur Buchstaben und Leerzeichen verwenden!",
+    "errorNameLength": "Der Name ist zu kurz, min. 3 Zeichen",
+    "errorMailPattern": "Dies ist kein gültiges E-Mail-Format",
+    "errorMail1": "Dies ist kein gültiges E-Mail-Format!",
+    "errorMail2": "Diese E-Mail existiert bereits!",
+    "errorMail3": "Diese E-Mail existiert nicht!",
+    "errorPassword": "Sie müssen ein Passwort eingeben",
+    "errorPasswordTooShort": "Das Passwort muss aus mindestens 8 Zeichen bestehen",
+    "errorPasswordMatch": "Die Passwörter stimmen nicht überein"
+  },
   "navbar": {
     "summary": "Übersicht",
     "addTask": "Neue Aufgabe",

@@ -4,3 +4,157 @@
   width: 482px;
   height: fit-content;
 }
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-title {
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.register-line {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 32px 0;
+  width: 100%;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 80%;
+}
+
+.input-fields input {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 12px;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid var(--medium-gray);
+  padding: 0 12px;
+  outline: none;
+  background: transparent;
+}
+
+.input-fields input::placeholder {
+  color: var(--medium-gray);
+}
+
+.input-fields input:focus {
+  border-bottom: 1px solid var(--light-blue);
+}
+
+.register-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* Icons */
+
+.register-icon-name {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 8px;
+  right: 0;
+}
+
+.register-icon-mail {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 90px;
+  right: 0;
+}
+
+.register-icon-password {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 173px;
+  right: 0;
+}
+
+.register-icon-password-confirm {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 255px;
+  right: 0;
+}
+
+/* Checkbox */
+
+.register-privacy-policy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-privacy-policy input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  margin: 0 10px 0 15px;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background-image: url("./../../../public/assets/img/auth/checkbox.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.register-privacy-policy input[type="checkbox"]:checked {
+  background-image: url("./../../../public/assets/img/auth/checkbox-checked.svg");
+}
+
+.register-privacy-policy input[type="checkbox"]:checked:hover {
+  background-image: url("./../../../public/assets/img/auth/checkbox-checked-hover.svg");
+}
+
+.register-privacy-policy input[type="checkbox"]:hover {
+  background-image: url("./../../../public/assets/img/auth/checkbox-hover.svg");
+}
+
+.register-privacy-policy label p {
+  font-size: 14px;
+  font-weight: 400;
+  padding-right: 20px;
+}
+
+.register-privacy-policy label a {
+  text-decoration: none;
+  color: var(--light-blue);
+  cursor: pointer;
+}
+
+.register-privacy-policy label a:hover {
+  text-decoration: underline;
+}
+
+/* Error message */
+
+.error-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 18px;
+  padding: 6px;
+}
+
+.error-msg p {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--red);
+}
