@@ -15,6 +15,18 @@
   margin-left: 24px;
 }
 
+.header-language {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  filter: brightness(0) saturate(100%) invert(0%) sepia(99%) saturate(7429%)
+    hue-rotate(319deg) brightness(83%) contrast(102%);
+}
+.header-language:hover {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(51%) saturate(2924%)
+    hue-rotate(202deg) brightness(102%) contrast(101%);
+}
+
 .header-container {
   display: flex;
   align-items: center;

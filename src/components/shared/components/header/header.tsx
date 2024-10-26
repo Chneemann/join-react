@@ -51,6 +51,12 @@ class Header extends React.Component<HeaderProps> {
               src="./assets/img/logo-small-blue.svg"
               alt=""
             />
+            <div className="header-language">
+              <SmallBtn
+                image="language.svg"
+                onClick={this.changeLanguage}
+              ></SmallBtn>
+            </div>
             {isLoginRoute && (
               <div className="header-register">
                 <div className="header-register-question">
