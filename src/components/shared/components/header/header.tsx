@@ -25,7 +25,8 @@ class Header extends React.Component<HeaderProps> {
 
   render() {
     const { t, currentUser, location } = this.props;
-    const isLoginRoute = location.pathname === "/login";
+    const isLoginRoute =
+      location.pathname === "/login" || location.pathname === "/";
 
     return (
       <header>
