@@ -38,6 +38,13 @@
     "errorPasswordTooShort": "The password must consist of at least 8 characters",
     "errorPasswordMatch": "The passwords don't match"
   },
+  "forgotPw": {
+    "forgot": "Reset Password",
+    "email": "Your Email",
+    "sendMail": "Send Mail",
+    "pwChange": "Change Password",
+    "notice": "We will send you an email to change your password."
+  },
   "navbar": {
     "summary": "Summary",
     "addTask": "Add Task",

@@ -1,6 +1,36 @@
 @import "./../../styles/colors.css";
 
 .forgot-pw {
-  width: 482px;
+  width: 652px;
   height: fit-content;
+}
+
+/* Header */
+
+.forgot-pw-header {
+  width: 100%;
+}
+
+.forgot-pw-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.forgot-pw-spacer {
+  padding-left: 24px;
+}
+
+.forgot-pw-title {
+  font-size: 61px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.forgot-pw-line {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 32px 0;
+  width: 100%;
 }
