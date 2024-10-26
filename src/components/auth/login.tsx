@@ -1,7 +1,7 @@
 import React from "react";
 import "./login.css";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { login } from "../../services/auth.service";
+import { login, googleLogin } from "../../services/auth.service";
 import LargeButton from "../shared/components/buttons/large-btn";
 import { FirebaseError } from "firebase/app";
 
@@ -108,6 +108,15 @@ class Login extends React.Component<LoginProps, LoginState> {
     );
   };
 
+  handleGoogleLogin = async () => {
+    try {
+      await googleLogin();
+      window.location.href = "/summary";
+    } catch (error) {
+      this.setState({ isSubmitting: false });
+    }
+  };
+
   render() {
     const { t } = this.props;
     const {
@@ -174,14 +183,18 @@ class Login extends React.Component<LoginProps, LoginState> {
               isWhite={true}
               disabled={isSubmitting}
               value={t("login.google")}
-              onClick={this.handleGuestLogin}
+              onClick={this.handleGoogleLogin}
             />
           </div>
           <div className="login-buttons">
             <LargeButton
               type="submit"
               disabled={
-                isSubmitting || !email || !password || password.length <= 8
+                isSubmitting ||
+                !isEmailValid ||
+                !isPasswordValid ||
+                !email ||
+                !password
               }
               value={t("login.login")}
             />

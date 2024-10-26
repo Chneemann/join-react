@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -10,8 +12,10 @@ import {
   getDocs,
   where,
   query,
+  addDoc,
 } from "firebase/firestore";
 import { User } from "../interfaces/user.interface";
+import { ColorUtil } from "./shared.service";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY as string,
@@ -34,6 +38,38 @@ export const login = async (email: string, password: string) => {
   } catch (error) {
     console.error("Error logging in:", error);
     throw error;
+  }
+};
+
+// Log-in with Google
+export const googleLogin = async () => {
+  const provider = new GoogleAuthProvider();
+
+  try {
+    const userCredential = await signInWithPopup(auth, provider);
+    const user = userCredential.user;
+    const usersCollection = collection(firestore, "users");
+    const querySnapshot = await getDocs(
+      query(usersCollection, where("uId", "==", user.uid))
+    );
+
+    if (querySnapshot.empty) {
+      const displayName = user.displayName || "";
+      const [firstName = "", lastName = ""] = displayName.split(" ");
+      await createUserInFirestore({
+        uId: user.uid,
+        email: user.email || "no mail",
+        firstName: firstName.charAt(0).toUpperCase() + firstName.slice(1),
+        lastName: lastName.charAt(0).toUpperCase() + lastName.slice(1),
+        status: true,
+        phone: "",
+        initials: firstName.slice(0, 1) + lastName.slice(0, 1),
+        color: ColorUtil.generateRandomColor(),
+        lastLogin: 0,
+      });
+    }
+  } catch (error) {
+    console.error("Google login error:", error);
   }
 };
 
@@ -86,5 +122,26 @@ export const getUserByUid = async (uid: string): Promise<User | null> => {
     }
   } catch (error) {
     throw error;
+  }
+};
+
+// Create user in Firestore
+const createUserInFirestore = async (user: User) => {
+  const userDataToSave: User = {
+    uId: user.uId,
+    email: user.email,
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
+    status: true,
+    phone: "",
+    initials: user.initials,
+    color: user.color,
+    lastLogin: new Date().getTime(),
+  };
+  const usersCollection = collection(firestore, "users");
+  try {
+    await addDoc(usersCollection, userDataToSave);
+  } catch (error) {
+    console.error(error);
   }
 };
