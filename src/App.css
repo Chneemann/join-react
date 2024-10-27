@@ -28,6 +28,29 @@ body p {
   padding: 48px 64px;
 }
 
+/*------------- RESPONSIVE -------------*/
+
+@media screen and (max-height: 800px) {
+  .container-auth-center {
+    top: 42%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container-auth-center {
+    width: 352px;
+    height: fit-content;
+    padding: 24px 36px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .container-auth-center {
+    width: calc(100vw - 96px);
+    padding: 12px 24px;
+  }
+}
+
 /* Scrollbar */
 
 ::-webkit-scrollbar-track {

@@ -235,7 +235,12 @@ class Register extends React.Component<RegisterProps, RegisterState> {
 
     return (
       <div className="register">
-        <form id="form" onSubmit={this.handleSubmit} noValidate>
+        <form
+          className="register-form"
+          id="form"
+          onSubmit={this.handleSubmit}
+          noValidate
+        >
           {/* Header */}
           <div className="register-header">
             <div className="register-headline">

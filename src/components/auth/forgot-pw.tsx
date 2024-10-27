@@ -82,7 +82,12 @@ class ForgotPassword extends React.Component<
 
     return (
       <div className="forgot-pw">
-        <form id="form" onSubmit={this.handleSubmit} noValidate>
+        <form
+          className="forgot-pw-form"
+          id="form"
+          onSubmit={this.handleSubmit}
+          noValidate
+        >
           {/* Header */}
           <div className="forgot-pw-header">
             <div className="forgot-pw-headline">

@@ -143,9 +143,9 @@ class Login extends React.Component<LoginProps, LoginState> {
         <div className="login-line">
           <img src="./../../../assets/img/auth/line.svg" alt="" />
         </div>
-        <form onSubmit={this.handleSubmit}>
+        <form className="login-form" onSubmit={this.handleSubmit}>
           {/* Name Field */}
-          <div className="input-fields">
+          <div className="login-input-fields">
             <input
               type="text"
               name="email"
