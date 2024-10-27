@@ -1,12 +1,11 @@
 @import "./../../styles/colors.css";
 
 .forgot-pw {
-  width: 652px;
-  height: fit-content;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+  width: 652px;
 }
 
 .forgot-pw-notice {
@@ -87,8 +86,9 @@
 .forgot-pw-input-fields {
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: relative;
-  width: 80%;
+  width: 100%;
 }
 
 .forgot-pw-input-fields input {
@@ -128,4 +128,57 @@
   position: absolute;
   top: 8px;
   right: 0;
+}
+
+/* Media queries */
+@media screen and (max-width: 820px) {
+  .forgot-pw {
+    width: 482px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .forgot-pw,
+  .forgot-pw-form {
+    width: 100%;
+  }
+
+  .forgot-pw-line img {
+    width: 120px;
+  }
+
+  .forgot-pw-input-fields {
+    width: 90%;
+  }
+
+  .forgot-pw-title {
+    font-size: 47px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .forgot-pw-line img {
+    width: 100px;
+  }
+
+  .forgot-pw-error-msg {
+    height: 21px;
+  }
+  .forgot-pw-error-msg p {
+    font-size: 11px;
+  }
+
+  .forgot-pw-title {
+    font-size: 36px;
+  }
+
+  .forgot-pw-notice p {
+    font-size: 19px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .forgot-pw-line img {
+    width: 80px;
+  }
 }
