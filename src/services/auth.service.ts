@@ -193,13 +193,17 @@ const createUserInFirestore = async (user: User) => {
   }
 };
 
+// Send password reset email
 export const passwordReset = async (email: string) => {
   const auth = getAuth();
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      return true;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  const actionCodeSettings = {
+    url: "https://join-react.andre-kempf.com",
+    handleCodeInApp: false,
+  };
+
+  try {
+    await sendPasswordResetEmail(auth, email, actionCodeSettings);
+  } catch (error) {
+    console.error("Error sending the email:", error);
+  }
 };
