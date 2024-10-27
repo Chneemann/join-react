@@ -270,7 +270,9 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               src="./../../../assets/img/auth/user.svg"
               alt="user"
             />
-            <div className="error-msg">{errorName && <p>{errorName}</p>}</div>
+            <div className="register-error-msg">
+              {errorName && <p>{errorName}</p>}
+            </div>
 
             {/* Email Field */}
             <input
@@ -287,7 +289,9 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               src="./../../../assets/img/auth/mail.svg"
               alt="mail"
             />
-            <div className="error-msg">{errorEmail && <p>{errorEmail}</p>}</div>
+            <div className="register-error-msg">
+              {errorEmail && <p>{errorEmail}</p>}
+            </div>
 
             {/* Password Field */}
             <input
@@ -322,7 +326,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 alt="lock"
               />
             )}
-            <div className="error-msg">
+            <div className="register-error-msg">
               {errorPassword && <p>{errorPassword}</p>}
             </div>
 
@@ -359,7 +363,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 alt="lock"
               />
             )}
-            <div className="error-msg">
+            <div className="register-error-msg">
               {errorPasswordConfirm && <p>{errorPasswordConfirm}</p>}
             </div>
 
@@ -380,7 +384,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                 </a>
               </label>
             </div>
-            <div className="error-msg">
+            <div className="register-error-msg">
               {errorCheckbox && <p>{errorCheckbox}</p>}
             </div>
           </div>
