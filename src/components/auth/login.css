@@ -41,7 +41,6 @@
 .login-input-fields input {
   width: 100%;
   height: 40px;
-  margin-bottom: 12px;
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid var(--medium-gray);
@@ -61,12 +60,6 @@
 .login-buttons {
   display: flex;
   justify-content: center;
-  margin: 12px;
-  gap: 24px;
-}
-
-.login-button-google {
-  margin: 12px;
 }
 
 .login-forgot-pw {
@@ -102,7 +95,7 @@
   width: 20px;
   height: auto;
   position: absolute;
-  top: 92px;
+  top: 80px;
   right: 2px;
 }
 
@@ -110,7 +103,7 @@
   width: 28px;
   height: auto;
   position: absolute;
-  top: 92px;
+  top: 80px;
   right: -2px;
   cursor: pointer;
 }
@@ -121,11 +114,11 @@
 }
 
 /* Error message */
-
 .login-error-msg {
   text-align: center;
   height: 24px;
   padding: 6px;
+  width: 110%;
 }
 
 .login-error-msg p {
@@ -134,8 +127,7 @@
   color: var(--red);
 }
 
-/*------------- RESPONSIVE -------------*/
-
+/* Media queries */
 @media screen and (max-width: 650px) {
   .login,
   .login-form {

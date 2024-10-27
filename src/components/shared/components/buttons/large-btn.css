@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   padding: 12px 24px;
+  margin: 12px;
   width: fit-content;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 12px;
@@ -15,7 +16,7 @@
 
 .large-btn p {
   color: var(--white);
-  font-size: 21px;
+  font-size: 23px;
   font-weight: 400;
 }
 
@@ -100,26 +101,20 @@
   color: var(--dark-gray);
 }
 
-/*------------- RESPONSIVE -------------*/
-
-@media screen and (max-width: 700px) {
-  .large-btn {
-    padding: 9px 18px;
-    border-radius: 9px;
-  }
-
+/* Media queries */
+@media screen and (max-width: 650px) {
   .large-btn p {
     font-size: 20px;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .large-btn {
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 12px;
+    margin: 6px;
   }
 
   .large-btn p {
-    font-size: 17px;
+    font-size: 18px;
   }
 }
