@@ -27,21 +27,13 @@ footer a {
 
 /* Media queries */
 @media (max-height: 820px) {
-  .footer {
+  footer {
     margin-bottom: 24x;
   }
 }
 
 @media (max-height: 680px) {
-  .footer {
+  footer {
     margin-bottom: 12px;
-  }
-}
-
-@media screen and (max-width: 380px) {
-  .footer {
-    a {
-      font-size: 14px;
-    }
   }
 }
