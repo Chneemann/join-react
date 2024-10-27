@@ -43,7 +43,8 @@
     "email": "Your Email",
     "sendMail": "Send Mail",
     "pwChange": "Change Password",
-    "notice": "We will send you an email to change your password."
+    "notice": "We will send you an email to change your password.",
+    "noticeSend": "If the e-mail address exists, you will shortly receive an e-mail with instructions on how to reset your password."
   },
   "navbar": {
     "summary": "Summary",

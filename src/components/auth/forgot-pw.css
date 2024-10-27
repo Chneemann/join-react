@@ -9,6 +9,35 @@
   align-items: center;
 }
 
+.forgot-pw-notice {
+  text-align: center;
+  padding: 12px;
+}
+.forgot-pw-notice p {
+  color: var(--gray);
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.forgot-pw-login {
+  text-align: center;
+  padding-top: 24px;
+}
+.forgot-pw-login a {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black);
+  cursor: pointer;
+  width: fit-content;
+  text-decoration: none;
+  cursor: pointer;
+}
+.forgot-pw-login a:hover {
+  color: var(--light-blue);
+  font-weight: 600;
+}
+
 /* Header */
 
 .forgot-pw-header {
@@ -39,6 +68,12 @@
   width: 100%;
 }
 
+.forgot-pw-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Input fields */
 
 form {
@@ -46,6 +81,7 @@ form {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .forgot-pw-input-fields {
@@ -73,6 +109,15 @@ form {
 
 .forgot-pw-input-fields input:focus {
   border-bottom: 1px solid var(--light-blue);
+}
+
+/* Buttons */
+
+.forgot-pw-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  gap: 24px;
 }
 
 /* Icons */

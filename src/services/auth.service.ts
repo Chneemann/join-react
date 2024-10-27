@@ -4,6 +4,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -17,6 +18,7 @@ import {
 } from "firebase/firestore";
 import { User } from "../interfaces/user.interface";
 import { ColorUtil } from "./shared.service";
+import { log } from "console";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY as string,
@@ -189,4 +191,15 @@ const createUserInFirestore = async (user: User) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const passwordReset = async (email: string) => {
+  const auth = getAuth();
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      return true;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };

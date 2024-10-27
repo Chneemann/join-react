@@ -138,11 +138,13 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     return (
       <div className="login">
+        {/* Header */}
         <div className="login-title">{t("login.login")}</div>
         <div className="login-line">
           <img src="./../../../assets/img/auth/line.svg" alt="" />
         </div>
         <form onSubmit={this.handleSubmit}>
+          {/* Name Field */}
           <div className="input-fields">
             <input
               type="text"
@@ -161,6 +163,8 @@ class Login extends React.Component<LoginProps, LoginState> {
               {!isEmailValid && <p>{t("login.errorMail0")}</p>}
               {errorMail && <p>{errorMail}</p>}
             </div>
+
+            {/* Password Field */}
             <input
               type={this.state.showPassword ? "text" : "password"}
               name="password"
@@ -196,10 +200,14 @@ class Login extends React.Component<LoginProps, LoginState> {
               {!isPasswordValid && <p>{t("login.errorPassword0")}</p>}
               {errorPassword && <p>{errorPassword}</p>}
             </div>
+
+            {/* Forgot Password */}
             <div className="login-forgot-pw">
               <a href="/forgot-pw">Forgotten password?</a>
             </div>
           </div>
+
+          {/* Login Buttons */}
           <div className="login-button-google">
             <LargeButton
               type="button"
