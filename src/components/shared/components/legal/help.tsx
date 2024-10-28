@@ -29,12 +29,12 @@ class Help extends React.Component<HelpProps, HelpState> {
     return (
       <div className="help">
         <div className="help-header">
-          <h1>{this.highlightJoin(t("help.header"))}</h1>
+          <h2>{this.highlightJoin(t("help.header"))}</h2>
         </div>
         <p>{this.highlightJoin(t("help.welcome"))}</p>
-        <h2 className="blue-color">
+        <h3 className="blue-color">
           {this.highlightJoin(t("help.question0"))}
-        </h2>
+        </h3>
         <p>
           {this.highlightJoin(t("help.question0answer0"))}
           <br />
@@ -44,18 +44,18 @@ class Help extends React.Component<HelpProps, HelpState> {
           <br />
           {this.highlightJoin(t("help.question0answer2"))}
         </p>
-        <h2 className="blue-color">
+        <h3 className="blue-color">
           {this.highlightJoin(t("help.question1"))}
-        </h2>
+        </h3>
         <p>{this.highlightJoin(t("help.question1description"))}</p>
         <table className="content-table">
           <tbody>
             <tr>
               <td className="blue-color">1.</td>
               <td>
-                <h3 className="blue-color">
+                <h4 className="blue-color">
                   {this.highlightJoin(t("help.question1header0"))}
-                </h3>
+                </h4>
                 <p>
                   {this.highlightJoin(t("help.question1header0description"))}
                 </p>
@@ -64,9 +64,9 @@ class Help extends React.Component<HelpProps, HelpState> {
             <tr>
               <td className="blue-color">2.</td>
               <td>
-                <h3 className="blue-color">
+                <h4 className="blue-color">
                   {this.highlightJoin(t("help.question1header1"))}
-                </h3>
+                </h4>
                 <p>
                   {this.highlightJoin(t("help.question1header1description"))}
                 </p>
@@ -75,9 +75,9 @@ class Help extends React.Component<HelpProps, HelpState> {
             <tr>
               <td className="blue-color">3.</td>
               <td>
-                <h3 className="blue-color">
+                <h4 className="blue-color">
                   {this.highlightJoin(t("help.question1header2"))}
-                </h3>
+                </h4>
                 <p>
                   {this.highlightJoin(t("help.question1header2description"))}
                 </p>
@@ -86,9 +86,9 @@ class Help extends React.Component<HelpProps, HelpState> {
             <tr>
               <td className="blue-color">4.</td>
               <td>
-                <h3 className="blue-color">
+                <h4 className="blue-color">
                   {this.highlightJoin(t("help.question1header3"))}
-                </h3>
+                </h4>
                 <p>
                   {this.highlightJoin(t("help.question1header3description"))}
                 </p>
@@ -97,9 +97,9 @@ class Help extends React.Component<HelpProps, HelpState> {
             <tr>
               <td className="blue-color">5.</td>
               <td>
-                <h3 className="blue-color">
+                <h4 className="blue-color">
                   {this.highlightJoin(t("help.question1header4"))}
-                </h3>
+                </h4>
                 <p>
                   {this.highlightJoin(t("help.question1header4description0"))}
                   <br />

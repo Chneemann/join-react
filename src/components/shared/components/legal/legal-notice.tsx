@@ -24,11 +24,12 @@ class LegalNotice extends React.Component<LegalNoticeProps, LegalNoticeState> {
         <span>76149 Karlsruhe</span>
         <h4>{t("legal-notice.contact")}</h4>
         <span>
-          {t("legal-notice.tel")}:<a href="tel:01724180328">0172-4180328</a>
+          {t("legal-notice.tel")}
+          <a href="tel:+491724180328">+49 172 4180328</a>
         </span>
         <br />
         <span>
-          {t("legal-notice.mail")}:
+          {t("legal-notice.mail")}
           <a href="mailto:mail@andre-kempf.com">mail&#64;andre-kempf.com</a>
         </span>
         <br />

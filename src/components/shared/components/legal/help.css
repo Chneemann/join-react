@@ -20,19 +20,19 @@
   color: var(--light-blue);
 }
 
-.help h1 {
+.help h2 {
   font-size: 61px;
   font-weight: 700;
   margin: 0;
 }
 
-.help h2 {
+.help h3 {
   font-size: 27px;
   font-weight: 700;
   margin: 24px 0;
 }
 
-.help h3 {
+.help h4 {
   font-size: 20px;
   font-weight: 700;
   margin: 0;
@@ -74,11 +74,11 @@
 
 /*------------- RESPONSIVE -------------*/
 @media screen and (max-width: 500px) {
-  .help h1 {
+  .help h2 {
     font-size: 47px;
   }
 
-  .help h2 {
+  .help h3 {
     font-size: 27px;
   }
 

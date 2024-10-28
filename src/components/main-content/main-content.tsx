@@ -17,6 +17,7 @@ import { User } from "../../interfaces/user.interface";
 import OverlayMsg from "../shared/components/overlay-msg";
 import Logout from "../auth/logout";
 import LegalNotice from "../shared/components/legal/legal-notice";
+import PrivacyPolicy from "../shared/components/legal/privacy-policy";
 
 interface MainContentProps {
   currentUser: User;
@@ -142,6 +143,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
         <main>
           <Routes>
             <Route path="/help" element={<Help />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/legal-notice" element={<LegalNotice />} />
             <Route path="/logout" element={<Logout />} />
             <Route
