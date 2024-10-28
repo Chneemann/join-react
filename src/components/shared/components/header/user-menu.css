@@ -1,6 +1,6 @@
 @import "./../../../../styles/colors.css";
 
-.member-menu {
+.user-menu {
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -16,13 +16,13 @@
   z-index: 5;
 }
 
-.member-menu-link {
+.user-menu-link {
   border-radius: 18px;
   padding: 8px 16px;
   cursor: pointer;
 }
 
-.member-menu-link span {
+.user-menu-link span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +30,7 @@
   color: var(--white);
 }
 
-.member-menu-link a {
+.user-menu-link a {
   width: fit-content;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -41,11 +41,11 @@
   font-weight: 400;
 }
 
-.member-menu-link:hover {
+.user-menu-link:hover {
   background-color: var(--blue);
 }
 
-.member-menu-link.active {
+.user-menu-link.active {
   background-color: var(--blue);
   cursor: unset;
 }
