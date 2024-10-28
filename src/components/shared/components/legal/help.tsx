@@ -1,6 +1,7 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import "./help.css";
+import SmallBtn from "../buttons/small-btn";
 
 interface HelpProps extends WithTranslation {}
 
@@ -30,6 +31,10 @@ class Help extends React.Component<HelpProps, HelpState> {
       <div className="help">
         <div className="help-header">
           <h2>{this.highlightJoin(t("help.header"))}</h2>
+          <SmallBtn
+            image="back.svg"
+            onClick={() => window.history.back()}
+          ></SmallBtn>
         </div>
         <p>{this.highlightJoin(t("help.welcome"))}</p>
         <h3 className="blue-color">

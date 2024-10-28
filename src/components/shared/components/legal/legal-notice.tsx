@@ -1,6 +1,7 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import "./legal-notice.css";
+import SmallBtn from "../buttons/small-btn";
 
 interface LegalNoticeProps extends WithTranslation {}
 
@@ -14,6 +15,10 @@ class LegalNotice extends React.Component<LegalNoticeProps, LegalNoticeState> {
       <div className="legal-notice">
         <div className="legal-notice-header">
           <h2>{t("legal-notice.headline")}</h2>
+          <SmallBtn
+            image="back.svg"
+            onClick={() => window.history.back()}
+          ></SmallBtn>
         </div>
         <p>{t("legal-notice.tmg")}</p>
         <br />

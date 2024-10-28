@@ -1,6 +1,7 @@
 import React from "react";
 import { withTranslation, WithTranslation } from "react-i18next";
 import "./privacy-policy.css";
+import SmallBtn from "../buttons/small-btn";
 
 interface PrivacyPolicyProps extends WithTranslation {}
 
@@ -12,6 +13,10 @@ class PrivacyPolicy extends React.Component<PrivacyPolicyProps> {
       <div className="privacy-policy">
         <div className="privacy-policy-header">
           <h2>{t("privacy-policy.headline")}</h2>
+          <SmallBtn
+            image="back.svg"
+            onClick={() => window.history.back()}
+          ></SmallBtn>
         </div>
         <h3 id="content0">{t("privacy-policy.preambleHeadline")}</h3>
         <p>{t("privacy-policy.preambleDescription")}</p>

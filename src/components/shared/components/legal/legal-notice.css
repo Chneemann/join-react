@@ -13,17 +13,6 @@
   align-items: center;
   margin-bottom: 32px;
 }
-.legal-notice-header img {
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  margin-left: 12px;
-}
-.legal-notice-header img:hover {
-  transform: scale(1.2);
-  filter: brightness(0) saturate(100%) invert(38%) sepia(62%) saturate(3062%)
-    hue-rotate(341deg) brightness(105%) contrast(98%);
-}
 
 .legal-notice h2 {
   font-size: 61px;
