@@ -16,6 +16,7 @@ import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
 import OverlayMsg from "../shared/components/overlay-msg";
 import Logout from "../auth/logout";
+import LegalNotice from "../shared/components/legal/legal-notice";
 
 interface MainContentProps {
   currentUser: User;
@@ -141,11 +142,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
         <main>
           <Routes>
             <Route path="/help" element={<Help />} />
-            {/* 
-            TODO: Add routes for privacy-policy and legal-notice
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/legal-notice" element={<LegalNotice />} /> 
-            */}
+            <Route path="/legal-notice" element={<LegalNotice />} />
             <Route path="/logout" element={<Logout />} />
             <Route
               path="/"

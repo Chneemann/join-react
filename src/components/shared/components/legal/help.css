@@ -20,22 +20,30 @@
   color: var(--light-blue);
 }
 
-h1 {
+.help h1 {
   font-size: 61px;
   font-weight: 700;
   margin: 0;
 }
 
-h2 {
+.help h2 {
   font-size: 27px;
   font-weight: 700;
   margin: 24px 0;
 }
 
-h3 {
+.help h3 {
   font-size: 20px;
   font-weight: 700;
   margin: 0;
+}
+
+.help p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0.03em;
+  padding-bottom: 10px;
 }
 
 .help-header {
@@ -65,20 +73,12 @@ h3 {
 }
 
 /*------------- RESPONSIVE -------------*/
-
-@media screen and (max-width: 910px) {
-  section {
-    padding-right: 0;
-    margin-bottom: 0;
-  }
-}
-
 @media screen and (max-width: 500px) {
-  h1 {
+  .help h1 {
     font-size: 47px;
   }
 
-  h2 {
+  .help h2 {
     font-size: 27px;
   }
 
