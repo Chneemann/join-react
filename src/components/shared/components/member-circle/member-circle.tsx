@@ -3,6 +3,7 @@ import "./member-circle.css";
 
 interface MemberCircleProps {
   memberInitials: string;
+  onClick?: () => void;
 }
 
 interface MemberCircleState {}
@@ -13,8 +14,10 @@ class MemberCircle extends React.Component<
 > {
   state = {};
   render() {
+    const { onClick } = this.props;
+
     return (
-      <div className="member-circle">
+      <div className="member-circle" onClick={onClick}>
         <div className="inner-border"></div>
         <p>{this.props.memberInitials}</p>
       </div>

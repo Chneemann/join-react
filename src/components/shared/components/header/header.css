@@ -40,8 +40,11 @@
   color: var(--white);
 }
 
-/* Auth header */
+.header-member-circle {
+  cursor: pointer;
+}
 
+/* Auth header */
 .header-auth {
   background-color: var(--white);
 }

@@ -5,6 +5,8 @@ import MemberCircle from "../member-circle/member-circle";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { User } from "../../../../interfaces/user.interface";
 import LargeButton from "../buttons/large-btn";
+import { log } from "console";
+import MemberMenu from "./member-menu";
 
 interface HeaderProps extends WithTranslation {
   currentUser: User | null;
@@ -12,7 +14,17 @@ interface HeaderProps extends WithTranslation {
   location: { pathname: string };
 }
 
-class Header extends React.Component<HeaderProps> {
+interface HeaderState {
+  toggleMemberMenu: boolean;
+}
+
+class Header extends React.Component<HeaderProps, HeaderState> {
+  constructor(props: HeaderProps) {
+    super(props);
+    this.state = {
+      toggleMemberMenu: false,
+    };
+  }
   changeLanguage = () => {
     const { i18n } = this.props;
     const newLang = i18n.language === "en" ? "de" : "en";
@@ -23,8 +35,15 @@ class Header extends React.Component<HeaderProps> {
     this.props.navigate("/register");
   };
 
+  openMemberMenu = () => {
+    this.state.toggleMemberMenu
+      ? this.setState({ toggleMemberMenu: false })
+      : this.setState({ toggleMemberMenu: true });
+  };
+
   render() {
     const { t, currentUser, location } = this.props;
+    const { toggleMemberMenu } = this.state;
     const isLoginRoute =
       location.pathname === "/login" || location.pathname === "/";
 
@@ -41,7 +60,13 @@ class Header extends React.Component<HeaderProps> {
               <p className="header-title">{t("header.title")}</p>
               <SmallBtn image="help.svg" to="/help" />
               <SmallBtn image="language.svg" onClick={this.changeLanguage} />
-              <MemberCircle memberInitials={currentUser.initials} />
+              <div className="header-member-circle">
+                <MemberCircle
+                  memberInitials={currentUser.initials}
+                  onClick={this.openMemberMenu}
+                />
+                {toggleMemberMenu && <MemberMenu />}
+              </div>
             </div>
           </div>
         ) : (
