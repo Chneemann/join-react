@@ -11,10 +11,8 @@ class Footer extends React.Component<FooterProps> {
 
     return (
       <footer>
-        <NavLink to="/login/privacy-policy">
-          {t("footer.privacyPolicy")}
-        </NavLink>
-        <NavLink to="/login/imprint">{t("footer.legalNotice")}</NavLink>
+        <NavLink to="/privacy-policy">{t("footer.privacyPolicy")}</NavLink>
+        <NavLink to="/legal-notice">{t("footer.legalNotice")}</NavLink>
       </footer>
     );
   }

@@ -66,13 +66,7 @@ class App extends Component<{}, AppState> {
         {/* Redirect to login page if not authenticated */}
         {!loadingAuth && !isAuthenticated && (
           <React.Fragment>
-            <div className="container-auth">
-              <HeaderWrapper currentUser={null} />
-              <div className="container-auth-center">
-                <Auth currentUser={null} />
-              </div>
-              <Footer />
-            </div>
+            <Auth currentUser={null} />
           </React.Fragment>
         )}
 

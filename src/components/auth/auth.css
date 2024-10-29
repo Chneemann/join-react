@@ -1,0 +1,43 @@
+@import "./../../styles/colors.css";
+
+.container-auth-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  background: var(--white);
+  box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+  padding: 48px 64px;
+}
+
+.container-auth-center-none {
+  position: relative;
+}
+
+/* Media queries */
+@media screen and (max-height: 800px) {
+  .container-auth-center {
+    top: 42%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container-auth-center {
+    width: 352px;
+    height: fit-content;
+    padding: 24px 36px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .container-auth-center {
+    width: calc(100vw - 96px);
+    padding: 12px 24px;
+  }
+}
