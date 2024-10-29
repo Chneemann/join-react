@@ -1,6 +1,6 @@
 import React from "react";
 import "./auth.css";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Login from "./login";
 import { User } from "../../interfaces/user.interface";
 import Register from "./register";
@@ -9,6 +9,8 @@ import LegalNotice from "../shared/components/legal/legal-notice";
 import PrivacyPolicy from "../shared/components/legal/privacy-policy";
 import HeaderWrapper from "../shared/components/header/header-wrapper";
 import Footer from "../shared/components/footer/footer";
+import SmallBtn from "../shared/components/buttons/small-btn";
+import { useTranslation } from "react-i18next"; // useTranslation hook
 
 interface AuthProps {
   currentUser: User | null;
@@ -16,6 +18,7 @@ interface AuthProps {
 
 const Auth: React.FC<AuthProps> = ({ currentUser }) => {
   const location = useLocation();
+  const { i18n } = useTranslation(); // Using the useTranslation hook
 
   // Define legal paths
   const legalPaths = ["/privacy-policy", "/legal-notice"];
@@ -26,11 +29,23 @@ const Auth: React.FC<AuthProps> = ({ currentUser }) => {
     ? "container-auth-center-none"
     : "container-auth-center";
 
+  // Function to change the language
+  const changeLanguage = () => {
+    const newLang = i18n.language === "en" ? "de" : "en";
+    i18n.changeLanguage(newLang);
+  };
+
   // If there's no current user, display the auth routes
   if (!currentUser) {
     return (
       <div className="container-auth">
-        {!isDisplayingLegalContent && <HeaderWrapper currentUser={null} />}
+        {!isDisplayingLegalContent ? (
+          <HeaderWrapper currentUser={null} />
+        ) : (
+          <div className="auth-language">
+            <SmallBtn image="language.svg" onClick={changeLanguage} />
+          </div>
+        )}
         <div className={containerClass}>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -45,8 +60,8 @@ const Auth: React.FC<AuthProps> = ({ currentUser }) => {
       </div>
     );
   }
-  // Return null or redirect if the user is logged in
-  return null;
+  // Redirect if the user is logged in
+  return <Navigate to="/dashboard" />; // Adjust the route accordingly
 };
 
 export default Auth;

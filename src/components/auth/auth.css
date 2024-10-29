@@ -20,6 +20,19 @@
   position: relative;
 }
 
+.auth-language {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  filter: brightness(0) saturate(100%) invert(0%) sepia(99%) saturate(7429%)
+    hue-rotate(319deg) brightness(83%) contrast(102%);
+  z-index: 2;
+}
+.auth-language:hover {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(51%) saturate(2924%)
+    hue-rotate(202deg) brightness(102%) contrast(101%);
+}
+
 /* Media queries */
 @media screen and (max-height: 800px) {
   .container-auth-center {
