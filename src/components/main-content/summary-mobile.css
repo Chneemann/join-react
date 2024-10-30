@@ -168,7 +168,7 @@
 
   .urgent-task,
   .task-todo {
-    width: 100%;
+    width: calc(100% + 4px);
     padding: 10px 20px;
   }
 
@@ -196,10 +196,21 @@
 
   .summary-content-container-upper {
     width: calc(100% - 48px);
+    gap: 16px;
+    padding-bottom: 16px;
   }
 
   .summary-content-container-lower {
     width: 100%;
+    gap: 16px;
+  }
+
+  .urgent-task:hover .urgent-task-container,
+  .task-todo:hover .task-todo-container,
+  .task-other:hover .task-other-container,
+  .task-done:hover .task-done-container,
+  .task-in-board:hover .task-in-board-container {
+    transform: scale(1.1);
   }
 }
 
@@ -207,6 +218,11 @@
   .summary {
     padding: 12px;
     width: calc(100% - 24px);
+  }
+
+  .urgent-task,
+  .task-todo {
+    width: calc(100% + 12px);
   }
 
   .urgent-task,
