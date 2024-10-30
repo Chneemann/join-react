@@ -151,4 +151,69 @@
     padding: 24px;
     width: calc(100% - 48px);
   }
+
+  .urgent-task-deadline,
+  .urgent-task-info {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .summary-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .urgent-task,
+  .task-todo {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .urgent-task span,
+  .task-todo span,
+  .task-in-board span,
+  .task-other span,
+  .task-done span {
+    font-size: 28px;
+  }
+
+  .urgent-task p,
+  .task-todo p,
+  .task-in-board p,
+  .task-other p,
+  .task-done p {
+    font-size: 16px;
+  }
+
+  .task-in-board,
+  .task-other,
+  .task-done {
+    padding: 10px 20px;
+  }
+
+  .summary-content-container-upper {
+    width: calc(100% - 48px);
+  }
+
+  .summary-content-container-lower {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .summary {
+    padding: 12px;
+    width: calc(100% - 24px);
+  }
+
+  .urgent-task,
+  .task-todo,
+  .task-in-board,
+  .task-other,
+  .task-done {
+    padding: 10px 15px;
+  }
 }
