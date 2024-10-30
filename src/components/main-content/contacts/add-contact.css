@@ -1,0 +1,117 @@
+@import "./../../../styles/colors.css";
+
+.add-contact {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-contact-dialog {
+  background-color: var(--white);
+  width: 760px;
+  height: auto;
+  border-radius: 26px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.add-contact-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--light-blue);
+  height: 72px;
+  padding: 24px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  color: var(--white);
+}
+.add-contact-header img {
+  width: 54px;
+  height: 66px;
+}
+.add-contact-header p {
+  width: 100%;
+  text-align: center;
+  font-size: 52px;
+  font-weight: 700;
+}
+
+.add-contact-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 332px;
+  padding: 24px;
+}
+
+.add-contact-badge {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  margin-bottom: 115px;
+}
+
+/* Color Picker */
+.add-contact-color-picker {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.add-contact-color-picker input[type="color"] {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+}
+.add-contact-color-picker input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 50%;
+}
+.add-contact-color-picker input[type="color"]::-webkit-color-swatch {
+  border-radius: 50%;
+  border: 2px solid var(--white);
+}
+
+.add-contact-initials {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  width: 120px;
+  height: fit-content;
+  text-align: center;
+  font-size: 47px;
+  font-weight: 500;
+  color: var(--white);
+  padding-left: 4px;
+  text-shadow: 1px 1px 2px var(--black);
+  z-index: 2;
+}
+
+.add-contact-notice {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  padding: 0 12px 12px 12px;
+}
+
+.add-contact-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}

@@ -3,6 +3,7 @@ import "./contacts.css";
 import { User } from "../../../interfaces/user.interface";
 import ContactDetails from "./contact-detail";
 import { withTranslation, WithTranslation } from "react-i18next";
+import AddContact from "./add-contact";
 
 interface ContactsProps extends WithTranslation {
   users: User[];
@@ -12,6 +13,7 @@ interface ContactsProps extends WithTranslation {
 interface ContactsState {
   showContactList: boolean;
   selectedUserId: string | null;
+  addNewContact: boolean;
 }
 
 class Contacts extends Component<ContactsProps, ContactsState> {
@@ -20,11 +22,12 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     this.state = {
       showContactList: true,
       selectedUserId: null,
+      addNewContact: false,
     };
   }
 
-  openNewContactDialog = () => {
-    console.log("Opening new contact dialog...");
+  toggleAddNewContact = () => {
+    this.setState({ addNewContact: !this.state.addNewContact });
   };
 
   showUserId = (userId: string) => {
@@ -82,7 +85,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   render() {
-    const { showContactList, selectedUserId } = this.state;
+    const { showContactList, selectedUserId, addNewContact } = this.state;
     const { t, users, currentUser } = this.props;
 
     return (
@@ -99,10 +102,10 @@ class Contacts extends Component<ContactsProps, ContactsState> {
           <button
             className="contacts-btn"
             type="button"
-            onClick={this.openNewContactDialog}
+            onClick={this.toggleAddNewContact}
           >
             <div className="contacts-btn-inside">
-              <span>{t("contacts.newContact")}</span> {/* Übersetzung hier */}
+              <span>{t("contacts.newContact")}</span>
               <img src="./../../../assets/img/contact/add.svg" alt="add" />
             </div>
             <div className="contacts-btn-inside-mobile">
@@ -171,6 +174,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             toggleNav={this.handleToggleNav}
           />
         </div>
+        {addNewContact && <AddContact closeDialog={this.toggleAddNewContact} />}
       </div>
     );
   }
