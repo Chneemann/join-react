@@ -97,6 +97,13 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  // Delete a user and update the user status
+  onDeleteUser = (userId: string) => {
+    this.setState((prevState) => ({
+      users: prevState.users.filter((user) => user.id !== userId),
+    }));
+  };
+
   // Method for displaying the overlay message
   showOverlayMsg = (
     message: string,
@@ -168,7 +175,13 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
             />
             <Route
               path="/contacts"
-              element={<Contacts users={users} currentUser={currentUser} />}
+              element={
+                <Contacts
+                  users={users}
+                  currentUser={currentUser}
+                  onDeleteUser={this.onDeleteUser}
+                />
+              }
             />
             <Route
               path="/board"

@@ -4,10 +4,13 @@ import { User } from "../../../interfaces/user.interface";
 import ContactDetails from "./contact-detail";
 import { withTranslation, WithTranslation } from "react-i18next";
 import AddContact from "./add-contact/add-contact";
+import { deleteContact } from "../../../services/auth.service";
+import { log } from "console";
 
 interface ContactsProps extends WithTranslation {
   users: User[];
   currentUser: User;
+  onDeleteUser: (userId: string) => void;
 }
 
 interface ContactsState {
@@ -75,8 +78,15 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   // Logic for deleting a contact
-  handleDeleteContact = () => {
-    // TODO
+  handleDeleteContact = (userId: string) => {
+    deleteContact(userId)
+      .then(() => {
+        this.props.onDeleteUser(userId);
+        this.setState({ selectedUserId: null });
+      })
+      .catch((error) => {
+        console.error("Error deleting contact:", error);
+      });
   };
 
   // Logic for toggling the navigation on mobile devices
@@ -170,7 +180,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             selectedUserId={selectedUserId}
             closeUserDetails={this.handleCloseUserDetails}
             openEditDialog={this.handleOpenEditDialog}
-            deleteContact={this.handleDeleteContact}
+            deleteContact={(userId: string) => this.handleDeleteContact(userId)}
             toggleNav={this.handleToggleNav}
           />
         </div>

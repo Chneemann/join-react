@@ -9,7 +9,7 @@ interface ContactDetailsProps extends WithTranslation {
   selectedUserId: string | null;
   closeUserDetails: () => void;
   openEditDialog: () => void;
-  deleteContact: () => void;
+  deleteContact: (userId: string) => void;
   toggleNav: () => void;
 }
 
@@ -103,7 +103,9 @@ class ContactDetails extends Component<ContactDetailsProps> {
                             src="./../../../../assets/img/contact/delete.svg"
                             alt={t("contacts.delete")}
                           />
-                          <p onClick={deleteContact}>{t("contacts.delete")}</p>
+                          <p onClick={() => deleteContact(user.id!)}>
+                            {t("contacts.delete")}
+                          </p>
                         </div>
                       )}
                     </div>
