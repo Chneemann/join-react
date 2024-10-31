@@ -10,6 +10,7 @@ interface AddContactProps extends WithTranslation {
 
 interface AddContactState {
   currentColor: string;
+  userInitials: string;
 }
 
 class AddContact extends Component<AddContactProps, AddContactState> {
@@ -17,6 +18,7 @@ class AddContact extends Component<AddContactProps, AddContactState> {
     super(props);
     this.state = {
       currentColor: this.getRandomColor(),
+      userInitials: "",
     };
   }
 
@@ -38,9 +40,14 @@ class AddContact extends Component<AddContactProps, AddContactState> {
     });
   };
 
+  // Receives the initials from the child and saves them in the state
+  handleUserInitials = (initials: string) => {
+    this.setState({ userInitials: initials });
+  };
+
   render() {
     const { t, closeDialog } = this.props;
-    const { currentColor } = this.state;
+    const { currentColor, userInitials } = this.state;
 
     return (
       <div className="add-contact" onClick={closeDialog}>
@@ -63,12 +70,15 @@ class AddContact extends Component<AddContactProps, AddContactState> {
                   style={{ background: currentColor }}
                   onChange={this.updateColor}
                 />
-                <div className="add-contact-initials"></div>
+                <div className="add-contact-initials">{userInitials}</div>
               </div>
             </div>
 
             <div className="add-contact-form">
-              <AddContactForm closeDialog={closeDialog} />
+              <AddContactForm
+                closeDialog={closeDialog}
+                onUserInitialsChange={this.handleUserInitials}
+              />
             </div>
           </div>
 

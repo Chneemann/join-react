@@ -5,6 +5,7 @@ import LargeButton from "../../../shared/components/buttons/large-btn";
 type AddContactFormProps = {
   currentUserId?: string;
   closeDialog: () => void;
+  onUserInitialsChange: (initials: string) => void;
 };
 
 type AddContactFormState = {
@@ -59,6 +60,27 @@ class AddContactForm extends Component<
     this.setState({ formData });
   };
 
+  // Updates formData
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const newFormData = { ...this.state.formData, [name]: value };
+
+    this.setState({ formData: newFormData });
+
+    const initials = this.getUserInitials(
+      newFormData.firstName,
+      newFormData.lastName
+    );
+    this.props.onUserInitialsChange(initials);
+  };
+
+  // Calculates the initials
+  getUserInitials = (firstName: string, lastName: string) => {
+    const initialFirst = firstName ? firstName.charAt(0).toUpperCase() : "";
+    const initialLast = lastName ? lastName.charAt(0).toUpperCase() : "";
+    return `${initialFirst}${initialLast}`;
+  };
+
   render() {
     const { closeDialog } = this.props;
     const { formData, currentUserId, windowWidth } = this.state;
@@ -77,9 +99,7 @@ class AddContactForm extends Component<
             name="firstName"
             placeholder="First Name"
             value={formData.firstName}
-            onChange={(e) =>
-              this.setFormData({ ...formData, firstName: e.target.value })
-            }
+            onChange={this.handleInputChange}
             required
           />
           {!isFirstNameValid && formData.firstName && windowWidth <= 800 && (
@@ -99,9 +119,7 @@ class AddContactForm extends Component<
             name="lastName"
             placeholder="Last Name"
             value={formData.lastName}
-            onChange={(e) =>
-              this.setFormData({ ...formData, lastName: e.target.value })
-            }
+            onChange={this.handleInputChange}
             required
           />
           {!isLastNameValid && formData.lastName && windowWidth <= 800 && (
@@ -134,9 +152,7 @@ class AddContactForm extends Component<
           name="email"
           placeholder="Email"
           value={formData.email}
-          onChange={(e) =>
-            this.setFormData({ ...formData, email: e.target.value })
-          }
+          onChange={this.handleInputChange}
           required
         />
         <div className="add-contact-form-error-msg">
@@ -151,9 +167,7 @@ class AddContactForm extends Component<
           name="phone"
           placeholder="Phone"
           value={formData.phone}
-          onChange={(e) =>
-            this.setFormData({ ...formData, phone: e.target.value })
-          }
+          onChange={this.handleInputChange}
           required
         />
         <div className="add-contact-form-error-msg">
