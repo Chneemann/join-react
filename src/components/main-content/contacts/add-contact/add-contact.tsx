@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./add-contact.css";
 import { withTranslation, WithTranslation } from "react-i18next";
-import SmallBtn from "../../shared/components/buttons/small-btn";
+import SmallBtn from "../../../shared/components/buttons/small-btn";
 import AddContactForm from "./add-contact-form";
 
 interface AddContactProps extends WithTranslation {

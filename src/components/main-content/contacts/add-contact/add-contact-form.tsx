@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./add-contact-form.css";
-import LargeButton from "../../shared/components/buttons/large-btn";
+import LargeButton from "../../../shared/components/buttons/large-btn";
 
 type AddContactFormProps = {
   currentUserId?: string;

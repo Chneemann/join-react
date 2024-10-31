@@ -3,7 +3,7 @@ import "./contacts.css";
 import { User } from "../../../interfaces/user.interface";
 import ContactDetails from "./contact-detail";
 import { withTranslation, WithTranslation } from "react-i18next";
-import AddContact from "./add-contact";
+import AddContact from "./add-contact/add-contact";
 
 interface ContactsProps extends WithTranslation {
   users: User[];
