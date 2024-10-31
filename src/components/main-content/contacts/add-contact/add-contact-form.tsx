@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import "./add-contact-form.css";
 import LargeButton from "../../../shared/components/buttons/large-btn";
+import { addNewContact } from "../../../../services/auth.service";
+import { User } from "../../../../interfaces/user.interface";
+import { ColorUtil } from "../../../../services/shared.service";
+import { reload } from "firebase/auth";
+import { Timestamp } from "firebase/firestore";
 
 type AddContactFormProps = {
   currentUserId?: string;
@@ -79,6 +84,25 @@ class AddContactForm extends Component<
     const initialFirst = firstName ? firstName.charAt(0).toUpperCase() : "";
     const initialLast = lastName ? lastName.charAt(0).toUpperCase() : "";
     return `${initialFirst}${initialLast}`;
+  };
+
+  // Save contact
+  addNewContact = async () => {
+    const { formData } = this.state;
+    const newContact: User = {
+      uId: "",
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      status: false,
+      phone: formData.phone,
+      initials: this.getUserInitials(formData.firstName, formData.lastName),
+      color: ColorUtil.generateRandomColor(),
+      lastLogin: Date.now(),
+    };
+    await addNewContact(newContact);
+    this.props.closeDialog();
+    window.location.reload();
   };
 
   render() {
@@ -192,6 +216,7 @@ class AddContactForm extends Component<
               !isPhoneValid
             }
             value="Save"
+            onClick={this.addNewContact}
           />
         </div>
       </form>

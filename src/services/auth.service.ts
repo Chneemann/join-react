@@ -193,6 +193,16 @@ const createUserInFirestore = async (user: User) => {
   }
 };
 
+// Add new contact
+export const addNewContact = async (contact: User) => {
+  const contactsCollection = collection(firestore, "users");
+  try {
+    await addDoc(contactsCollection, contact);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Send password reset email
 export const passwordReset = async (email: string) => {
   const auth = getAuth();
