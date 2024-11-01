@@ -3,22 +3,27 @@ import "./add-contact.css";
 import { withTranslation, WithTranslation } from "react-i18next";
 import SmallBtn from "../../../shared/components/buttons/small-btn";
 import AddContactForm from "./add-contact-form";
+import { User } from "../../../../interfaces/user.interface";
+import { log } from "console";
 
 interface AddContactProps extends WithTranslation {
   closeDialog: () => void;
+  selectedUserId: string | null;
+  userColor: string;
+  users: User[];
 }
 
 interface AddContactState {
-  currentColor: string;
   userInitials: string;
+  userColor: string;
 }
 
 class AddContact extends Component<AddContactProps, AddContactState> {
   constructor(props: AddContactProps) {
     super(props);
     this.state = {
-      currentColor: this.getRandomColor(),
       userInitials: "",
+      userColor: this.props.userColor,
     };
   }
 
@@ -36,7 +41,7 @@ class AddContact extends Component<AddContactProps, AddContactState> {
   updateColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedColor = event.target.value;
     this.setState({
-      currentColor: selectedColor,
+      userColor: selectedColor,
     });
   };
 
@@ -47,7 +52,7 @@ class AddContact extends Component<AddContactProps, AddContactState> {
 
   render() {
     const { t, closeDialog } = this.props;
-    const { currentColor, userInitials } = this.state;
+    const { userColor, userInitials } = this.state;
 
     return (
       <div className="add-contact" onClick={closeDialog}>
@@ -66,8 +71,8 @@ class AddContact extends Component<AddContactProps, AddContactState> {
               <div className="add-contact-color-picker">
                 <input
                   type="color"
-                  value={currentColor}
-                  style={{ background: currentColor }}
+                  value={userColor}
+                  style={{ background: userColor }}
                   onChange={this.updateColor}
                 />
                 <div className="add-contact-initials">{userInitials}</div>
@@ -76,7 +81,10 @@ class AddContact extends Component<AddContactProps, AddContactState> {
 
             <div className="add-contact-form">
               <AddContactForm
+                users={this.props.users}
                 closeDialog={closeDialog}
+                currentColor={userColor}
+                selectedUserId={this.props.selectedUserId}
                 onUserInitialsChange={this.handleUserInitials}
               />
             </div>

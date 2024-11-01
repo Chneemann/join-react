@@ -8,7 +8,7 @@ interface ContactDetailsProps extends WithTranslation {
   currentUser: User;
   selectedUserId: string | null;
   closeUserDetails: () => void;
-  openEditDialog: () => void;
+  editContact: (userId: string) => void;
   deleteContact: (userId: string) => void;
   toggleNav: () => void;
 }
@@ -32,7 +32,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
       currentUser,
       selectedUserId,
       closeUserDetails,
-      openEditDialog,
+      editContact,
       deleteContact,
       toggleNav,
     } = this.props;
@@ -90,22 +90,26 @@ class ContactDetails extends Component<ContactDetailsProps> {
                   {user.id === currentUser.id && `(${t("contacts.you")})`}
                   {(user.uId === "" || user.id === currentUser.id) && (
                     <div className="contact-details-edit-options">
-                      <div className="contact-details-button">
+                      <div
+                        className="contact-details-button"
+                        onClick={() => editContact(user.id!)}
+                      >
                         <img
                           src="./../../../../assets/img/contact/edit.svg"
                           alt={t("contacts.edit")}
                         />
-                        <p onClick={openEditDialog}>{t("contacts.edit")}</p>
+                        <p>{t("contacts.edit")}</p>
                       </div>
                       {user.id !== currentUser.id && (
-                        <div className="contact-details-button">
+                        <div
+                          className="contact-details-button"
+                          onClick={() => deleteContact(user.id!)}
+                        >
                           <img
                             src="./../../../../assets/img/contact/delete.svg"
                             alt={t("contacts.delete")}
                           />
-                          <p onClick={() => deleteContact(user.id!)}>
-                            {t("contacts.delete")}
-                          </p>
+                          <p>{t("contacts.delete")}</p>
                         </div>
                       )}
                     </div>

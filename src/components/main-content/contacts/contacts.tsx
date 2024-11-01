@@ -4,8 +4,8 @@ import { User } from "../../../interfaces/user.interface";
 import ContactDetails from "./contact-detail";
 import { withTranslation, WithTranslation } from "react-i18next";
 import AddContact from "./add-contact/add-contact";
-import { deleteContact } from "../../../services/auth.service";
-import { log } from "console";
+import { deleteContact } from "../../../services/firebase.service";
+import { ColorUtil } from "../../../services/shared.service";
 
 interface ContactsProps extends WithTranslation {
   users: User[];
@@ -73,8 +73,15 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   // Logic for opening the edit dialog
-  handleOpenEditDialog = () => {
-    // TODO
+  handleNewContact = () => {
+    this.setState({ selectedUserId: null });
+    this.toggleAddNewContact();
+  };
+
+  // Logic for opening the edit dialog
+  handleEditContact = (userId: string) => {
+    this.setState({ selectedUserId: userId });
+    this.toggleAddNewContact();
   };
 
   // Logic for deleting a contact
@@ -92,6 +99,13 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   // Logic for toggling the navigation on mobile devices
   handleToggleNav = () => {
     // TODO
+  };
+
+  getSelectedUserColor = (): string | undefined => {
+    const { users } = this.props;
+    const { selectedUserId } = this.state;
+    const selectedUser = users.find((user) => user.id === selectedUserId);
+    return selectedUser?.color;
   };
 
   render() {
@@ -112,7 +126,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
           <button
             className="contacts-btn"
             type="button"
-            onClick={this.toggleAddNewContact}
+            onClick={this.handleNewContact}
           >
             <div className="contacts-btn-inside">
               <span>{t("contacts.newContact")}</span>
@@ -179,12 +193,21 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             currentUser={currentUser}
             selectedUserId={selectedUserId}
             closeUserDetails={this.handleCloseUserDetails}
-            openEditDialog={this.handleOpenEditDialog}
+            editContact={(userId: string) => this.handleEditContact(userId)}
             deleteContact={(userId: string) => this.handleDeleteContact(userId)}
             toggleNav={this.handleToggleNav}
           />
         </div>
-        {addNewContact && <AddContact closeDialog={this.toggleAddNewContact} />}
+        {addNewContact && (
+          <AddContact
+            closeDialog={this.toggleAddNewContact}
+            selectedUserId={selectedUserId}
+            users={users}
+            userColor={
+              this.getSelectedUserColor() || ColorUtil.generateRandomColor()
+            }
+          />
+        )}
       </div>
     );
   }

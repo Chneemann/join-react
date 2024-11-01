@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import "./add-contact-form.css";
 import LargeButton from "../../../shared/components/buttons/large-btn";
-import { addNewContact } from "../../../../services/auth.service";
+import {
+  addNewContact,
+  updateContact,
+} from "../../../../services/firebase.service";
 import { User } from "../../../../interfaces/user.interface";
-import { ColorUtil } from "../../../../services/shared.service";
-import { reload } from "firebase/auth";
-import { Timestamp } from "firebase/firestore";
 
 type AddContactFormProps = {
-  currentUserId?: string;
+  users: User[];
+  selectedUserId: string | null;
+  currentColor: string;
   closeDialog: () => void;
   onUserInitialsChange: (initials: string) => void;
 };
@@ -19,8 +21,8 @@ type AddContactFormState = {
     lastName: string;
     email: string;
     phone: string;
+    initials: string;
   };
-  currentUserId?: string;
   windowWidth: number;
 };
 
@@ -36,6 +38,7 @@ class AddContactForm extends Component<
         lastName: "",
         email: "",
         phone: "",
+        initials: "",
       },
       windowWidth: window.innerWidth,
     };
@@ -46,6 +49,17 @@ class AddContactForm extends Component<
    */
   componentDidMount() {
     window.addEventListener("resize", this.updateWindowDimensions);
+    this.loadUserData();
+  }
+
+  /**
+   * React lifecycle method, called after updating occurs. This is used to refetch
+   * @param prevProps - The props before the update.
+   */
+  componentDidUpdate(prevProps: AddContactFormProps) {
+    if (prevProps.selectedUserId !== this.props.selectedUserId) {
+      this.loadUserData();
+    }
   }
 
   /**
@@ -79,6 +93,24 @@ class AddContactForm extends Component<
     this.props.onUserInitialsChange(initials);
   };
 
+  // Load user data
+  loadUserData = () => {
+    const { users, selectedUserId } = this.props;
+    if (selectedUserId) {
+      const selectedUser = users.find((user) => user.id === selectedUserId);
+      if (selectedUser) {
+        this.setFormData({
+          firstName: selectedUser.firstName,
+          lastName: selectedUser.lastName,
+          email: selectedUser.email,
+          phone: selectedUser.phone,
+          initials: selectedUser.initials,
+        });
+        this.props.onUserInitialsChange(selectedUser.initials);
+      }
+    }
+  };
+
   // Calculates the initials
   getUserInitials = (firstName: string, lastName: string) => {
     const initialFirst = firstName ? firstName.charAt(0).toUpperCase() : "";
@@ -89,6 +121,7 @@ class AddContactForm extends Component<
   // Save contact
   addNewContact = async () => {
     const { formData } = this.state;
+    const { currentColor } = this.props;
     const newContact: User = {
       uId: "",
       email: formData.email,
@@ -97,7 +130,7 @@ class AddContactForm extends Component<
       status: false,
       phone: formData.phone,
       initials: this.getUserInitials(formData.firstName, formData.lastName),
-      color: ColorUtil.generateRandomColor(),
+      color: currentColor,
       lastLogin: Date.now(),
     };
     await addNewContact(newContact);
@@ -105,11 +138,31 @@ class AddContactForm extends Component<
     window.location.reload();
   };
 
+  //Update contact
+  updateContact = async () => {
+    const { formData } = this.state;
+    const { currentColor } = this.props;
+    const newContact: User = {
+      uId: "",
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      status: false,
+      phone: formData.phone,
+      initials: this.getUserInitials(formData.firstName, formData.lastName),
+      color: currentColor,
+      lastLogin: Date.now(),
+    };
+    await updateContact(this.props.selectedUserId!, newContact);
+    this.props.closeDialog();
+    window.location.reload();
+  };
+
   render() {
     const { closeDialog } = this.props;
-    const { formData, currentUserId, windowWidth } = this.state;
-    const isFirstNameValid = /^[A-Za-z]+$/.test(formData.firstName);
-    const isLastNameValid = /^[A-Za-z]+$/.test(formData.lastName);
+    const { formData, windowWidth } = this.state;
+    const isFirstNameValid = /^[A-Za-zäöüÄÖÜß' -]+$/.test(formData.firstName);
+    const isLastNameValid = /^[A-Za-zäöüÄÖÜß' -]+$/.test(formData.lastName);
     const isEmailValid = /^\S+@\S+\.\S+$/.test(formData.email);
     const isPhoneValid = /^[\d\+\-\(\)\/]{10,15}$/.test(formData.phone);
 
@@ -128,11 +181,7 @@ class AddContactForm extends Component<
           />
           {!isFirstNameValid && formData.firstName && windowWidth <= 800 && (
             <div className="add-contact-form-error-msg">
-              <p>
-                {!isFirstNameValid
-                  ? "Only letters are allowed"
-                  : "contactDialogForm.invalidFirstName"}
-              </p>
+              <p>{!isFirstNameValid ? "Only letters are allowed" : ""}</p>
             </div>
           )}
 
@@ -148,11 +197,7 @@ class AddContactForm extends Component<
           />
           {!isLastNameValid && formData.lastName && windowWidth <= 800 && (
             <div className="add-contact-form-error-msg">
-              <p>
-                {!isLastNameValid
-                  ? "Only letters are allowed"
-                  : "contactDialogForm.invalidLastName"}
-              </p>
+              <p>{!isLastNameValid ? "Only letters are allowed" : ""}</p>
             </div>
           )}
         </div>
@@ -196,7 +241,7 @@ class AddContactForm extends Component<
         />
         <div className="add-contact-form-error-msg">
           {!isPhoneValid && formData.phone && (
-            <p>{"contactDialogForm.invalidPhone"}</p>
+            <p>This is not a valid phone number</p>
           )}
         </div>
 
@@ -207,17 +252,31 @@ class AddContactForm extends Component<
             onClick={closeDialog}
             value="Cancel"
           />
-          <LargeButton
-            type="submit"
-            disabled={
-              !isFirstNameValid ||
-              !isLastNameValid ||
-              !isEmailValid ||
-              !isPhoneValid
-            }
-            value="Save"
-            onClick={this.addNewContact}
-          />
+          {!this.props.selectedUserId ? (
+            <LargeButton
+              type="submit"
+              disabled={
+                !isFirstNameValid ||
+                !isLastNameValid ||
+                !isEmailValid ||
+                !isPhoneValid
+              }
+              value="Save"
+              onClick={this.addNewContact}
+            />
+          ) : (
+            <LargeButton
+              type="submit"
+              disabled={
+                !isFirstNameValid ||
+                !isLastNameValid ||
+                !isEmailValid ||
+                !isPhoneValid
+              }
+              value="Update"
+              onClick={this.updateContact}
+            />
+          )}
         </div>
       </form>
     );

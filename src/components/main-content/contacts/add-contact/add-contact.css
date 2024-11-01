@@ -94,7 +94,7 @@
   left: 0;
   right: 0;
   width: 120px;
-  height: fit-content;
+  height: 0;
   text-align: center;
   font-size: 47px;
   font-weight: 500;

@@ -137,4 +137,35 @@ export const deleteTask = async (taskId: string) => {
   }
 };
 
+// Add new contact
+export const addNewContact = async (contact: User) => {
+  const contactsCollection = collection(firestore, "users");
+  try {
+    await addDoc(contactsCollection, contact);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Delete contact
+export const deleteContact = async (contactId: string) => {
+  const contactsCollection = collection(firestore, "users");
+  try {
+    await deleteDoc(doc(contactsCollection, contactId));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Update contact
+export const updateContact = async (contactId: string, contact: User) => {
+  const contactsCollection = collection(firestore, "users");
+  try {
+    const { uId, ...updatedData } = contact;
+    await updateDoc(doc(contactsCollection, contactId), updatedData);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default app;
