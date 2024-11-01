@@ -34,9 +34,6 @@
   font-size: 12px;
   font-weight: 400;
 }
-.add-contact-form-error-msg-media {
-  display: none;
-}
 
 .add-contact-form-name {
   display: flex;
@@ -49,8 +46,39 @@
   width: 100%;
 }
 
-@media (min-width: 800px) {
-  .add-contact-form-error-msg-media {
-    display: block;
+@media screen and (max-width: 800px) {
+  .add-contact-form-name {
+    flex-direction: column;
+    width: 60%;
+  }
+
+  .add-contact-form {
+    align-items: start;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .add-contact-form-name {
+    width: 100%;
+  }
+
+  .add-contact-form {
+    width: 340px;
+    min-width: 340px;
+  }
+  .add-contact-form input {
+    font-size: 18px;
+    margin: 0 0 0 4px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .add-contact-form {
+    width: 250px;
+    min-width: 250px;
+  }
+  .add-contact-form input {
+    font-size: 16px;
+    margin: 0 0 0 1px;
   }
 }

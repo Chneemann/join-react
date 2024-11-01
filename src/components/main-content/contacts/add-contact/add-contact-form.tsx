@@ -175,51 +175,58 @@ class AddContactForm extends Component<
             className="firstName"
             name="firstName"
             placeholder="First Name"
+            autoComplete="off"
             value={formData.firstName}
             onChange={this.handleInputChange}
             required
           />
-          {!isFirstNameValid && formData.firstName && windowWidth <= 800 && (
+          {windowWidth <= 800 && (
             <div className="add-contact-form-error-msg">
-              <p>{!isFirstNameValid ? "Only letters are allowed" : ""}</p>
+              {!isFirstNameValid && formData.firstName && (
+                <p>{!isFirstNameValid ? "Only letters are allowed" : ""}</p>
+              )}
             </div>
           )}
-
           <input
             id="lastName"
             type="text"
             className="lastName"
             name="lastName"
             placeholder="Last Name"
+            autoComplete="off"
             value={formData.lastName}
             onChange={this.handleInputChange}
             required
           />
-          {!isLastNameValid && formData.lastName && windowWidth <= 800 && (
+          {windowWidth <= 800 && (
             <div className="add-contact-form-error-msg">
-              <p>{!isLastNameValid ? "Only letters are allowed" : ""}</p>
+              {!isLastNameValid && formData.lastName && (
+                <p>{!isLastNameValid ? "Only letters are allowed" : ""}</p>
+              )}
             </div>
           )}
         </div>
-        <div className="add-contact-form-error-msg">
-          {(!isFirstNameValid || !isLastNameValid) &&
-            (formData.firstName || formData.lastName) &&
-            windowWidth >= 800 && (
-              <p>
-                {!isFirstNameValid && formData.firstName
-                  ? "Only letters are allowed in the first name"
-                  : !isLastNameValid && formData.lastName
-                  ? "Only letters are allowed in the last name"
-                  : ""}
-              </p>
-            )}
-        </div>
+        {windowWidth >= 800 && (
+          <div className="add-contact-form-error-msg">
+            {(!isFirstNameValid || !isLastNameValid) &&
+              (formData.firstName || formData.lastName) && (
+                <p>
+                  {!isFirstNameValid && formData.firstName
+                    ? "Only letters are allowed in the first name"
+                    : !isLastNameValid && formData.lastName
+                    ? "Only letters are allowed in the last name"
+                    : ""}
+                </p>
+              )}
+          </div>
+        )}
 
         <input
           id="email"
           type="email"
           name="email"
           placeholder="Email"
+          autoComplete="off"
           value={formData.email}
           onChange={this.handleInputChange}
           required
@@ -235,6 +242,7 @@ class AddContactForm extends Component<
           type="tel"
           name="phone"
           placeholder="Phone"
+          autoComplete="off"
           value={formData.phone}
           onChange={this.handleInputChange}
           required

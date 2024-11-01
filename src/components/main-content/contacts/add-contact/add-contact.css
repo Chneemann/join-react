@@ -13,6 +13,7 @@
   align-items: center;
   backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
 }
 
 .add-contact-dialog {
@@ -116,4 +117,92 @@
   justify-content: center;
   align-items: center;
   width: 70%;
+}
+
+/* Media Queries */
+@media screen and (max-width: 800px) {
+  .add-contact-dialog {
+    width: 560px;
+    position: relative;
+  }
+
+  .add-contact-badge {
+    position: absolute;
+    top: 115px;
+    right: 40px;
+    padding-bottom: 0;
+  }
+
+  .add-contact-content {
+    flex-direction: column-reverse;
+  }
+
+  .add-contact-initials {
+    font-size: 42px;
+  }
+
+  .add-contact-header {
+    height: 42px;
+  }
+  .add-contact-header img {
+    width: 34px;
+    height: 46px;
+  }
+  .add-contact-header p {
+    font-size: 42px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .add-contact-dialog {
+    width: 380px;
+  }
+
+  .add-contact-badge {
+    top: 85px;
+    right: 120px;
+  }
+
+  .add-contact-content {
+    flex-direction: column-reverse;
+    margin-top: 20px;
+  }
+
+  .add-contact-color-picker {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 90px;
+    height: 90px;
+  }
+
+  .add-contact-initials {
+    font-size: 32px;
+    width: 80px;
+  }
+
+  .add-contact-header {
+    height: 80px;
+  }
+  .add-contact-header p {
+    font-size: 28px;
+    padding-bottom: 24px;
+  }
+  .add-contact-header img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .add-contact-dialog {
+    width: 300px;
+  }
+
+  .add-contact-badge {
+    right: 95px;
+  }
+
+  .add-contact-header p {
+    font-size: 22px;
+  }
 }
