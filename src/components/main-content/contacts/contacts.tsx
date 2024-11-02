@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import "./contacts.css";
 import { User } from "../../../interfaces/user.interface";
 import ContactDetails from "./contact-detail";
@@ -6,6 +6,7 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import AddContact from "./add-contact/add-contact";
 import { deleteContact } from "../../../services/firebase.service";
 import { ColorUtil } from "../../../services/shared.service";
+import { t } from "i18next";
 
 interface ContactsProps extends WithTranslation {
   users: User[];
@@ -17,15 +18,19 @@ interface ContactsState {
   showContactList: boolean;
   selectedUserId: string | null;
   addNewContact: boolean;
+  mediaNav: boolean;
 }
 
 class Contacts extends Component<ContactsProps, ContactsState> {
+  mediaNavRef = createRef<HTMLDivElement>();
+
   constructor(props: ContactsProps) {
     super(props);
     this.state = {
       showContactList: true,
       selectedUserId: null,
       addNewContact: false,
+      mediaNav: false,
     };
   }
 
@@ -51,11 +56,23 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   componentDidMount() {
     this.handleResize();
     window.addEventListener("resize", this.handleResize);
+    document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleResize);
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
+
+  // Logic for closing the media nav
+  handleClickOutside = (event: MouseEvent) => {
+    if (
+      this.mediaNavRef.current &&
+      !this.mediaNavRef.current.contains(event.target as Node)
+    ) {
+      this.setState({ mediaNav: false });
+    }
+  };
 
   // Logic for resizing the contact list
   handleResize = () => {
@@ -81,6 +98,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   // Logic for opening the edit dialog
   handleEditContact = (userId: string) => {
     this.setState({ selectedUserId: userId });
+    this.setState({ mediaNav: false });
     this.toggleAddNewContact();
   };
 
@@ -90,6 +108,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
       .then(() => {
         this.props.onDeleteUser(userId);
         this.setState({ selectedUserId: null });
+        this.setState({ mediaNav: false });
       })
       .catch((error) => {
         console.error("Error deleting contact:", error);
@@ -98,7 +117,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
 
   // Logic for toggling the navigation on mobile devices
   handleToggleNav = () => {
-    // TODO
+    this.setState({ mediaNav: !this.state.mediaNav });
   };
 
   getSelectedUserColor = (): string | undefined => {
@@ -109,7 +128,8 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   render() {
-    const { showContactList, selectedUserId, addNewContact } = this.state;
+    const { showContactList, selectedUserId, addNewContact, mediaNav } =
+      this.state;
     const { t, users, currentUser } = this.props;
 
     return (
@@ -207,6 +227,20 @@ class Contacts extends Component<ContactsProps, ContactsState> {
               this.getSelectedUserColor() || ColorUtil.generateRandomColor()
             }
           />
+        )}
+        {mediaNav && (
+          <nav className="contacts-nav" ref={this.mediaNavRef}>
+            <div className="contacts-nav-link">
+              <span onClick={() => this.handleEditContact(selectedUserId!)}>
+                Edit
+              </span>
+            </div>
+            <div className="contacts-nav-link">
+              <span onClick={() => this.handleDeleteContact(selectedUserId!)}>
+                Delete
+              </span>
+            </div>
+          </nav>
         )}
       </div>
     );
