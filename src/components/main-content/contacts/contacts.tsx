@@ -39,37 +39,12 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     };
   }
 
+  // Toggle the media nav
   toggleAddNewContact = () => {
     this.setState({ addNewContact: !this.state.addNewContact });
   };
 
-  showUserId = (userId: string) => {
-    this.setState({ selectedUserId: userId });
-  };
-
-  sortFirstLetter = (): string[] => {
-    const letters = new Set(
-      this.props.users.map((user) => user.firstName.charAt(0).toUpperCase())
-    );
-    return Array.from(letters).sort();
-  };
-
-  sortUsersByFirstLetter = (letter: string): User[] => {
-    return this.props.users.filter((user) => user.firstName.startsWith(letter));
-  };
-
-  componentDidMount() {
-    this.handleResize();
-    window.addEventListener("resize", this.handleResize);
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  // Logic for closing the media nav
+  // Close the media nav when the user clicks outside of it
   handleClickOutside = (event: MouseEvent) => {
     if (
       this.mediaNavRef.current &&
@@ -79,7 +54,42 @@ class Contacts extends Component<ContactsProps, ContactsState> {
     }
   };
 
-  // Logic for resizing the contact list
+  // Show the selected user
+  showUserId = (userId: string) => {
+    this.setState({ selectedUserId: userId });
+  };
+
+  // Sort the list by first letter
+  sortFirstLetter = (): string[] => {
+    const letters = new Set(
+      this.props.users.map((user) => user.firstName.charAt(0).toUpperCase())
+    );
+    return Array.from(letters).sort();
+  };
+
+  // Sort the users by first letter
+  sortUsersByFirstLetter = (letter: string): User[] => {
+    return this.props.users.filter((user) => user.firstName.startsWith(letter));
+  };
+
+  /**
+   * Initializes the component by setting up the resize event listener
+   */
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize);
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  /**
+   * Cleans up the event listeners when the component is unmounted.
+   */
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
+  // Show or hide the contact list based on the screen size
   handleResize = () => {
     if (window.innerWidth <= 1050) {
       this.setState({ showContactList: false });
@@ -89,25 +99,25 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   // ContactDetails component
-  // Logic for closing the user details area
+  // Closing the user details area
   handleCloseUserDetails = () => {
     this.setState({ selectedUserId: null });
   };
 
-  // Logic for opening the edit dialog
+  // Opening the contact (new) dialog
   handleNewContact = () => {
     this.setState({ selectedUserId: null });
     this.toggleAddNewContact();
   };
 
-  // Logic for opening the edit dialog
+  // Opening the contact (edit) dialog
   handleEditContact = (userId: string) => {
     this.setState({ selectedUserId: userId });
     this.setState({ mediaNav: false });
     this.toggleAddNewContact();
   };
 
-  // Logic for deleting a contact
+  // Deleting a contact from the database
   handleDeleteContact = (userId: string) => {
     deleteContact(userId)
       .then(() => {
@@ -125,11 +135,12 @@ class Contacts extends Component<ContactsProps, ContactsState> {
       });
   };
 
-  // Logic for toggling the navigation on mobile devices
+  // Toggling the navigation on mobile devices
   handleToggleNav = () => {
     this.setState({ mediaNav: !this.state.mediaNav });
   };
 
+  // Get the color of the selected user
   getSelectedUserColor = (): string | undefined => {
     const { users } = this.props;
     const { selectedUserId } = this.state;
