@@ -180,6 +180,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                   users={users}
                   currentUser={currentUser}
                   onDeleteUser={this.onDeleteUser}
+                  showOverlayMsg={this.showOverlayMsg}
                 />
               }
             />

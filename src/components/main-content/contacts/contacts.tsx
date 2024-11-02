@@ -12,6 +12,11 @@ interface ContactsProps extends WithTranslation {
   users: User[];
   currentUser: User;
   onDeleteUser: (userId: string) => void;
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
 }
 
 interface ContactsState {
@@ -106,12 +111,17 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   handleDeleteContact = (userId: string) => {
     deleteContact(userId)
       .then(() => {
+        this.props.showOverlayMsg(t("Contact has been deleted"), 1500, {
+          reload: false,
+        });
         this.props.onDeleteUser(userId);
         this.setState({ selectedUserId: null });
         this.setState({ mediaNav: false });
       })
       .catch((error) => {
-        console.error("Error deleting contact:", error);
+        this.props.showOverlayMsg(t("Contact could not be deleted"), 1700, {
+          reload: false,
+        });
       });
   };
 
@@ -218,6 +228,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             toggleNav={this.handleToggleNav}
           />
         </div>
+
         {addNewContact && (
           <AddContact
             closeDialog={this.toggleAddNewContact}
@@ -228,6 +239,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             }
           />
         )}
+
         {mediaNav && (
           <nav className="contacts-nav" ref={this.mediaNavRef}>
             <div className="contacts-nav-link">
