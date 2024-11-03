@@ -179,6 +179,7 @@ class Board extends Component<BoardProps, BoardState> {
                   updateTask={this.props.updateTask}
                   showOverlayMsg={this.props.showOverlayMsg}
                   currentUser={this.props.currentUser}
+                  closeOverlay={() => this.handleToggleTaskOverlay("", null)}
                 />
               </div>
             </div>

@@ -103,8 +103,8 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     try {
       const taskId = await updateTask(task);
       this.setState((prevState) => ({
-        tasks: prevState.tasks.map((task) =>
-          task.id === taskId ? { ...task } : task
+        tasks: prevState.tasks.map((t) =>
+          t.id === task.id ? { ...t, ...task } : t
         ),
       }));
     } catch (error) {
@@ -188,6 +188,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                   tasks={tasks}
                   showOverlayMsg={this.showOverlayMsg}
                   currentUser={currentUser}
+                  closeOverlay={() => {}}
                 />
               }
             />

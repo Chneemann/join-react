@@ -62,12 +62,12 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
       this.props.showOverlayMsg(t("board.deleteError"), 1500, {
         reload: true,
       });
-      console.error(t("board.deleteError"), error);
     }
   };
 
   handleEditTask = (taskId: string) => {
     this.props.handleToggleTaskOverlay("todo", taskId);
+    this.props.onClose();
   };
 
   render() {

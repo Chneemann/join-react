@@ -15,6 +15,7 @@ interface AddTaskProps extends WithTranslation {
   taskId: string | null;
   addTask: (task: Task) => Promise<void>;
   updateTask: (task: Task) => Promise<void>;
+  closeOverlay: () => void;
   showOverlayMsg: (
     message: string,
     timeout: number,
@@ -258,20 +259,20 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
         if (taskId) {
           await this.props.updateTask(taskData);
           this.props.showOverlayMsg("Task updated successfully", 1500, {
-            href: "/board",
+            reload: false,
           });
         } else {
           await this.props.addTask(taskData);
           this.props.showOverlayMsg("Task added successfully", 1500, {
-            href: "/board",
+            reload: false,
           });
         }
         this.resetForm();
+        this.props.closeOverlay();
       } catch (error) {
-        this.props.showOverlayMsg("Error adding task", 1500, {
+        this.props.showOverlayMsg("Error adding / updating task", 1700, {
           reload: false,
         });
-        console.error("Error adding task:", error);
       } finally {
         this.setState({ isSubmitting: false });
       }
