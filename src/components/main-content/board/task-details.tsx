@@ -11,7 +11,7 @@ interface TaskDetailsProps extends WithTranslation {
   users: User[];
   currentUser: User;
   onClose: () => void;
-  handleToggleTaskOverlay: (taskStatus: string, taskId: string) => void;
+  handleToggleTaskOverlay: (taskStatus: string, taskId: string | null) => void;
   showOverlayMsg: (
     message: string,
     timeout: number,
@@ -67,7 +67,6 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   };
 
   handleEditTask = (taskId: string) => {
-    const { task } = this.props;
     this.props.handleToggleTaskOverlay("todo", taskId);
   };
 

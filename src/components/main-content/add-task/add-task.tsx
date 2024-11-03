@@ -9,10 +9,12 @@ import { withTranslation, WithTranslation } from "react-i18next";
 
 interface AddTaskProps extends WithTranslation {
   users: User[];
+  tasks: Task[];
   currentUser: User;
   taskStatus: string;
-  taskId: string;
+  taskId: string | null;
   addTask: (task: Task) => Promise<void>;
+  updateTask: (task: Task) => Promise<void>;
   showOverlayMsg: (
     message: string,
     timeout: number,
@@ -72,6 +74,18 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
       currentUser: this.props.currentUser,
       isSubmitting: false,
     };
+  }
+
+  componentDidMount() {
+    const { taskId, tasks } = this.props;
+    if (taskId) {
+      const taskToLoad = tasks.find((task) => task.id === taskId);
+      if (taskToLoad) {
+        this.setState({
+          taskData: { ...taskToLoad },
+        });
+      }
+    }
   }
 
   // TITLE, DESCRIPTION, CATEGORY
@@ -234,16 +248,24 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   // Method to submit the form and add a new task
   handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const { taskId } = this.props;
 
     if (this.isFormValid() && !this.state.isSubmitting) {
       this.setState({ isSubmitting: true });
 
       try {
         const { taskData } = this.state;
-        await this.props.addTask(taskData);
-        this.props.showOverlayMsg("Task added successfully", 1500, {
-          href: "/board",
-        });
+        if (taskId) {
+          await this.props.updateTask(taskData);
+          this.props.showOverlayMsg("Task updated successfully", 1500, {
+            href: "/board",
+          });
+        } else {
+          await this.props.addTask(taskData);
+          this.props.showOverlayMsg("Task added successfully", 1500, {
+            href: "/board",
+          });
+        }
         this.resetForm();
       } catch (error) {
         this.props.showOverlayMsg("Error adding task", 1500, {
@@ -281,7 +303,6 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
 
     return (
       <form className="add-task" onSubmit={this.handleFormSubmit}>
-        {taskId}
         <div className="add-task-content">
           <div className="add-task-left">
             <div className="add-task-title">
@@ -514,22 +535,33 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
             <Subtask onSubtasksChange={this.handleSubtasksChange} />
           </div>
         </div>
-        <div className="add-task-footer">
-          <LargeButton
-            value={t("add-task.clear")}
-            type="button"
-            imgPath="clear"
-            isWhite={true}
-            onClick={this.resetForm}
-            disabled={this.state.isSubmitting}
-          />
-          <LargeButton
-            value={t("add-task.addTask")}
-            type="submit"
-            imgPath="add"
-            disabled={!this.isFormValid() || this.state.isSubmitting}
-          />
-        </div>
+        {!taskId ? (
+          <div className="add-task-footer">
+            <LargeButton
+              value={t("add-task.clear")}
+              type="button"
+              imgPath="clear"
+              isWhite={true}
+              onClick={this.resetForm}
+              disabled={this.state.isSubmitting}
+            />
+            <LargeButton
+              value={t("add-task.addTask")}
+              type="submit"
+              imgPath="add"
+              disabled={!this.isFormValid() || this.state.isSubmitting}
+            />
+          </div>
+        ) : (
+          <div className="add-task-footer">
+            <LargeButton
+              value={t("add-task.updateTask")}
+              type="submit"
+              imgPath="add"
+              disabled={!this.isFormValid() || this.state.isSubmitting}
+            />
+          </div>
+        )}
       </form>
     );
   }

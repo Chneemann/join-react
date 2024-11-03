@@ -11,6 +11,7 @@ import {
   fetchUsers,
   updateTaskStatus,
   addNewTask,
+  updateTask,
 } from "../../services/firebase.service";
 import { Task } from "../../interfaces/task.interface";
 import { User } from "../../interfaces/user.interface";
@@ -97,6 +98,20 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
     }
   };
 
+  // Updates a task in the state.
+  updateTask = async (task: Task) => {
+    try {
+      const taskId = await updateTask(task);
+      this.setState((prevState) => ({
+        tasks: prevState.tasks.map((task) =>
+          task.id === taskId ? { ...task } : task
+        ),
+      }));
+    } catch (error) {
+      console.error("Error updating task status on server:", error);
+    }
+  };
+
   // Delete a user and update the user status
   onDeleteUser = (userId: string) => {
     this.setState((prevState) => ({
@@ -166,9 +181,11 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
               element={
                 <AddTask
                   addTask={this.addNewTask}
+                  updateTask={this.updateTask}
                   taskStatus="todo"
                   taskId=""
                   users={users}
+                  tasks={tasks}
                   showOverlayMsg={this.showOverlayMsg}
                   currentUser={currentUser}
                 />
@@ -195,6 +212,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                   updateTaskStatus={this.updateTaskStatus}
                   showOverlayMsg={this.showOverlayMsg}
                   addTask={this.addNewTask}
+                  updateTask={this.updateTask}
                 />
               }
             />

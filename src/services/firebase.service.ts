@@ -123,6 +123,24 @@ export const addNewTask = async (newTask: Task): Promise<string> => {
 };
 
 /**
+ * Updates a task in the 'tasks' collection in Firestore with the given task
+ * object.
+ * @param {Task} task - The task object to be updated.
+ * @throws Throws any error encountered while updating the task.
+ */
+export const updateTask = async (task: Task) => {
+  const tasksCollection = collection(firestore, "tasks");
+  const taskRef = doc(tasksCollection, task.id);
+  const taskData = JSON.parse(JSON.stringify(task));
+  try {
+    await updateDoc(taskRef, taskData);
+  } catch (error) {
+    console.error("Error updating task:", error);
+    throw error;
+  }
+};
+
+/**
  * Deletes a task from the 'tasks' collection in Firestore by its ID.
  * @param {string} taskId - The id of the task to delete.
  * @throws Throws any error encountered while deleting the task.

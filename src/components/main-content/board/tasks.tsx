@@ -13,7 +13,7 @@ interface TasksProps extends WithTranslation {
   currentUser: User;
   statusDisplayNames: { [key: string]: string };
   updateTaskStatus: (taskId: string, newStatus: string) => void;
-  handleToggleTaskOverlay: (taskStatus: string, taskId: string) => void;
+  handleToggleTaskOverlay: (taskStatus: string, taskId: string | null) => void;
   showOverlayMsg: (
     message: string,
     timeout: number,
