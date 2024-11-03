@@ -65,7 +65,7 @@
     "priorityLevels": {
       "low": "Low",
       "medium": "Medium",
-      "high": "High"
+      "urgent": "High"
     },
     "category": "Category",
     "subtask": "Subtask",
@@ -112,7 +112,7 @@
     "priorityLevels": {
       "low": "Low",
       "medium": "Medium",
-      "high": "High"
+      "urgent": "High"
     },
     "creator": "Creator",
     "assignedTo": "Assigned to",

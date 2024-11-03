@@ -455,7 +455,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                   onClick={() => this.togglePriority("urgent")}
                 >
                   <div className="add-task-priority-btn-text">
-                    <span>{t("add-task.priorityLevels.high")}</span>
+                    <span>{t("add-task.priorityLevels.urgent")}</span>
                     <img src="/assets/img/urgent.svg" alt="Urgent" />
                   </div>
                 </button>

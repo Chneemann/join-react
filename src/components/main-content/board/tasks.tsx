@@ -223,13 +223,16 @@ const DraggableTask = ({
               className="task-subtask-line-filler"
               style={{
                 width: `${
-                  (task.subtasksDone.length / task.subtasksTitle.length) * 100
+                  (task.subtasksDone.filter((done: boolean) => done).length /
+                    task.subtasksTitle.length) *
+                  100
                 }%`,
               }}
             ></span>
           </div>
           <div className="task-subtask-text">
-            {task.subtasksDone.length} / {task.subtasksTitle.length} Subtasks
+            {task.subtasksDone.filter((done: boolean) => done).length} /{" "}
+            {task.subtasksTitle.length} Subtasks
           </div>
         </div>
       )}

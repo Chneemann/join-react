@@ -5,6 +5,7 @@ import { User } from "../../../interfaces/user.interface";
 import { deleteTask } from "../../../services/firebase.service";
 import SmallBtn from "../../shared/components/buttons/small-btn";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { updateSubTask } from "../../../services/firebase.service";
 
 interface TaskDetailsProps extends WithTranslation {
   task: Task | null;
@@ -68,6 +69,15 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
   handleEditTask = (taskId: string) => {
     this.props.handleToggleTaskOverlay("todo", taskId);
     this.props.onClose();
+  };
+
+  handleSubtaskStatusChange = (taskId: string, subtaskIndex: number) => {
+    if (this.props.task) {
+      const updatedSubtasksDone = [...this.props.task.subtasksDone];
+      updatedSubtasksDone[subtaskIndex] = !updatedSubtasksDone[subtaskIndex];
+      updateSubTask(taskId, updatedSubtasksDone);
+      this.props.showOverlayMsg("Subtask updated", 1000, { reload: true });
+    }
   };
 
   render() {
@@ -153,6 +163,28 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
                     </div>
                   );
                 })}
+              </div>
+            )}
+            {task.subtasksTitle.length > 0 && (
+              <div className="task-details-subtask">
+                <p>{t("add-task.subtask")}:</p>
+                {task.subtasksTitle.map((subtask, i) => (
+                  <div
+                    className="task-details-single-subtask"
+                    key={i}
+                    onClick={() => this.handleSubtaskStatusChange(task.id!, i)}
+                  >
+                    <img
+                      src={
+                        task.subtasksDone[i]
+                          ? "./../../../../../assets/img/board/check-btn-checked.svg"
+                          : "./../../../../../assets/img/board/check-btn-unchecked.svg"
+                      }
+                      alt="subtask status"
+                    />
+                    <p>{subtask}</p>
+                  </div>
+                ))}
               </div>
             )}
           </div>

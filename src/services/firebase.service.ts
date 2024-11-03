@@ -140,6 +140,21 @@ export const updateTask = async (task: Task) => {
   }
 };
 
+export const updateSubTask = async (
+  taskId: string,
+  updatedSubtasks: boolean[]
+) => {
+  try {
+    const taskRef = doc(collection(firestore, "tasks"), taskId);
+    await updateDoc(taskRef, {
+      subtasksDone: updatedSubtasks,
+    });
+  } catch (error) {
+    console.error("Error updating subtask status:", error);
+    throw error;
+  }
+};
+
 /**
  * Deletes a task from the 'tasks' collection in Firestore by its ID.
  * @param {string} taskId - The id of the task to delete.

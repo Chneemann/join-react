@@ -65,7 +65,7 @@
     "priorityLevels": {
       "low": "Niedrig",
       "medium": "Mittel",
-      "high": "Hoch"
+      "urgent": "Hoch"
     },
     "category": "Kategorie",
     "subtask": "Unteraufgabe",
@@ -112,7 +112,7 @@
     "priorityLevels": {
       "low": "Niedrig",
       "medium": "Mittel",
-      "high": "Hoch"
+      "urgent": "Hoch"
     },
     "creator": "Ersteller",
     "assignedTo": "Zugewiesen an",
