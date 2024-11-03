@@ -13,6 +13,7 @@ interface TasksProps extends WithTranslation {
   currentUser: User;
   statusDisplayNames: { [key: string]: string };
   updateTaskStatus: (taskId: string, newStatus: string) => void;
+  handleToggleTaskOverlay: (taskStatus: string, taskId: string) => void;
   showOverlayMsg: (
     message: string,
     timeout: number,
@@ -115,6 +116,7 @@ class Tasks extends Component<TasksProps, TasksState> {
             currentUser={currentUser}
             onClose={this.closeTaskDetails}
             showOverlayMsg={this.props.showOverlayMsg}
+            handleToggleTaskOverlay={this.props.handleToggleTaskOverlay}
           />
         )}
       </div>

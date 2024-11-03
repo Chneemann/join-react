@@ -167,6 +167,7 @@ class MainContent extends React.Component<MainContentProps, MainContentState> {
                 <AddTask
                   addTask={this.addNewTask}
                   taskStatus="todo"
+                  taskId=""
                   users={users}
                   showOverlayMsg={this.showOverlayMsg}
                   currentUser={currentUser}

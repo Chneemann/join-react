@@ -11,6 +11,7 @@ interface AddTaskProps extends WithTranslation {
   users: User[];
   currentUser: User;
   taskStatus: string;
+  taskId: string;
   addTask: (task: Task) => Promise<void>;
   showOverlayMsg: (
     message: string,
@@ -256,7 +257,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, taskId } = this.props;
 
     const {
       taskData,
@@ -280,6 +281,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
 
     return (
       <form className="add-task" onSubmit={this.handleFormSubmit}>
+        {taskId}
         <div className="add-task-content">
           <div className="add-task-left">
             <div className="add-task-title">

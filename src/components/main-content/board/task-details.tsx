@@ -11,6 +11,7 @@ interface TaskDetailsProps extends WithTranslation {
   users: User[];
   currentUser: User;
   onClose: () => void;
+  handleToggleTaskOverlay: (taskStatus: string, taskId: string) => void;
   showOverlayMsg: (
     message: string,
     timeout: number,
@@ -63,6 +64,11 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
       });
       console.error(t("board.deleteError"), error);
     }
+  };
+
+  handleEditTask = (taskId: string) => {
+    const { task } = this.props;
+    this.props.handleToggleTaskOverlay("todo", taskId);
   };
 
   render() {
@@ -168,7 +174,14 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
                 <p>{t("board.deleteTask")}</p>
               </div>
               <span>|</span>
-              <div className="task-details-btn task-details-btn-edit">
+              <div
+                className="task-details-btn task-details-btn-edit"
+                onClick={() => {
+                  if (task?.id) {
+                    this.handleEditTask(task.id);
+                  }
+                }}
+              >
                 <img
                   src="./../../../../../assets/img/contact/edit.svg"
                   alt="edit"

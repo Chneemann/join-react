@@ -27,6 +27,7 @@ interface BoardState {
   searchValue: string;
   showAddTaskOverlay: boolean;
   taskStatus: string;
+  taskId: string;
 }
 
 class Board extends Component<BoardProps, BoardState> {
@@ -38,6 +39,7 @@ class Board extends Component<BoardProps, BoardState> {
       searchValue: "",
       showAddTaskOverlay: false,
       taskStatus: "todo",
+      taskId: "",
     };
   }
 
@@ -47,15 +49,17 @@ class Board extends Component<BoardProps, BoardState> {
   };
 
   // Toggles the add task overlay
-  handleToggleTaskOverlay = (taskStatus: string) => {
+  handleToggleTaskOverlay = (taskStatus: string, taskId: string) => {
     this.setState((prevState) => ({
+      ...prevState,
       showAddTaskOverlay: !prevState.showAddTaskOverlay,
       taskStatus: taskStatus,
+      taskId: taskId,
     }));
   };
 
   render() {
-    const { searchValue, showAddTaskOverlay, taskStatus } = this.state;
+    const { searchValue, showAddTaskOverlay, taskStatus, taskId } = this.state;
     const { t, tasks, users, updateTaskStatus } = this.props;
 
     // Definition of the status display names
@@ -115,7 +119,7 @@ class Board extends Component<BoardProps, BoardState> {
               <button
                 className="board-btn"
                 type="submit"
-                onClick={() => this.handleToggleTaskOverlay("todo")}
+                onClick={() => this.handleToggleTaskOverlay("todo", "")}
               >
                 <div className="board-btn-inside">
                   <span>{t("board.searchBtn")}</span>
@@ -149,7 +153,7 @@ class Board extends Component<BoardProps, BoardState> {
         {showAddTaskOverlay && (
           <div
             className="add-task-overlay"
-            onClick={() => this.handleToggleTaskOverlay("")}
+            onClick={() => this.handleToggleTaskOverlay("", "")}
           >
             <div
               className="add-task-overlay-content"
@@ -161,7 +165,7 @@ class Board extends Component<BoardProps, BoardState> {
               >
                 <div
                   className="add-task-overlay-close"
-                  onClick={() => this.handleToggleTaskOverlay("")}
+                  onClick={() => this.handleToggleTaskOverlay("", "")}
                 >
                   <SmallBtn image="close.svg" />
                 </div>
@@ -169,6 +173,7 @@ class Board extends Component<BoardProps, BoardState> {
                 <AddTask
                   users={users}
                   taskStatus={taskStatus}
+                  taskId={taskId}
                   addTask={this.props.addTask}
                   showOverlayMsg={this.props.showOverlayMsg}
                   currentUser={this.props.currentUser}
@@ -195,7 +200,7 @@ interface DroppableColumnProps {
     timeout: number,
     action: { reload?: boolean; href?: string }
   ) => void;
-  handleToggleTaskOverlay: (taskStatus: string) => void;
+  handleToggleTaskOverlay: (taskStatus: string, taskId: string) => void;
 }
 
 const DroppableColumn: React.FC<DroppableColumnProps> = ({
@@ -225,7 +230,7 @@ const DroppableColumn: React.FC<DroppableColumnProps> = ({
         <img
           src="./../../../assets/img/board/plus.svg"
           alt="add"
-          onClick={() => handleToggleTaskOverlay(status)}
+          onClick={() => handleToggleTaskOverlay(status, "")}
         />
       </div>
       <Tasks
@@ -236,6 +241,7 @@ const DroppableColumn: React.FC<DroppableColumnProps> = ({
         statusDisplayNames={statusDisplayNames}
         updateTaskStatus={updateTaskStatus}
         showOverlayMsg={showOverlayMsg}
+        handleToggleTaskOverlay={handleToggleTaskOverlay}
       />
     </div>
   );
