@@ -1,8 +1,11 @@
 import React from "react";
 import "./subtasks.css";
 import { withTranslation, WithTranslation } from "react-i18next";
+import { Task } from "../../../interfaces/task.interface";
 
 interface SubtaskProps extends WithTranslation {
+  taskId: string | null;
+  tasks: Task[];
   onSubtasksChange: (subtasksTitle: string[], subtasksDone: boolean[]) => void;
 }
 
@@ -20,6 +23,22 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
       subtasksDone: [],
       subtaskValue: "",
     };
+  }
+
+  /**
+   * Lifecycle method to load the subtasks when the component mounts.
+   */
+  componentDidMount() {
+    const { taskId, tasks } = this.props;
+    if (taskId) {
+      const taskToLoad = tasks.find((task) => task.id === taskId);
+      if (taskToLoad) {
+        this.setState({
+          subtasksTitle: taskToLoad.subtasksTitle.map((subtask) => subtask),
+          subtasksDone: taskToLoad.subtasksDone.map((subtask) => subtask),
+        });
+      }
+    }
   }
 
   // Method for updating the subtask input value
@@ -59,7 +78,6 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
         subtasksDone: newSubtasksDone,
       },
       () => {
-        // Callback zu AddTask, um Änderungen weiterzugeben
         this.props.onSubtasksChange(newSubtasksTitle, newSubtasksDone);
       }
     );
@@ -104,19 +122,18 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
         )}
         {subtasksTitle.length > 0 && (
           <div className="subtask-list">
-            {subtasksTitle
-              .slice()
-              .reverse()
-              .map((task, index) => (
-                <div key={index} className="single-subtask">
-                  <p>- {task}</p>
-                  <img
-                    src="./../../../assets/img/add-task/close.svg"
-                    alt="Delete"
-                    onClick={() => this.deleteSubtask(index)}
-                  />
-                </div>
-              ))}
+            {subtasksTitle.slice().map((task, index) => (
+              <div key={index} className="single-subtask">
+                <p>
+                  - {task} / {index}
+                </p>
+                <img
+                  src="./../../../assets/img/add-task/close.svg"
+                  alt="Delete"
+                  onClick={() => this.deleteSubtask(index)}
+                />
+              </div>
+            ))}
           </div>
         )}
       </div>

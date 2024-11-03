@@ -280,7 +280,7 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   };
 
   render() {
-    const { t, taskId } = this.props;
+    const { t, tasks, taskId } = this.props;
 
     const {
       taskData,
@@ -533,7 +533,11 @@ class AddTask extends React.Component<AddTaskProps, AddTaskState> {
                 )}
               </div>
             </div>
-            <Subtask onSubtasksChange={this.handleSubtasksChange} />
+            <Subtask
+              onSubtasksChange={this.handleSubtasksChange}
+              taskId={taskId}
+              tasks={tasks}
+            />
           </div>
         </div>
         {!taskId ? (
