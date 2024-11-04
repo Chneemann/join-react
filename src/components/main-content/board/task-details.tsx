@@ -168,23 +168,27 @@ class TaskDetails extends Component<TaskDetailsProps, TaskDetailsState> {
             {task.subtasksTitle.length > 0 && (
               <div className="task-details-subtask">
                 <p>{t("add-task.subtask")}:</p>
-                {task.subtasksTitle.map((subtask, i) => (
-                  <div
-                    className="task-details-single-subtask"
-                    key={i}
-                    onClick={() => this.handleSubtaskStatusChange(task.id!, i)}
-                  >
-                    <img
-                      src={
-                        task.subtasksDone[i]
-                          ? "./../../../../../assets/img/board/check-btn-checked.svg"
-                          : "./../../../../../assets/img/board/check-btn-unchecked.svg"
+                <div className="task-details-subtask-list">
+                  {task.subtasksTitle.map((subtask, i) => (
+                    <div
+                      className="task-details-single-subtask"
+                      key={i}
+                      onClick={() =>
+                        this.handleSubtaskStatusChange(task.id!, i)
                       }
-                      alt="subtask status"
-                    />
-                    <p>{subtask}</p>
-                  </div>
-                ))}
+                    >
+                      <img
+                        src={
+                          task.subtasksDone[i]
+                            ? "./../../../../../assets/img/board/check-btn-checked.svg"
+                            : "./../../../../../assets/img/board/check-btn-unchecked.svg"
+                        }
+                        alt="subtask status"
+                      />
+                      <p>{subtask}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>

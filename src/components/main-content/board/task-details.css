@@ -248,6 +248,10 @@
   margin: 0;
 }
 
+.task-details-subtask-list {
+  margin-top: 12px;
+}
+
 .task-details-single-subtask {
   display: flex;
   align-items: center;

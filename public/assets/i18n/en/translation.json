@@ -71,6 +71,7 @@
     "subtask": "Subtask",
     "clear": "Clear",
     "addTask": "Add Task",
+    "updateTask": "Update Task",
     "requiredField": "This field is required",
     "minLettersRequired": "Minimum {{count}} letters required",
     "maxLettersAllowed": "Maximum {{count}} letters allowed",

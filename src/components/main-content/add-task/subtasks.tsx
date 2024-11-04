@@ -94,6 +94,7 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
           type="text"
           id="subtask"
           name="subtask"
+          maxLength={27}
           placeholder={t("add-task.enterSubtask")}
           value={subtaskValue}
           onChange={this.updateSubtaskValue}
@@ -124,9 +125,7 @@ class Subtask extends React.Component<SubtaskProps, SubtaskState> {
           <div className="subtask-list">
             {subtasksTitle.slice().map((task, index) => (
               <div key={index} className="single-subtask">
-                <p>
-                  - {task} / {index}
-                </p>
+                <p>- {task}</p>
                 <img
                   src="./../../../assets/img/add-task/close.svg"
                   alt="Delete"

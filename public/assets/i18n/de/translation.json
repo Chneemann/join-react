@@ -71,6 +71,7 @@
     "subtask": "Unteraufgabe",
     "clear": "Löschen",
     "addTask": "Aufgabe hinzufügen",
+    "updateTask": "Aufgabe aktualisieren",
     "requiredField": "Dieses Feld ist erforderlich",
     "minLettersRequired": "Mindestens {{count}} Buchstaben erforderlich",
     "maxLettersAllowed": "Maximal {{count}} Buchstaben erlaubt",
