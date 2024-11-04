@@ -54,6 +54,11 @@ const Auth: React.FC<AuthProps> = ({ currentUser }) => {
             <Route path="/forgot-pw" element={<ForgotPassword />} />
             <Route path="/legal-notice" element={<LegalNotice />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            {/* Catch-all route for any other paths */}
+            <Route
+              path="*"
+              element={<Navigate to="/" state={{ from: location }} />}
+            />
           </Routes>
         </div>
         {!isDisplayingLegalContent && <Footer />}
@@ -61,7 +66,7 @@ const Auth: React.FC<AuthProps> = ({ currentUser }) => {
     );
   }
   // Redirect if the user is logged in
-  return <Navigate to="/dashboard" />; // Adjust the route accordingly
+  return <Navigate to="/board" />;
 };
 
 export default Auth;
