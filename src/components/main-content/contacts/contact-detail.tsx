@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import "./contact-detail.css";
 import { User } from "../../../interfaces/user.interface";
 import { withTranslation, WithTranslation } from "react-i18next";
@@ -10,10 +10,57 @@ interface ContactDetailsProps extends WithTranslation {
   closeUserDetails: () => void;
   editContact: (userId: string) => void;
   deleteContact: (userId: string) => void;
-  toggleNav: () => void;
 }
 
-class ContactDetails extends Component<ContactDetailsProps> {
+interface ContactDetailsState {
+  mediaNav: boolean;
+}
+
+class ContactDetails extends Component<
+  ContactDetailsProps,
+  ContactDetailsState
+> {
+  mediaNavRef = createRef<HTMLDivElement>();
+  mediaNavButtonRef = createRef<HTMLDivElement>();
+
+  constructor(props: ContactDetailsProps) {
+    super(props);
+    this.state = {
+      mediaNav: false,
+    };
+  }
+
+  /**
+   * Initializes the component by setting up the resize event listener
+   */
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleToggleMediaNav);
+  }
+
+  /**
+   * Cleans up the event listeners when the component is unmounted.
+   */
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleToggleMediaNav);
+  }
+
+  // Handle open and close media nav
+  handleToggleMediaNav = (event: MouseEvent) => {
+    const { mediaNavRef, mediaNavButtonRef } = this;
+    const clickedOutsideNav =
+      mediaNavRef.current &&
+      !mediaNavRef.current.contains(event.target as Node);
+    const clickedOnButton =
+      mediaNavButtonRef.current &&
+      mediaNavButtonRef.current.contains(event.target as Node);
+
+    if (clickedOnButton) {
+      this.setState((prevState) => ({ mediaNav: !prevState.mediaNav }));
+    } else if (clickedOutsideNav) {
+      this.setState({ mediaNav: false });
+    }
+  };
+
   // Check if user exists
   checkUserData = (userId: string) => {
     const { users } = this.props;
@@ -34,8 +81,8 @@ class ContactDetails extends Component<ContactDetailsProps> {
       closeUserDetails,
       editContact,
       deleteContact,
-      toggleNav,
     } = this.props;
+    const { mediaNav } = this.state;
 
     return (
       <div className="contact-details">
@@ -116,7 +163,7 @@ class ContactDetails extends Component<ContactDetailsProps> {
                   )}
                   <div
                     className="contact-details-button-mobile"
-                    onClick={toggleNav}
+                    ref={this.mediaNavButtonRef}
                   >
                     <img
                       src="./../../../assets/img/contact/points.svg"
@@ -125,6 +172,31 @@ class ContactDetails extends Component<ContactDetailsProps> {
                   </div>
                 </div>
               </div>
+
+              {mediaNav && (
+                <nav className="contacts-nav" ref={this.mediaNavRef}>
+                  <div className="contacts-nav-link">
+                    <span
+                      onClick={() => {
+                        editContact(selectedUserId);
+                        this.setState({ mediaNav: false });
+                      }}
+                    >
+                      {t("contacts.edit")}
+                    </span>
+                  </div>
+                  <div className="contacts-nav-link">
+                    <span
+                      onClick={() => {
+                        deleteContact(selectedUserId);
+                        this.setState({ mediaNav: false });
+                      }}
+                    >
+                      {t("contacts.delete")}
+                    </span>
+                  </div>
+                </nav>
+              )}
 
               <div className="contact-details-contact word-wrap">
                 <div className="contact-details-contact-title">

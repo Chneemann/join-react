@@ -23,7 +23,6 @@ interface ContactsState {
   showContactList: boolean;
   selectedUserId: string | null;
   addNewContact: boolean;
-  mediaNav: boolean;
 }
 
 class Contacts extends Component<ContactsProps, ContactsState> {
@@ -35,23 +34,12 @@ class Contacts extends Component<ContactsProps, ContactsState> {
       showContactList: true,
       selectedUserId: null,
       addNewContact: false,
-      mediaNav: false,
     };
   }
 
   // Toggle the media nav
   toggleAddNewContact = () => {
     this.setState({ addNewContact: !this.state.addNewContact });
-  };
-
-  // Close the media nav when the user clicks outside of it
-  handleClickOutside = (event: MouseEvent) => {
-    if (
-      this.mediaNavRef.current &&
-      !this.mediaNavRef.current.contains(event.target as Node)
-    ) {
-      this.setState({ mediaNav: false });
-    }
   };
 
   // Show the selected user
@@ -78,7 +66,6 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   componentDidMount() {
     this.handleResize();
     window.addEventListener("resize", this.handleResize);
-    document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   /**
@@ -86,7 +73,6 @@ class Contacts extends Component<ContactsProps, ContactsState> {
    */
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleResize);
-    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   // Show or hide the contact list based on the screen size
@@ -113,7 +99,6 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   // Opening the contact (edit) dialog
   handleEditContact = (userId: string) => {
     this.setState({ selectedUserId: userId });
-    this.setState({ mediaNav: false });
     this.toggleAddNewContact();
   };
 
@@ -126,18 +111,12 @@ class Contacts extends Component<ContactsProps, ContactsState> {
         });
         this.props.onDeleteUser(userId);
         this.setState({ selectedUserId: null });
-        this.setState({ mediaNav: false });
       })
       .catch((error) => {
         this.props.showOverlayMsg(t("Contact could not be deleted"), 1700, {
           reload: false,
         });
       });
-  };
-
-  // Toggling the navigation on mobile devices
-  handleToggleNav = () => {
-    this.setState({ mediaNav: !this.state.mediaNav });
   };
 
   // Get the color of the selected user
@@ -149,8 +128,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   };
 
   render() {
-    const { showContactList, selectedUserId, addNewContact, mediaNav } =
-      this.state;
+    const { showContactList, selectedUserId, addNewContact } = this.state;
     const { t, users, currentUser } = this.props;
 
     return (
@@ -236,7 +214,6 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             closeUserDetails={this.handleCloseUserDetails}
             editContact={(userId: string) => this.handleEditContact(userId)}
             deleteContact={(userId: string) => this.handleDeleteContact(userId)}
-            toggleNav={this.handleToggleNav}
           />
         </div>
 
@@ -249,21 +226,6 @@ class Contacts extends Component<ContactsProps, ContactsState> {
               this.getSelectedUserColor() || ColorUtil.generateRandomColor()
             }
           />
-        )}
-
-        {mediaNav && (
-          <nav className="contacts-nav" ref={this.mediaNavRef}>
-            <div className="contacts-nav-link">
-              <span onClick={() => this.handleEditContact(selectedUserId!)}>
-                Edit
-              </span>
-            </div>
-            <div className="contacts-nav-link">
-              <span onClick={() => this.handleDeleteContact(selectedUserId!)}>
-                Delete
-              </span>
-            </div>
-          </nav>
         )}
       </div>
     );
