@@ -4,7 +4,6 @@ import { withTranslation, WithTranslation } from "react-i18next";
 import SmallBtn from "../../../shared/components/buttons/small-btn";
 import AddContactForm from "./add-contact-form";
 import { User } from "../../../../interfaces/user.interface";
-import { log } from "console";
 
 interface AddContactProps extends WithTranslation {
   closeDialog: () => void;
@@ -62,7 +61,7 @@ class AddContact extends Component<AddContactProps, AddContactState> {
         >
           <div className="add-contact-header">
             <img src="../../../../assets/img/logo-small-white.svg" alt="Logo" />
-            <p>Add Contact</p>
+            <p>{t("contacts.newContact")}</p>
             <SmallBtn image="clear.svg" onClick={closeDialog}></SmallBtn>
           </div>
 
@@ -90,9 +89,7 @@ class AddContact extends Component<AddContactProps, AddContactState> {
             </div>
           </div>
 
-          <div className="add-contact-notice">
-            Notice: Click in the circle to change the colour.
-          </div>
+          <div className="add-contact-notice">{t("contacts.notice")}</div>
         </div>
       </div>
     );

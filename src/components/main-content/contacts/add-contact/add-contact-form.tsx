@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./add-contact-form.css";
+import { withTranslation, WithTranslation } from "react-i18next";
 import LargeButton from "../../../shared/components/buttons/large-btn";
 import {
   addNewContact,
@@ -7,15 +8,15 @@ import {
 } from "../../../../services/firebase.service";
 import { User } from "../../../../interfaces/user.interface";
 
-type AddContactFormProps = {
+interface AddContactFormProps extends WithTranslation {
   users: User[];
   selectedUserId: string | null;
   currentColor: string;
   closeDialog: () => void;
   onUserInitialsChange: (initials: string) => void;
-};
+}
 
-type AddContactFormState = {
+interface AddContactFormState {
   formData: {
     firstName: string;
     lastName: string;
@@ -24,7 +25,7 @@ type AddContactFormState = {
     initials: string;
   };
   windowWidth: number;
-};
+}
 
 class AddContactForm extends Component<
   AddContactFormProps,
@@ -159,7 +160,7 @@ class AddContactForm extends Component<
   };
 
   render() {
-    const { closeDialog } = this.props;
+    const { t, closeDialog } = this.props;
     const { formData, windowWidth } = this.state;
     const isFirstNameValid = /^[A-Za-zäöüÄÖÜß' -]+$/.test(formData.firstName);
     const isLastNameValid = /^[A-Za-zäöüÄÖÜß' -]+$/.test(formData.lastName);
@@ -174,7 +175,7 @@ class AddContactForm extends Component<
             type="text"
             className="firstName"
             name="firstName"
-            placeholder="First Name"
+            placeholder={t("contacts.firstName")}
             autoComplete="off"
             value={formData.firstName}
             onChange={this.handleInputChange}
@@ -183,7 +184,7 @@ class AddContactForm extends Component<
           {windowWidth <= 800 && (
             <div className="add-contact-form-error-msg">
               {!isFirstNameValid && formData.firstName && (
-                <p>{!isFirstNameValid ? "Only letters are allowed" : ""}</p>
+                <p>{!isFirstNameValid ? t("contacts.errorLetters") : ""}</p>
               )}
             </div>
           )}
@@ -192,7 +193,7 @@ class AddContactForm extends Component<
             type="text"
             className="lastName"
             name="lastName"
-            placeholder="Last Name"
+            placeholder={t("contacts.lastName")}
             autoComplete="off"
             value={formData.lastName}
             onChange={this.handleInputChange}
@@ -201,7 +202,7 @@ class AddContactForm extends Component<
           {windowWidth <= 800 && (
             <div className="add-contact-form-error-msg">
               {!isLastNameValid && formData.lastName && (
-                <p>{!isLastNameValid ? "Only letters are allowed" : ""}</p>
+                <p>{!isLastNameValid ? t("contacts.errorLetters") : ""}</p>
               )}
             </div>
           )}
@@ -212,9 +213,9 @@ class AddContactForm extends Component<
               (formData.firstName || formData.lastName) && (
                 <p>
                   {!isFirstNameValid && formData.firstName
-                    ? "Only letters are allowed in the first name"
+                    ? t("contacts.errorLettersFirstName")
                     : !isLastNameValid && formData.lastName
-                    ? "Only letters are allowed in the last name"
+                    ? t("contacts.errorLettersLastName")
                     : ""}
                 </p>
               )}
@@ -225,7 +226,7 @@ class AddContactForm extends Component<
           id="email"
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder={t("contacts.email")}
           autoComplete="off"
           value={formData.email}
           onChange={this.handleInputChange}
@@ -233,7 +234,7 @@ class AddContactForm extends Component<
         />
         <div className="add-contact-form-error-msg">
           {!isEmailValid && formData.email && (
-            <p>This is not a valid email format</p>
+            <p>{t("contacts.errorEmailFormat")}</p>
           )}
         </div>
 
@@ -241,7 +242,7 @@ class AddContactForm extends Component<
           id="phone"
           type="tel"
           name="phone"
-          placeholder="Phone"
+          placeholder={t("contacts.phone")}
           autoComplete="off"
           value={formData.phone}
           onChange={this.handleInputChange}
@@ -249,7 +250,7 @@ class AddContactForm extends Component<
         />
         <div className="add-contact-form-error-msg">
           {!isPhoneValid && formData.phone && (
-            <p>This is not a valid phone number</p>
+            <p>{t("contacts.errorPhoneFormat")}</p>
           )}
         </div>
 
@@ -258,7 +259,7 @@ class AddContactForm extends Component<
             type="button"
             isWhite={true}
             onClick={closeDialog}
-            value="Cancel"
+            value={t("contacts.cancel")}
           />
           {!this.props.selectedUserId ? (
             <LargeButton
@@ -269,7 +270,7 @@ class AddContactForm extends Component<
                 !isEmailValid ||
                 !isPhoneValid
               }
-              value="Save"
+              value={t("contacts.save")}
               onClick={this.addNewContact}
             />
           ) : (
@@ -281,7 +282,7 @@ class AddContactForm extends Component<
                 !isEmailValid ||
                 !isPhoneValid
               }
-              value="Update"
+              value={t("contacts.update")}
               onClick={this.updateContact}
             />
           )}
@@ -291,4 +292,4 @@ class AddContactForm extends Component<
   }
 }
 
-export default AddContactForm;
+export default withTranslation()(AddContactForm);
