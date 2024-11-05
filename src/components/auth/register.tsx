@@ -379,9 +379,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
               />
               <label htmlFor="checkboxState">
                 {t("register.privacyPolicy0")}
-                <a href="/login/privacy-policy">
-                  {t("register.privacyPolicy1")}
-                </a>
+                <a href="/privacy-policy">{t("register.privacyPolicy1")}</a>
               </label>
             </div>
             <div className="register-error-msg">

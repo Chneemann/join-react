@@ -232,4 +232,8 @@
   .task-done {
     padding: 10px 15px;
   }
+
+  .urgent-task-deadline span {
+    font-size: 21px;
+  }
 }

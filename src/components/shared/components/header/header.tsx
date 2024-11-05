@@ -113,11 +113,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
           </div>
         ) : (
           <div className="header-auth">
-            <img
-              className="header-logo-auth"
-              src="./assets/img/logo-small-blue.svg"
-              alt=""
-            />
+            <a href="/">
+              <img
+                className="header-logo-auth"
+                src="./assets/img/logo-small-blue.svg"
+                alt=""
+              />
+            </a>
             <div className="header-language">
               <SmallBtn
                 image="language.svg"

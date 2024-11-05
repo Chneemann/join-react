@@ -46,7 +46,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 100%;
 }
 
 .input-fields {
@@ -54,7 +54,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 100%;
+  width: 80%;
 }
 
 .input-fields input {
