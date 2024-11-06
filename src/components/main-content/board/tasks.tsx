@@ -1,4 +1,10 @@
-import React, { Component, MouseEvent, useState } from "react";
+import React, {
+  Component,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Task } from "../../../interfaces/task.interface";
 import { User } from "../../../interfaces/user.interface";
 import "./tasks.css";
@@ -150,6 +156,37 @@ const DraggableTask = ({
     }),
   }));
 
+  const [menuId, setMenuId] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  // Add event listeners to handle clicks outside of the task menu
+  useEffect(() => {
+    /**
+     * @description Handles a click outside of the task menu.
+     * @param {Event} event - The event that triggered this function.
+     * @returns {void}
+     */
+    const handleClickOutside = (event: Event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
+
+  /**
+   * @description Toggles the task menu for the given task id.
+   * @param {string} taskId - The id of the task to toggle the menu for.
+   * @returns {void}
+   */
+  const toggleTaskMenu = (taskId: string) => {
+    setMenuId(menuId === taskId ? null : taskId);
+  };
+
   /**
    * @description Given a user id, returns the color associated with that user.
    * @param {string} id - The id of the user.
@@ -172,16 +209,6 @@ const DraggableTask = ({
         ? user.firstName.charAt(0)
         : user.firstName.charAt(0) + user.lastName.charAt(0)
       : "";
-  };
-
-  /**
-   * @description Toggles the visibility of the task menu associated with the given taskId.
-   * If the menu is currently visible, it will be hidden, and vice versa.
-   * @param {string} taskId - The id of the task whose menu should be toggled.
-   */
-  const [menuId, setMenuId] = useState<string | null>(null);
-  const toggleTaskMenu = (taskId: string) => {
-    setMenuId(menuId === taskId ? null : taskId);
   };
 
   return (
@@ -267,11 +294,13 @@ const DraggableTask = ({
         <div className={`footer-priority prio-${task.priority}`}></div>
       </div>
       {menuId === task.id && (
-        <TaskMenu
-          task={task}
-          updateTaskStatus={updateTaskStatus}
-          statusDisplayNames={statusDisplayNames}
-        />
+        <div ref={menuRef}>
+          <TaskMenu
+            task={task}
+            updateTaskStatus={updateTaskStatus}
+            statusDisplayNames={statusDisplayNames}
+          />
+        </div>
       )}
     </div>
   );

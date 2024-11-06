@@ -37,11 +37,11 @@ class PrivacyPolicy extends React.Component<PrivacyPolicyProps> {
         <p>Großschneidersweg 2a</p>
         <p>76149 Karlsruhe</p>
         <p>
-          {t("imprint.tel")}
+          {t("privacy-policy.tel")}
           <a href="tel:+491724180328">+49 172 4180328</a>
         </p>
         <p>
-          {t("imprint.mail")}
+          {t("privacy-policy.mail")}
           <a href="mailto:mail@andre-kempf.com">mail&#64;andre-kempf.com</a>
         </p>
 
