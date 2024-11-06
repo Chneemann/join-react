@@ -14,6 +14,11 @@ interface AddContactFormProps extends WithTranslation {
   currentColor: string;
   closeDialog: () => void;
   onUserInitialsChange: (initials: string) => void;
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
 }
 
 interface AddContactFormState {
@@ -122,7 +127,7 @@ class AddContactForm extends Component<
   // Save contact
   addNewContact = async () => {
     const { formData } = this.state;
-    const { currentColor } = this.props;
+    const { t, currentColor } = this.props;
     const newContact: User = {
       uId: "",
       email: formData.email,
@@ -136,13 +141,15 @@ class AddContactForm extends Component<
     };
     await addNewContact(newContact);
     this.props.closeDialog();
-    window.location.reload();
+    this.props.showOverlayMsg(t("contacts.added"), 1500, {
+      reload: true,
+    });
   };
 
   //Update contact
   updateContact = async () => {
     const { formData } = this.state;
-    const { currentColor } = this.props;
+    const { t, currentColor } = this.props;
     const newContact: User = {
       uId: "",
       email: formData.email,
@@ -156,7 +163,9 @@ class AddContactForm extends Component<
     };
     await updateContact(this.props.selectedUserId!, newContact);
     this.props.closeDialog();
-    window.location.reload();
+    this.props.showOverlayMsg(t("contacts.updated"), 1500, {
+      reload: true,
+    });
   };
 
   render() {

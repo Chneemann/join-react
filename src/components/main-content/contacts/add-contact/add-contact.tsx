@@ -10,6 +10,11 @@ interface AddContactProps extends WithTranslation {
   selectedUserId: string | null;
   userColor: string;
   users: User[];
+  showOverlayMsg: (
+    message: string,
+    timeout: number,
+    action: { reload?: boolean; href?: string }
+  ) => void;
 }
 
 interface AddContactState {
@@ -85,6 +90,7 @@ class AddContact extends Component<AddContactProps, AddContactState> {
                 currentColor={userColor}
                 selectedUserId={this.props.selectedUserId}
                 onUserInitialsChange={this.handleUserInitials}
+                showOverlayMsg={this.props.showOverlayMsg}
               />
             </div>
           </div>

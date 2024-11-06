@@ -107,7 +107,11 @@
     "ErrorLettersFirstName": "Only letters are allowed in the first name",
     "ErrorLettersLastName": "Only letters are allowed in the last name",
     "errorEmailFormat": "This is not a valid email format",
-    "errorPhoneFormat": "This is not a valid phone number"
+    "errorPhoneFormat": "This is not a valid phone number",
+    "added": "Contact added successfully",
+    "updated": "Contact updated successfully",
+    "deleted": "Contact deleted successfully",
+    "deletedError": "Error deleting contact"
   },
   "board": {
     "board": "Board",

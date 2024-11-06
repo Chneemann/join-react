@@ -107,7 +107,11 @@
     "errorLettersFirstName": "Nur Buchstaben in dem Vornamen sind erlaubt",
     "errorLettersLastName": "Nur Buchstaben in dem Nachnamen sind erlaubt",
     "errorEmailFormat": "Dies ist keine gültige E-Mail-Adresse",
-    "errorPhoneFormat": "Dies ist keine gültige Telefonnummer"
+    "errorPhoneFormat": "Dies ist keine gültige Telefonnummer",
+    "added": "Kontakt hinzugefügt",
+    "updated": "Kontakt aktualisiert",
+    "deleted": "Kontakt gelöscht",
+    "deletedError": "Kontakt konnte nicht gelöscht werden"
   },
   "board": {
     "board": "Tafel",

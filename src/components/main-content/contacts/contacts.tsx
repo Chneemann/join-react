@@ -106,14 +106,14 @@ class Contacts extends Component<ContactsProps, ContactsState> {
   handleDeleteContact = (userId: string) => {
     deleteContact(userId)
       .then(() => {
-        this.props.showOverlayMsg(t("Contact has been deleted"), 1500, {
+        this.props.showOverlayMsg(t("contact.deleted"), 1500, {
           reload: false,
         });
         this.props.onDeleteUser(userId);
         this.setState({ selectedUserId: null });
       })
       .catch((error) => {
-        this.props.showOverlayMsg(t("Contact could not be deleted"), 1700, {
+        this.props.showOverlayMsg(t("contact.deleteError"), 1700, {
           reload: false,
         });
       });
@@ -225,6 +225,7 @@ class Contacts extends Component<ContactsProps, ContactsState> {
             userColor={
               this.getSelectedUserColor() || ColorUtil.generateRandomColor()
             }
+            showOverlayMsg={this.props.showOverlayMsg}
           />
         )}
       </div>
