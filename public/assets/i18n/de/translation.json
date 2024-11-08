@@ -130,6 +130,7 @@
       "medium": "Mittel",
       "urgent": "Hoch"
     },
+    "subtasks": "Unteraufgaben",
     "creator": "Ersteller",
     "assignedTo": "Zugewiesen an",
     "delete": "Löschen",

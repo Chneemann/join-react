@@ -85,28 +85,31 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 24px;
-}
-
-.task-subtask-line {
-  display: flex;
-  width: 165px;
-  height: 8px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  border-radius: 8px;
-  background-color: var(--light-gray);
-}
-
-.task-subtask-line-filler {
-  border-radius: 16px;
-  background-color: var(--light-blue);
-  height: 8px;
+  width: 100%;
 }
 
 .task-subtask-text {
   font-size: 12px;
   font-weight: 400;
+  margin-left: 12px;
+}
+
+.task-subtask-line {
+  flex-grow: 1;
+  height: 8px;
+  border-radius: 8px;
+  background-color: var(--light-gray);
+  position: relative;
+}
+
+.task-subtask-line-filler {
+  width: 50%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: var(--light-blue);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Task Footer */

@@ -82,6 +82,7 @@ class Tasks extends Component<TasksProps, TasksState> {
         {tasks.length > 0 ? (
           tasks.map((task) => (
             <DraggableTask
+              t={t}
               key={task.id}
               task={task}
               users={users}
@@ -140,6 +141,7 @@ class Tasks extends Component<TasksProps, TasksState> {
  * @returns {ReactElement} A React component representing a single task.
  */
 const DraggableTask = ({
+  t,
   task,
   users,
   handleDialogMouseMove,
@@ -259,7 +261,7 @@ const DraggableTask = ({
           </div>
           <div className="task-subtask-text">
             {task.subtasksDone.filter((done: boolean) => done).length} /{" "}
-            {task.subtasksTitle.length} Subtasks
+            {task.subtasksTitle.length} {t("board.subtasks")}
           </div>
         </div>
       )}

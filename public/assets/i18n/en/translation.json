@@ -130,6 +130,7 @@
       "medium": "Medium",
       "urgent": "High"
     },
+    "subtasks": "Subtasks",
     "creator": "Creator",
     "assignedTo": "Assigned to",
     "delete": "Delete",
