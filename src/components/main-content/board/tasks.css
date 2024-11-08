@@ -10,8 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 226px;
-  min-width: 226px;
+  width: 263px;
   height: fit-content;
   word-wrap: break-word;
   padding: 16px;
