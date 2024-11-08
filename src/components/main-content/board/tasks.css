@@ -89,15 +89,13 @@
 
 .task-subtask-line {
   display: flex;
-  width: 130px;
+  width: 165px;
   height: 8px;
-  padding-right: 0px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   border-radius: 8px;
   background-color: var(--light-gray);
-  margin-right: 11px;
 }
 
 .task-subtask-line-filler {

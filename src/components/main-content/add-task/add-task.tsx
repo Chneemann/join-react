@@ -43,7 +43,7 @@ interface AddTaskState {
 const TITLE_MIN_LENGTH = 8;
 const TITLE_MAX_LENGTH = 40;
 const DESCRIPTION_MIN_LENGTH = 24;
-const DESCRIPTION_MAX_LENGTH = 180;
+const DESCRIPTION_MAX_LENGTH = 220;
 
 class AddTask extends React.Component<AddTaskProps, AddTaskState> {
   constructor(props: AddTaskProps) {
