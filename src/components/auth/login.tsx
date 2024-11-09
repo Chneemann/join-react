@@ -33,6 +33,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     };
   }
 
+  // Function to handle input changes
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
@@ -53,14 +54,17 @@ class Login extends React.Component<LoginProps, LoginState> {
     );
   };
 
+  // Validation email
   validateEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
 
+  // Validation password
   validatePassword = (password: string) => {
     return password.length > 8;
   };
 
+  // Handle form submission
   handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
     if (event) {
       event.preventDefault();
@@ -98,6 +102,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
   };
 
+  // Handle guest login
   handleGuestLogin = () => {
     this.setState(
       {
@@ -110,6 +115,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     );
   };
 
+  // Handle Google login
   handleGoogleLogin = async () => {
     try {
       await googleLogin();
@@ -119,10 +125,21 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
   };
 
+  // Handle password visibility
   handleShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
+  /**
+   * Renders the login component.
+   *
+   * The component contains the login form with its input fields, validation error messages and submit button.
+   * The form also displays error messages for each field if the input is invalid.
+   * The submit button is disabled if any of the fields are invalid.
+   * The component also contains buttons for Google login and guest login.
+   *
+   * @returns {JSX.Element} The rendered login component.
+   */
   render() {
     const { t } = this.props;
     const {
