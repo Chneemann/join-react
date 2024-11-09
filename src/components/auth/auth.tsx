@@ -10,7 +10,7 @@ import PrivacyPolicy from "../shared/components/legal/privacy-policy";
 import HeaderWrapper from "../shared/components/header/header-wrapper";
 import Footer from "../shared/components/footer/footer";
 import SmallBtn from "../shared/components/buttons/small-btn";
-import { useTranslation } from "react-i18next"; // useTranslation hook
+import { useTranslation } from "react-i18next";
 
 interface AuthProps {
   currentUser: User | null;
@@ -18,7 +18,7 @@ interface AuthProps {
 
 const Auth: React.FC<AuthProps> = ({ currentUser }) => {
   const location = useLocation();
-  const { i18n } = useTranslation(); // Using the useTranslation hook
+  const { i18n } = useTranslation();
 
   // Define legal paths
   const legalPaths = ["/privacy-policy", "/legal-notice"];

@@ -45,6 +45,12 @@ class ForgotPassword extends React.Component<
     );
   };
 
+  /**
+   * Validates the email field in the registration form based on its value.
+   *
+   * @param {string} name - The name of the field to validate (e.g., "email").
+   * @param {string} value - The current value of the field to validate.
+   */
   validateField(name: string, value: string) {
     const { t } = this.props;
 
