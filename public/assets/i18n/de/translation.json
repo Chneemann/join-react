@@ -143,6 +143,8 @@
   },
   "summary": {
     "goodMorning": "Guten Morgen,",
+    "goodAfternoon": "Guten Nachmittag,",
+    "goodEvening": "Guten Abend,",
     "tasksUrgent": "Dringende Aufgaben",
     "upcomingDeadline": "Bevorstehende Frist",
     "tasksInBoard": "Aufgaben im Board",

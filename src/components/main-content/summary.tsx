@@ -128,6 +128,28 @@ class Summary extends Component<SummaryProps, SummaryState> {
     this.setState({ isMobile: window.innerWidth <= 1200 });
   }
 
+  /**
+   * Displays a greeting based on the current local time.
+   * If the hour is between 5am and 12pm, displays "Good Morning".
+   * If the hour is between 12pm and 6pm, displays "Good Afternoon".
+   * Otherwise, displays "Good Evening".
+   * @returns {string} The greeting message.
+   */
+  displayGreeting() {
+    const { t } = this.props;
+    const currentTime = new Date();
+    const localTime = new Date(currentTime.getTime() + 3600000);
+    const currentHour = localTime.getHours();
+
+    if (currentHour >= 5 && currentHour < 12) {
+      return t("summary.goodMorning");
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return t("summary.goodAfternoon");
+    } else {
+      return t("summary.goodEvening");
+    }
+  }
+
   render() {
     const { t } = this.props;
     const { taskCounts, formattedDueDate, isMobile, currentUser } = this.state;
@@ -135,7 +157,7 @@ class Summary extends Component<SummaryProps, SummaryState> {
     return (
       <div className="summary">
         <div className="summary-headline">
-          {t("summary.goodMorning")} <span>{currentUser.firstName}</span>
+          {this.displayGreeting()} <span>{currentUser.firstName}</span>
         </div>
         <div className="summary-content">
           <div className="summary-content-container-upper">
